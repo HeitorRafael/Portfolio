@@ -1,0 +1,107 @@
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body{
+    background-image:  linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5)), url(assets/bgWhite.jpg);
+}
+
+.header{
+    padding-top: 10px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(239, 243, 217);
+}
+.langBtn{
+    border-radius: 100px;
+    width: 40px;
+    height: 40px;
+}
+
+.contatos{
+    padding: 2px;
+    display: flex;
+    justify-content: space-between;
+    width: 200px;
+}
+
+.imgGhb{
+    border-radius: 50px;
+    width: 30px;
+    height: 30px;
+}
+
+.imgContatos{
+    border-radius: 5px;
+    width: 30px;
+    height: 30px;
+}
+
+.darkMode{
+    width: 110px;
+    display: flex;
+    align-items: center;
+    background-color: rgba(248, 189, 111, 0.64);
+    cursor: pointer;
+    border-radius: 40px;
+    
+}
+
+.darkModeBtn{
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+}
+
+.en-pt{
+    width: 110px;
+    display: flex;
+    align-items: center;
+    background-color: rgba(248, 189, 111, 0.64);
+    cursor: pointer;
+    border-radius: 40px;
+    
+}
+
+.body{
+display: flex;
+justify-content: center;
+padding-top: 5px;
+}
+
+.descrptionContent{
+    display: flex;
+    background-color: rgba(242, 235, 235, 0.785);
+    padding: 15px;
+    height: 400px;
+    width: 700px;
+    border-radius: 50px;
+    justify-content: space-between;
+}
+
+.descriptionImg{
+    width: 320px;
+    text-align: center;
+}
+
+.selfie{
+    border: solid black 3px;
+    border-radius: 20px;
+    width: 300px;
+    height: auto;
+}
+
+.txtContent{
+ width: 330px;
+}
+.txtContent h1{
+    font-size: 60px;
+}
+.txtContent h3{
+    font-size: 18px;
+}
