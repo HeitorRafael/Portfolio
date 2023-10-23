@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;500;700&display=swap');
+
 *{
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     border: 0;
@@ -107,7 +110,8 @@ row-gap: 10px;
     font-size: 60px;
 }
 .txtContent h3{
-    font-size: 18px;
+    font-size: 15px;
+
 }
 
 .projects{
@@ -120,7 +124,6 @@ row-gap: 10px;
 .cuttingBoard{
     display: flex;
     flex-direction: column;
-    justify-content: ;
     background-color: rgba(242, 235, 235, 0.785);
     border-radius: 15px;
     padding: 10px;
