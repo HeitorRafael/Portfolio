@@ -46,25 +46,28 @@ body{
 }
 
 .darkMode{
-    width: 110px;
+    width: 120px;
     display: flex;
+    justify-content: center;
     align-items: center;
     background-color: rgba(248, 189, 111, 0.64);
     cursor: pointer;
     border-radius: 40px;
-    
 }
 
 .darkModeBtn{
     padding: 5px;
     width: 30px;
     height: 30px;
+    justify-content: space-around;
 }
 
 .en-pt{
     width: 110px;
     display: flex;
+    flex-direction: row;
     align-items: center;
+    justify-content: space-around;
     background-color: rgba(248, 189, 111, 0.64);
     cursor: pointer;
     border-radius: 40px;
@@ -84,10 +87,10 @@ row-gap: 10px;
     display: flex;
     background-color: rgba(242, 235, 235, 0.785);
     padding: 15px;
-    height: 400px;
-    width: 700px;
+    height: 450px;
+    width: 750px;
     border-radius: 50px;
-    justify-content: center;
+    justify-content: space-around;
     
 }
 
@@ -124,6 +127,7 @@ row-gap: 10px;
 .cuttingBoard{
     display: flex;
     flex-direction: column;
+    justify-content: center;
     background-color: rgba(242, 235, 235, 0.785);
     border-radius: 15px;
     padding: 10px;
