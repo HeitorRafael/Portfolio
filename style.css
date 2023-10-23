@@ -70,8 +70,11 @@ body{
 
 .body{
 display: flex;
+flex-direction: column;
 justify-content: center;
-padding-top: 5px;
+align-items: center;
+padding: 25px;
+row-gap: 10px;
 }
 
 .descrptionContent{
@@ -81,7 +84,8 @@ padding-top: 5px;
     height: 400px;
     width: 700px;
     border-radius: 50px;
-    justify-content: space-between;
+    justify-content: center;
+    
 }
 
 .descriptionImg{
@@ -97,11 +101,32 @@ padding-top: 5px;
 }
 
 .txtContent{
- width: 330px;
+    width: 330px;
 }
 .txtContent h1{
     font-size: 60px;
 }
 .txtContent h3{
     font-size: 18px;
+}
+
+.projects{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+}
+
+.cuttingBoard{
+    display: flex;
+    flex-direction: column;
+    justify-content: ;
+    background-color: rgba(242, 235, 235, 0.785);
+    border-radius: 15px;
+    padding: 10px;
+}
+
+.cuttingBoard img{
+    width: 300px;
+    height: 300px;
 }
