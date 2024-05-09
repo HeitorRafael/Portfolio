@@ -4,12 +4,12 @@ document.addEventListener('DOMContentLoaded', (event) =>{
     const whiskyIcon = document.getElementById('whisky');
 
     function toggleIcons() {
-        if (coffeIcon.style.display === 'none') {
-            coffeIcon.style.display = 'block';
-            whiskyIcon.style.display ='none';
+        if (whiskyIcon.style.display === 'none') {
+            whiskyIcon.style.display = 'block';
+            coffeIcon.style.display ='none';
         } else{
-            coffeIcon.style.display = 'none';
-            whiskyIcon.style.display ='block';
+            whiskyIcon.style.display = 'none';
+            coffeIcon.style.display ='block';
         }
     }
 
