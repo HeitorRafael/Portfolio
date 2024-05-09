@@ -43,65 +43,27 @@ body{
 }
 
 .darkMode{
-    width: 110px;
-    display: flex;
-    align-items: center;
-    background-color: rgba(248, 189, 111, 0.64);
-    cursor: pointer;
-    border-radius: 40px;
-    
+    box-sizing: border-box;
 }
 
 .darkModeBtn{
-    padding: 5px;
     width: 30px;
     height: 30px;
+    cursor: pointer;
 }
 
-.en-pt{
-    width: 110px;
+
+.body{
     display: flex;
-    align-items: center;
-    background-color: rgba(248, 189, 111, 0.64);
-    cursor: pointer;
-    border-radius: 40px;
     
 }
 
-.body{
-display: flex;
-justify-content: center;
-padding-top: 5px;
-}
-
-.descrptionContent{
-    display: flex;
-    background-color: rgba(242, 235, 235, 0.785);
-    padding: 15px;
-    height: 400px;
-    width: 700px;
-    border-radius: 50px;
-    justify-content: space-between;
-}
-
-.descriptionImg{
-    width: 320px;
-    text-align: center;
-}
-
 .selfie{
-    border: solid black 3px;
     border-radius: 20px;
-    width: 300px;
+    width: 10%;
     height: auto;
 }
 
-.txtContent{
- width: 330px;
-}
-.txtContent h1{
-    font-size: 60px;
-}
-.txtContent h3{
-    font-size: 18px;
+.spanContent{
+    background-color: rgb(239, 243, 217);
 }
