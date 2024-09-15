@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const recipeOutput = document.getElementById('recipe-output');
 
     const recipes = [
-        'Receita de Panqueca de Banana:'+'teste',
+        'Receita de Panqueca de Banana:',
         'Receita de Omelete de Espinafre:',
         'Receita de Salada Caprese:',
         'Receita de Shimeji ao Molho Shoyu:'
