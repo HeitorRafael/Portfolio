@@ -1,41 +1,35 @@
-document.addEventListener('DOMContentLoaded', (event) =>{
-    
+document.addEventListener('DOMContentLoaded', () => {
     const coffeIcon = document.getElementById('coffe');
     const whiskyIcon = document.getElementById('whisky');
+    const body = document.body;
 
-    function toggleIcons() {
+    function toggleTheme() {
+        body.classList.toggle('dark-mode');
         if (whiskyIcon.style.display === 'none') {
             whiskyIcon.style.display = 'block';
-            coffeIcon.style.display ='none';
-        } else{
-            whiskyIcon.style.display = 'none';
-            coffeIcon.style.display ='block';
-        }
-    }
-
-    toggleIcons();
-
-    coffeIcon.addEventListener('click', toggleIcons);
-    whiskyIcon.addEventListener('click', toggleIcons);
-
-    // botões pt - en
-
-    const hamburguer = document.getElementById('hamburguer');
-    const arrozFeijao = document.getElementById('arrozFeijao');
-
-    function togglePtEn() {
-        if (hamburguer.style.display === 'none') {
-            hamburguer.style.display = 'block';
-            arrozFeijao.style.display = 'none';
+            coffeIcon.style.display = 'none';
         } else {
-            hamburguer.style.display = 'none';
-            arrozFeijao.style.display = 'block'
+            whiskyIcon.style.display = 'none';
+            coffeIcon.style.display = 'block';
         }
     }
 
-   togglePtEn();
+    coffeIcon.addEventListener('click', toggleTheme);
+    whiskyIcon.addEventListener('click', toggleTheme);
 
-   hamburguer.addEventListener('click', togglePtEn);
-   arrozFeijao.addEventListener('click', togglePtEn);
-   
+    // Gerador de receitas
+    const recipeButton = document.getElementById('generate-recipe-btn');
+    const recipeOutput = document.getElementById('recipe-output');
+
+    const recipes = [
+        'Receita de Panqueca de Banana',
+        'Receita de Omelete de Espinafre',
+        'Receita de Salada Caprese',
+        'Receita de Shimeji ao Molho Shoyu'
+    ];
+
+    recipeButton.addEventListener('click', () => {
+        const randomRecipe = recipes[Math.floor(Math.random() * recipes.length)];
+        recipeOutput.textContent = randomRecipe;
+    });
 });

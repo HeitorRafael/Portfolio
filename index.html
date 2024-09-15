@@ -12,59 +12,49 @@
     <div class="header">
 
         <div class="darkMode">
-            
             <label>
                 <img class="darkModeBtn" id="coffe" src="assets/2615.svg" alt="Café">
-                <img class="darkModeBtn" id="whisky" src="assets/1f943.svg" alt="Whisky">
+                <img class="darkModeBtn" id="whisky" src="assets/1f943.svg" alt="Whisky" style="display:none;">
             </label>
         </div>
 
         <div class="contatos">
-           <a href="https://github.com/HeitorRafael"><img class="imgGhb" src="assets/gthbWhite.png" alt="guitHub"></button></a>
-           <a href="https://instagram.com/heitorcode?igshid=OGQ5ZDc2ODk2ZA=="><img class="imgContatos" src="assets/InstWhite.png" alt="Instagram"></button></a>
-           <a href="https://www.linkedin.com/in/heitor-rafael-bezerra-delfino-129760187/"><img class="imgContatos" src="assets/linkWhite.png" alt="Linkdin"></button></a>
+           <a href="https://github.com/HeitorRafael"><img class="imgGhb" src="assets/gthbWhite.png" alt="GitHub"></a>
+           <a href="https://instagram.com/heitorcode"><img class="imgContatos" src="assets/InstWhite.png" alt="Instagram"></a>
+           <a href="https://www.linkedin.com/in/heitor-rafael-bezerra-delfino-129760187/"><img class="imgContatos" src="assets/linkWhite.png" alt="LinkedIn"></a>
         </div>
 
         <div class="en-pt">
             <label class="img-pt-en">
-                <img class="langBtn" id="arrozFeijao" src="assets/arrozFeijao.png" alt="pt-br-rarrozFeijao">
-                <img class="langBtn" id="hamburguer" src="assets/hamburguer.jpeg" alt="en-hamburguer">
+                <img class="langBtn" id="arrozFeijao" src="assets/arrozFeijao.png" alt="PT-BR" style="display:block;">
+                <img class="langBtn" id="hamburguer" src="assets/hamburguer.jpeg" alt="EN" style="display:none;">
             </label>
         </div>
-
     </div>
 
     <div class="body">
-        <div class="descrptionContent">
-        <div  class="descriptionImgs">
-            <img class="selfie" src="assets/selfie.jpg" alt="">
-            <!-- <img class="cozinha" src="assets/cozinha.jpg" alt=""> -->
+        <div class="descriptionContent">
+            <div class="descriptionImgs">
+                <img class="selfie" src="assets/selfie.jpg" alt="Selfie">
+            </div>
+
+            <div class="spanContent">
+                <span class="descriptionTxt">
+                    - Heitor Rafael B. Delfino, Muito prazer. <br>
+                    - Ex-chef de cozinha, atual Analista e Desenvolvedor de Software <br>
+                    - Conhecimentos: HTML, CSS, JavaScript, Node.js <br>
+                    - Soft Skills: Relacionamento interpessoal, espirituoso, engajado, proativo, com alto senso de responsabilidade, flexível e conciliador. <br>
+                    - Cursando ADS 2023/2026 <br>
+                    - Em busca de uma oportunidade na área tech para desenvolver e aprimorar meus conhecimentos.
+                </span>
+            </div>
         </div>
 
-        <div class="spanContent">
-            <span class="descriptionTxt">
-                -Heitor Rafael B. Delfino, Muito prazer.
-                -Ex chef de cozinha, atual Analista e Desenvolvedor de Software
-                -Conecimentos: Html, Css, Java Script, NodeJs
-                -Soft Skills: Bom em relecionamento interpessoal, espirituoso, engajado, proativo, com alto senso de responsabilidade, flexivel e conciliador. 
-                -Cursando ADS 2023/2026
-                -Em busca de uma oportunidade de ingresso no mercado de trabalho na area tech
-                para desenvolver e aprimorar meus conhecimentos e assim somar no time.
-            </span>
+        <div class="recipe-generator">
+            <button id="generate-recipe-btn">Gerar Receita</button>
+            <div id="recipe-output"></div>
         </div>
     </div>
-    </div>
-
-
-
-    
-
-
-
-
-
-
-
 
 </body>
 </html>
