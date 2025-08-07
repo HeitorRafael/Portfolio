@@ -1040,7 +1040,7 @@ const SimpleApp: React.FC = () => {
             fontWeight: 'bold',
             textAlign: 'center',
             marginBottom: '3rem',
-            color: 'white'
+            color: theme === 'dark' ? 'white' : 'var(--text-primary)'
           }}>
             {language === 'pt' ? 'Minhas Skills' : 'My Skills'}
           </h2>
@@ -1066,30 +1066,30 @@ const SimpleApp: React.FC = () => {
                 backdropFilter: 'blur(10px)',
                 border: theme === 'dark' 
                   ? '1px solid rgba(255, 255, 255, 0.1)' 
-                  : '1px solid rgba(255, 255, 255, 0.3)',
+                  : '1px solid rgba(0, 0, 0, 0.1)',
                 borderRadius: '15px',
                 padding: '1.5rem',
                 textAlign: 'center',
-                color: 'white',
+                color: theme === 'dark' ? 'white' : 'var(--text-primary)',
                 transition: 'all 0.3s ease',
                 cursor: 'pointer',
                 boxShadow: theme === 'dark' 
                   ? '0 4px 15px rgba(0, 0, 0, 0.3)' 
-                  : '0 4px 15px rgba(102, 126, 234, 0.2)'
+                  : '0 4px 15px rgba(0, 0, 0, 0.1)'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-8px) scale(1.05)';
                 e.currentTarget.style.background = 'var(--skills-card-hover)';
                 e.currentTarget.style.boxShadow = theme === 'dark' 
                   ? '0 8px 25px rgba(0, 0, 0, 0.4)' 
-                  : '0 8px 25px rgba(102, 126, 234, 0.3)';
+                  : '0 8px 25px rgba(0, 0, 0, 0.15)';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.transform = 'translateY(0) scale(1)';
                 e.currentTarget.style.background = 'var(--skills-card-bg)';
                 e.currentTarget.style.boxShadow = theme === 'dark' 
                   ? '0 4px 15px rgba(0, 0, 0, 0.3)' 
-                  : '0 4px 15px rgba(102, 126, 234, 0.2)';
+                  : '0 4px 15px rgba(0, 0, 0, 0.1)';
               }}
               >
                 <div style={{ 
@@ -1101,7 +1101,9 @@ const SimpleApp: React.FC = () => {
                 </div>
                 <div style={{ 
                   fontWeight: 'bold',
-                  textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)'
+                  textShadow: theme === 'dark' 
+                    ? '0 1px 2px rgba(0, 0, 0, 0.3)' 
+                    : '0 1px 2px rgba(255, 255, 255, 0.8)'
                 }}>
                   {skill.name}
                 </div>
@@ -1113,26 +1115,29 @@ const SimpleApp: React.FC = () => {
           <div style={{
             background: theme === 'dark' 
               ? 'rgba(15, 15, 35, 0.8)' 
-              : 'rgba(255, 255, 255, 0.2)',
+              : 'rgba(255, 255, 255, 0.9)',
             backdropFilter: 'blur(15px)',
             border: theme === 'dark' 
               ? '1px solid rgba(255, 255, 255, 0.1)' 
-              : '1px solid rgba(255, 255, 255, 0.4)',
+              : '1px solid rgba(0, 0, 0, 0.1)',
             borderRadius: '20px',
             padding: '2rem',
             textAlign: 'center',
             marginTop: '3rem',
-            color: 'white',
+            color: theme === 'dark' ? 'white' : 'var(--text-primary)',
             maxWidth: '600px',
             margin: '3rem auto 0',
             boxShadow: theme === 'dark' 
               ? '0 8px 32px rgba(0, 0, 0, 0.4)' 
-              : '0 8px 32px rgba(102, 126, 234, 0.3)'
+              : '0 8px 32px rgba(0, 0, 0, 0.15)'
           }}>
             <h3 style={{ 
               fontSize: '1.5rem', 
               marginBottom: '1rem',
-              textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)'
+              textShadow: theme === 'dark' 
+                ? '0 2px 4px rgba(0, 0, 0, 0.3)' 
+                : '0 1px 2px rgba(255, 255, 255, 0.8)',
+              color: theme === 'dark' ? 'white' : 'var(--text-primary)'
             }}>
               📧 heitorbdelfino@gmail.com
             </h3>

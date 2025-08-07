@@ -49,9 +49,9 @@ html:not(.dark) {
   --header-bg: rgba(255, 255, 255, 0.9);
   --card-bg: #ffffff;
   --border-color: #e5e7eb;
-  --skills-bg: linear-gradient(135deg, #667eea, #764ba2);
-  --skills-card-bg: rgba(255, 255, 255, 0.15);
-  --skills-card-hover: rgba(255, 255, 255, 0.25);
+  --skills-bg: linear-gradient(135deg, #f8fafc, #e2e8f0);
+  --skills-card-bg: rgba(255, 255, 255, 0.8);
+  --skills-card-hover: rgba(255, 255, 255, 0.95);
   --profile-border: rgba(102, 126, 234, 0.3);
   --profile-shadow: rgba(102, 126, 234, 0.3);
 }
