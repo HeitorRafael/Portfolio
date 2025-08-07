@@ -91,6 +91,7 @@ const SimpleApp: React.FC = () => {
         skills: {
           title: 'HABILIDADES TÉCNICAS',
           languages: 'HTML, CSS, JavaScript, Git, Java, Node.js, Banco de Dados SQL, CORS, VPN',
+          ai: 'Inteligência Artificial: GPT-4 (OpenAI), Claude 3 (Anthropic), Gemini (Google), Prompt Engineering, API Integration',
           others: 'GitHub, Integração de APIs, Desenvolvimento Web Responsivo, Servidores, Pacote Office, Internet e Mídias Sociais (avançado)'
         },
         experience: {
@@ -102,6 +103,13 @@ const SimpleApp: React.FC = () => {
               description: 'Desenvolvimento completo de SaaS para controle de tempo corporativo utilizando React.js, Node.js e PostgreSQL. Implementação de arquitetura moderna com autenticação JWT, gerenciamento de usuários multi-nível e dashboard administrativo responsivo. Criação de sistema de deploy automático, scripts de migração de banco e configuração de acesso remoto via VPN para trabalho home office. Aplicação de metodologias ágeis, versionamento Git e documentação técnica abrangente para facilitar manutenção e escalabilidade.',
               technologies: 'React 18, Material-UI, Node.js, Express, PostgreSQL, PM2, PowerShell, ZeroTier VPN',
               features: 'Sistema de autenticação e autorização, Dashboard com relatórios em tempo real, Gerenciamento completo de usuários e senhas, API RESTful com CORS configurado, Deploy automatizado e scripts de backup, Interface responsiva com tema claro/escuro.'
+            },
+            {
+              position: 'DESENVOLVEDOR COM INTELIGÊNCIA ARTIFICIAL',
+              company: 'Projetos Pessoais e Freelances',
+              description: 'Desenvolvimento de soluções utilizando APIs de Inteligência Artificial como GPT (OpenAI), Claude (Anthropic) e Gemini (Google). Integração de modelos de linguagem em aplicações web, automação de processos com IA conversacional e criação de interfaces interativas para chatbots. Experiência em prompt engineering, otimização de respostas e implementação de sistemas de IA para resolução de problemas complexos.',
+              technologies: 'OpenAI GPT-4, Claude 3, Google Gemini, API Integration, JavaScript, Python, React.js',
+              features: 'Integração de APIs de IA, Prompt engineering otimizado, Chatbots conversacionais, Automação com IA, Processamento de linguagem natural.'
             },
             {
               position: 'CHEF DE COZINHA',
@@ -189,6 +197,7 @@ const SimpleApp: React.FC = () => {
         skills: {
           title: 'TECHNICAL SKILLS',
           languages: 'HTML, CSS, JavaScript, Git, Java, Node.js, SQL Database, CORS, VPN',
+          ai: 'Artificial Intelligence: GPT-4 (OpenAI), Claude 3 (Anthropic), Gemini (Google), Prompt Engineering, API Integration',
           others: 'GitHub, API Integration, Responsive Web Development, Servers, Office Suite, Internet and Social Media (advanced)'
         },
         experience: {
@@ -200,6 +209,13 @@ const SimpleApp: React.FC = () => {
               description: 'Complete development of SaaS for corporate time control using React.js, Node.js and PostgreSQL. Implementation of modern architecture with JWT authentication, multi-level user management and responsive administrative dashboard. Creation of automatic deployment system, database migration scripts and remote access configuration via VPN for home office work. Application of agile methodologies, Git versioning and comprehensive technical documentation to facilitate maintenance and scalability.',
               technologies: 'React 18, Material-UI, Node.js, Express, PostgreSQL, PM2, PowerShell, ZeroTier VPN',
               features: 'Authentication and authorization system, Dashboard with real-time reports, Complete user and password management, RESTful API with CORS configured, Automated deployment and backup scripts, Responsive interface with light/dark theme.'
+            },
+            {
+              position: 'ARTIFICIAL INTELLIGENCE DEVELOPER',
+              company: 'Personal Projects and Freelance',
+              description: 'Development of solutions using Artificial Intelligence APIs such as GPT (OpenAI), Claude (Anthropic) and Gemini (Google). Integration of language models in web applications, process automation with conversational AI and creation of interactive interfaces for chatbots. Experience in prompt engineering, response optimization and implementation of AI systems for solving complex problems.',
+              technologies: 'OpenAI GPT-4, Claude 3, Google Gemini, API Integration, JavaScript, Python, React.js',
+              features: 'AI API integration, Optimized prompt engineering, Conversational chatbots, AI automation, Natural language processing.'
             },
             {
               position: 'KITCHEN CHEF',
@@ -811,6 +827,18 @@ const SimpleApp: React.FC = () => {
                   {language === 'pt' ? 'Linguagens e Ferramentas: ' : 'Languages and Tools: '}
                 </strong>
                 {t.resume.skills.languages}
+              </p>
+            </div>
+            <div style={{ marginBottom: '1rem' }}>
+              <p style={{ 
+                color: 'var(--text-secondary)',
+                fontSize: '1rem',
+                lineHeight: '1.6'
+              }}>
+                <strong style={{ color: 'var(--text-primary)' }}>
+                  {language === 'pt' ? 'Inteligência Artificial: ' : 'Artificial Intelligence: '}
+                </strong>
+                {t.resume.skills.ai}
               </p>
             </div>
             <div>
