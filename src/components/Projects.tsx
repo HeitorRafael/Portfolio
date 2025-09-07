@@ -18,7 +18,13 @@ interface ProjectsProps {
 const ProjectCard: React.FC<{ 
   project: Project; 
   language: 'pt' | 'en';
-  translations: { projects: { title: string; viewMore: string; technologies: string; } };
+  translations: {
+    projects: {
+      title: string;
+      viewMore: string;
+      technologies: string;
+    };
+  };
 }> = ({ project, language, translations }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
