@@ -1,5 +1,5 @@
 import React from 'react';
-import { heitorPhoto, projectImages, imageMetadata, fungiFreshImages, fungiFreshImageMetadata } from './assets/images';
+import { heitorPhoto, projectImages, imageMetadata } from './assets/images';
 
 const SimpleApp: React.FC = () => {
   const [theme, setTheme] = React.useState<'light' | 'dark'>('light');
@@ -7,7 +7,6 @@ const SimpleApp: React.FC = () => {
   
   // Estados para carrossel e modal
   const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
-  const [currentFungiFreshImageIndex, setCurrentFungiFreshImageIndex] = React.useState(0);
   const [modalOpen, setModalOpen] = React.useState(false);
   const [modalImageIndex, setModalImageIndex] = React.useState(0);
 
@@ -19,15 +18,6 @@ const SimpleApp: React.FC = () => {
 
     return () => clearInterval(interval);
   }, []); // Array vazio pois projectImages é importado e não muda
-
-  // Auto-rotação do carrossel FungiFresh
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentFungiFreshImageIndex(prev => (prev + 1) % fungiFreshImages.length);
-    }, 3000); // Troca a cada 3 segundos
-
-    return () => clearInterval(interval);
-  }, []);
 
   // Navegação por teclado no modal
   React.useEffect(() => {
@@ -683,261 +673,65 @@ const SimpleApp: React.FC = () => {
               </div>
             </div>
 
-            {/* Projeto 2 - FungiFresh */}
-            <div style={{
-              background: theme === 'dark' ? '#2d2d3a' : 'white',
-              borderRadius: '15px',
-              padding: '1.5rem',
-              boxShadow: theme === 'dark' 
-                ? '0 4px 6px rgba(0, 0, 0, 0.3)' 
-                : '0 4px 6px rgba(0, 0, 0, 0.1)',
-              transition: 'transform 0.3s ease',
-              border: theme === 'dark' ? '1px solid #374151' : 'none'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-            >
-              <div style={{
-                height: '200px',
-                borderRadius: '10px',
-                marginBottom: '1rem',
-                border: '2px solid var(--border-color)',
-                position: 'relative',
-                overflow: 'hidden',
-                cursor: 'pointer'
+            {/* Projetos 2 e 3 - Placeholders */}
+            {[2, 3].map(i => (
+              <div key={i} style={{
+                background: theme === 'dark' ? '#2d2d3a' : 'white',
+                borderRadius: '15px',
+                padding: '1.5rem',
+                boxShadow: theme === 'dark' 
+                  ? '0 4px 6px rgba(0, 0, 0, 0.3)' 
+                  : '0 4px 6px rgba(0, 0, 0, 0.1)',
+                transition: 'transform 0.3s ease',
+                border: theme === 'dark' ? '1px solid #374151' : 'none'
               }}
-              onClick={() => {
-                // setModalImageIndex(currentFungiFreshImageIndex);
-                // setModalOpen(true);
-              }}
+              onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
+              onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
               >
-                <img 
-                  src={fungiFreshImages[currentFungiFreshImageIndex]}
-                  alt={fungiFreshImageMetadata[currentFungiFreshImageIndex]?.alt || `FungiFresh - Screenshot ${currentFungiFreshImageIndex + 1}`}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    transition: 'transform 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                />
-                
-                {/* Indicadores do carrossel */}
                 <div style={{
-                  position: 'absolute',
-                  bottom: '10px',
-                  left: '50%',
-                  transform: 'translateX(-50%)',
+                  height: '200px',
+                  background: theme === 'dark' ? '#374151' : '#e5e7eb',
+                  borderRadius: '10px',
+                  marginBottom: '1rem',
                   display: 'flex',
-                  gap: '5px'
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '3rem'
                 }}>
-                  {fungiFreshImages.map((_, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        width: '8px',
-                        height: '8px',
-                        borderRadius: '50%',
-                        background: currentFungiFreshImageIndex === index 
-                          ? 'rgba(255, 255, 255, 0.9)' 
-                          : 'rgba(255, 255, 255, 0.4)',
-                        cursor: 'pointer',
-                        transition: 'all 0.3s ease'
-                      }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setCurrentFungiFreshImageIndex(index);
-                      }}
-                    />
+                  �
+                </div>
+                <h3 style={{ 
+                  fontSize: '1.3rem', 
+                  fontWeight: 'bold', 
+                  marginBottom: '0.5rem',
+                  color: 'var(--text-primary)'
+                }}>
+                  {language === 'pt' ? `Projeto ${i} - Em Breve` : `Project ${i} - Coming Soon`}
+                </h3>
+                <p style={{ 
+                  color: 'var(--text-secondary)', 
+                  marginBottom: '1rem' 
+                }}>
+                  {language === 'pt' 
+                    ? 'Novo projeto em desenvolvimento. Mais detalhes em breve!'
+                    : 'New project in development. More details coming soon!'
+                  }
+                </p>
+                <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+                  {['React', 'TypeScript', 'CSS'].map(tech => (
+                    <span key={tech} style={{
+                      background: theme === 'dark' ? '#1e3a8a' : '#dbeafe',
+                      color: theme === 'dark' ? '#93c5fd' : '#1d4ed8',
+                      padding: '0.25rem 0.75rem',
+                      borderRadius: '15px',
+                      fontSize: '0.8rem'
+                    }}>
+                      {tech}
+                    </span>
                   ))}
                 </div>
-
-                {/* Botões de navegação */}
-                <button
-                  style={{
-                    position: 'absolute',
-                    left: '10px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    background: 'rgba(0, 0, 0, 0.5)',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '50%',
-                    width: '30px',
-                    height: '30px',
-                    cursor: 'pointer',
-                    fontSize: '12px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    opacity: '0.7',
-                    transition: 'opacity 0.3s ease'
-                  }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setCurrentFungiFreshImageIndex(prev => 
-                      prev === 0 ? fungiFreshImages.length - 1 : prev - 1
-                    );
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
-                  onMouseLeave={(e) => e.currentTarget.style.opacity = '0.7'}
-                >
-                  ❮
-                </button>
-
-                <button
-                  style={{
-                    position: 'absolute',
-                    right: '10px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    background: 'rgba(0, 0, 0, 0.5)',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '50%',
-                    width: '30px',
-                    height: '30px',
-                    cursor: 'pointer',
-                    fontSize: '12px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    opacity: '0.7',
-                    transition: 'opacity 0.3s ease'
-                  }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setCurrentFungiFreshImageIndex(prev => 
-                      (prev + 1) % fungiFreshImages.length
-                    );
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
-                  onMouseLeave={(e) => e.currentTarget.style.opacity = '0.7'}
-                >
-                  ❯
-                </button>
-
-                {/* Contador de imagens */}
-                <div style={{
-                  position: 'absolute',
-                  top: '10px',
-                  right: '10px',
-                  background: 'rgba(0, 0, 0, 0.6)',
-                  color: 'white',
-                  padding: '4px 8px',
-                  borderRadius: '12px',
-                  fontSize: '0.8rem',
-                  fontWeight: 'bold'
-                }}>
-                  {currentFungiFreshImageIndex + 1}/{fungiFreshImages.length}
-                </div>
               </div>
-              <h3 style={{ 
-                fontSize: '1.3rem', 
-                fontWeight: 'bold', 
-                marginBottom: '0.5rem',
-                color: 'var(--text-primary)'
-              }}>
-                {language === 'pt' ? '🍄 FungiFresh' : '🍄 FungiFresh'}
-              </h3>
-              <p style={{ 
-                color: 'var(--text-secondary)', 
-                marginBottom: '1rem',
-                fontSize: '0.9rem',
-                lineHeight: '1.5'
-              }}>
-                {language === 'pt' 
-                  ? 'Protótipo de uma loja de venda de cogumelos, chamada de FungiFresh onde eu fui responsavel pela ideia e pela implementação.'
-                  : 'Prototype of a mushroom selling store, called FungiFresh where I was responsible for the idea and implementation.'
-                }
-              </p>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
-                {['Figma', 'Canva'].map(tech => (
-                  <span key={tech} style={{
-                    background: theme === 'dark' ? '#1e3a8a' : '#dbeafe',
-                    color: theme === 'dark' ? '#93c5fd' : '#1d4ed8',
-                    padding: '0.25rem 0.75rem',
-                    borderRadius: '15px',
-                    fontSize: '0.8rem'
-                  }}>
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
-                <a href="https://www.figma.com/proto/4VqbhDgVaAMEdCBGeqVY8L/Mushrooms-Project?node-id=109-46&starting-point-node-id=130%3A1073&t=aKlwvcwK2MfUBpmM-1" target="_blank" rel="noopener noreferrer" style={{
-                  background: theme === 'dark' ? '#1e3a8a' : '#3b82f6',
-                  color: 'white',
-                  padding: '0.5rem 1rem',
-                  borderRadius: '8px',
-                  textDecoration: 'none',
-                  fontSize: '0.9rem',
-                  transition: 'all 0.3s ease'
-                }}>
-                  🔗 {language === 'pt' ? 'Ver Protótipo' : 'View Prototype'}
-                </a>
-              </div>
-            </div>
-
-            {/* Projeto 3 - Placeholder */}
-            <div style={{
-              background: theme === 'dark' ? '#2d2d3a' : 'white',
-              borderRadius: '15px',
-              padding: '1.5rem',
-              boxShadow: theme === 'dark' 
-                ? '0 4px 6px rgba(0, 0, 0, 0.3)' 
-                : '0 4px 6px rgba(0, 0, 0, 0.1)',
-              transition: 'transform 0.3s ease',
-              border: theme === 'dark' ? '1px solid #374151' : 'none'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-            >
-              <div style={{
-                height: '200px',
-                background: theme === 'dark' ? '#374151' : '#e5e7eb',
-                borderRadius: '10px',
-                marginBottom: '1rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '3rem'
-              }}>
-                🖼️
-              </div>
-              <h3 style={{ 
-                fontSize: '1.3rem', 
-                fontWeight: 'bold', 
-                marginBottom: '0.5rem',
-                color: 'var(--text-primary)'
-              }}>
-                {language === 'pt' ? `Projeto 3 - Em Breve` : `Project 3 - Coming Soon`}
-              </h3>
-              <p style={{ 
-                color: 'var(--text-secondary)', 
-                marginBottom: '1rem' 
-              }}>
-                {language === 'pt' 
-                  ? 'Novo projeto em desenvolvimento. Mais detalhes em breve!'
-                  : 'New project in development. More details coming soon!'
-                }
-              </p>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                {['React', 'TypeScript', 'CSS'].map(tech => (
-                  <span key={tech} style={{
-                    background: theme === 'dark' ? '#1e3a8a' : '#dbeafe',
-                    color: theme === 'dark' ? '#93c5fd' : '#1d4ed8',
-                    padding: '0.25rem 0.75rem',
-                    borderRadius: '15px',
-                    fontSize: '0.8rem'
-                  }}>
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
