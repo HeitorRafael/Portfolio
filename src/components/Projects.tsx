@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ExternalLink, Github } from 'lucide-react';
-import { Project } from '../data/portfolio';
+import type { Project } from '../data/portfolio';
 
 interface ProjectsProps {
   projects: Project[];
@@ -18,7 +18,7 @@ interface ProjectsProps {
 const ProjectCard: React.FC<{ 
   project: Project; 
   language: 'pt' | 'en';
-  translations: any;
+  translations: ProjectsProps['translations'];
 }> = ({ project, language, translations }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
