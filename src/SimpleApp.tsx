@@ -1407,7 +1407,9 @@ const SimpleApp: React.FC = () => {
               >
                 📱 LinkedIn
               </a>
-              <a href="#" 
+              <a href="https://www.instagram.com/_raffinoh/" 
+                 target="_blank"
+                 rel="noopener noreferrer"
                  style={{ 
                    color: theme === 'dark' ? 'white' : '#be185d', 
                    textDecoration: 'none',
