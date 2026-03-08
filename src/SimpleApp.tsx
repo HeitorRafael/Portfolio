@@ -392,7 +392,10 @@ const SimpleApp: React.FC = () => {
               {language === 'pt' ? '🍚' : '🍔'}
             </button>
 
-            <button className="btn-primary">
+            <button
+              className="btn-primary"
+              onClick={() => window.open('https://wa.me/5513997902633', '_blank')}
+            >
               💬 {t.nav.contact}
             </button>
           </div>
