@@ -65,8 +65,8 @@ const SimpleApp: React.FC = () => {
   const translations = {
     pt: {
       name: 'HEITOR RAFAEL BEZERRA DELFINO',
-      title1: 'Analista e Desenvolvedor de Software',
-      title2: 'Ex Chef de Cozinha',
+      title1: 'Analista de Negócios de TI | Desenvolvedor Full Stack',
+      title2: 'Gestão de Processos',
       quote: 'O importante é a saúde',
       location: 'Praia Grande – SP',
       phone: '(13) 99790-2633',
@@ -81,7 +81,7 @@ const SimpleApp: React.FC = () => {
       resume: {
         objective: {
           title: 'OBJETIVO',
-          content: 'Estágio ou vaga júnior na área de Tecnologia (Segurança da Informação, Desenvolvimento, Infraestrutura, Banco de Dados, etc.). Profissional em transição de carreira com sólida experiência em liderança, resolução de problemas e trabalho sob pressão no setor gastronômico. Atualmente estudante de Análise e Desenvolvimento de Sistemas e desenvolvedor iniciante com projetos em front-end e back-end. Busco oportunidade para iniciar minha trajetória profissional em TI e evoluir com consistência e dedicação.'
+          content: 'Profissional em transição de carreira com sólida experiência em liderança, gestão de equipes e resolução de problemas sob pressão. Atualmente estagiário de TI no setor público e desenvolvedor com projetos reais em produção. Busco vaga júnior ou estágio em Análise de Negócios de TI, Gestão de Processos ou Desenvolvimento, onde possa unir minha vivência em gestão com o crescimento técnico em andamento.'
         },
         education: {
           title: 'FORMAÇÃO ACADÊMICA',
@@ -89,7 +89,7 @@ const SimpleApp: React.FC = () => {
             {
               course: 'Análise e Desenvolvimento de Sistemas',
               institution: 'FATEC – Praia Grande',
-              period: '2023 – 2026'
+              period: '2023 – 2026 (em curso)'
             },
             {
               course: 'Tecnologia em Gastronomia',
@@ -100,38 +100,46 @@ const SimpleApp: React.FC = () => {
         },
         skills: {
           title: 'HABILIDADES TÉCNICAS',
-          languages: 'HTML, CSS, JavaScript, Git, Java, Node.js, Banco de Dados SQL, CORS, VPN',
-          ai: 'Inteligência Artificial: GPT-4 (OpenAI), Claude 3 (Anthropic), Gemini (Google), Prompt Engineering, API Integration',
-          others: 'GitHub, Integração de APIs, Desenvolvimento Web Responsivo, Servidores, Pacote Office, Internet e Mídias Sociais (avançado)'
+          languages: 'HTML, CSS, JavaScript, React.js (18), Node.js, Express, Java, Python — Banco de Dados: PostgreSQL, SQL',
+          ai: 'OpenAI GPT-4, Claude (Anthropic), Google Gemini — integração, prompt engineering e automação',
+          others: 'Git, GitHub, PM2, VPN (ZeroTier), CORS, PowerShell, Integração de APIs REST, Desenvolvimento Web Responsivo, Georreferenciamento, Figma (wireframes), Power BI (em formação), Pacote Office (avançado), Mídias Sociais (avançado)'
         },
         experience: {
           title: 'EXPERIÊNCIA PROFISSIONAL',
           items: [
             {
+              position: 'ESTAGIÁRIO – TECNOLOGIA APLICADA À GESTÃO PÚBLICA',
+              company: 'Prefeitura de Praia Grande – Patrimônio Imobiliário',
+              period: 'Janeiro/2026 – Atual',
+              description: 'Verificação, organização e padronização de grandes volumes de documentos digitais e dados patrimoniais, identificando inconsistências, falhas de cadastro e oportunidades de melhoria nos fluxos administrativos. Análise de bens imóveis do município com uso de sistemas internos, planilhas eletrônicas e ferramentas de georreferenciamento para validação de informações e apoio a processos de controle e fiscalização. Elaboração de propostas de melhoria de processos, com sugestões para redução de retrabalho, padronização de procedimentos e viabilidade de automações. Levantamento de requisitos implícitos, análise de restrições técnicas e documentação de observações para suporte a decisões administrativas — atuação alinhada ao perfil de Analista de Negócios de TI.'
+            },
+            {
               position: 'DESENVOLVEDOR FULL STACK',
               company: 'MaxiMundi - Sistema de Gestão de Tempo',
-              description: 'Desenvolvimento completo de SaaS para controle de tempo corporativo utilizando React.js, Node.js e PostgreSQL. Implementação de arquitetura moderna com autenticação JWT, gerenciamento de usuários multi-nível e dashboard administrativo responsivo. Criação de sistema de deploy automático, scripts de migração de banco e configuração de acesso remoto via VPN para trabalho home office. Aplicação de metodologias ágeis, versionamento Git e documentação técnica abrangente para facilitar manutenção e escalabilidade.',
+              period: 'Agosto/2025',
+              description: 'Idealizei e liderei o desenvolvimento completo do produto: conduzi entrevistas com o cliente, levantei e analisei requisitos, elaborei briefings e defini escopo, priorizando funcionalidades com base em necessidades reais do negócio — atuação direta como Product Owner do projeto. Solução adotada por 15 colaboradores: desenvolvi dashboard administrativo com marcadores de horas por tarefa e relatórios em tempo real, permitindo que gestores identificassem gargalos operacionais e redistribuíssem esforços com base em dados. Resultado: a gestão passou a tomar decisões de alocação com embasamento — reduzindo o tempo gasto em tarefas de baixo impacto e priorizando as de maior valor para a operação.',
               technologies: 'React 18, Material-UI, Node.js, Express, PostgreSQL, PM2, PowerShell, ZeroTier VPN',
-              features: 'Sistema de autenticação e autorização, Dashboard com relatórios em tempo real, Gerenciamento completo de usuários e senhas, API RESTful com CORS configurado, Deploy automatizado e scripts de backup, Interface responsiva com tema claro/escuro.'
+              features: 'Autenticação JWT, gerenciamento multi-nível de usuários, deploy automático, scripts de backup e acesso remoto via VPN.'
             },
             {
               position: 'DESENVOLVEDOR COM INTELIGÊNCIA ARTIFICIAL',
               company: 'Projetos Pessoais e Freelances',
-              description: 'Desenvolvimento de soluções utilizando APIs de Inteligência Artificial como GPT (OpenAI), Claude (Anthropic) e Gemini (Google). Integração de modelos de linguagem em aplicações web, automação de processos com IA conversacional e criação de interfaces interativas para chatbots. Experiência em prompt engineering, otimização de respostas e implementação de sistemas de IA para resolução de problemas complexos.',
+              period: '2024 – Atual',
+              description: 'Desenvolvimento de soluções usando APIs de IA (OpenAI GPT-4, Claude da Anthropic, Google Gemini): chatbots conversacionais, automação de processos e interfaces interativas com NLP. Experiência em prompt engineering, integração de modelos de linguagem em aplicações web e otimização de respostas para resolução de problemas reais.',
               technologies: 'OpenAI GPT-4, Claude 3, Google Gemini, API Integration, JavaScript, Python, React.js',
               features: 'Integração de APIs de IA, Prompt engineering otimizado, Chatbots conversacionais, Automação com IA, Processamento de linguagem natural.'
             },
             {
               position: 'CHEF DE COZINHA',
               company: 'Beach Lounge',
-              period: '01/2021 – 10/2023',
-              description: 'Liderança de equipe e organização de produção em alta demanda. Controle de estoque e fornecedores (habilidade aplicável à gestão de processos e dados). Desenvolvimento de resiliência e pensamento rápido, úteis para resolução de bugs e gestão de projetos ágeis.'
+              period: 'Janeiro/2021 – Outubro/2023',
+              description: 'Liderança de equipe multidisciplinar em ambiente de alta demanda, com foco em organização de produção, gestão de estoque e relacionamento com fornecedores. Desenvolvimento de resiliência, pensamento rápido e gestão sob pressão — habilidades diretamente aplicáveis à gestão de projetos e resolução de problemas em TI.'
             },
             {
               position: 'COZINHEIRO LÍDER',
               company: 'Santa Eliza Eco Resort',
-              period: '07/2019 – 10/2020',
-              description: 'Organização de processos internos e logística de produção diária. Coordenação de equipe e adaptação de cardápios (com pensamento analítico e solução de problemas sob pressão).'
+              period: 'Julho/2019 – Outubro/2020',
+              description: 'Coordenação de equipe, organização de processos internos e logística de produção diária com pensamento analítico.'
             },
             {
               position: 'MENOR APRENDIZ',
@@ -146,9 +154,10 @@ const SimpleApp: React.FC = () => {
           items: [
             'Liderança e gestão de equipes multidisciplinares',
             'Organização e disciplina operacional',
-            'Habilidade com rotinas e execução de tarefas com prazos',
+            'Execução com prazos',
             'Comunicação interpessoal e empatia no trabalho em equipe',
-            'Adaptabilidade para novos ambientes e tecnologias'
+            'Adaptabilidade rápida a novos ambientes e tecnologias',
+            'Mentalidade orientada a processos e melhoria contínua'
           ]
         },
         languages: {
@@ -163,16 +172,17 @@ const SimpleApp: React.FC = () => {
           title: 'CURSOS COMPLEMENTARES',
           items: [
             { name: 'Desenvolvimento Web', institution: 'DevMedia', year: '2023' },
+            { name: 'Power BI', institution: 'FATEC Praia Grande', year: '2026', note: '(em curso)' },
             { name: 'A Importância do Atendimento', institution: 'H4T Consulting', year: '2019' },
-            { name: 'Sommelier – 1º módulo', institution: 'ABS', year: '2016', note: '(habilidades de análise sensorial e foco em detalhes)' }
+            { name: 'Sommelier – 1º módulo', institution: 'ABS', year: '2016', note: '(análise sensorial, atenção a detalhes)' }
           ]
         }
       }
     },
     en: {
       name: 'HEITOR RAFAEL BEZERRA DELFINO',
-      title1: 'Systems Analyst and Software Developer',
-      title2: 'Former Kitchen Chef',
+      title1: 'IT Business Analyst | Full Stack Developer',
+      title2: 'Process Management',
       quote: 'Health is what matters',
       location: 'Praia Grande – SP',
       phone: '(13) 99790-2633',
@@ -187,7 +197,7 @@ const SimpleApp: React.FC = () => {
       resume: {
         objective: {
           title: 'OBJECTIVE',
-          content: 'Internship or junior position in Technology (Information Security, Development, Infrastructure, Database, etc.). Professional in career transition with solid experience in leadership, problem solving and working under pressure in the gastronomic sector. Currently studying Systems Analysis and Development and beginner developer with front-end and back-end projects. I seek an opportunity to start my professional trajectory in IT and evolve with consistency and dedication.'
+          content: 'Professional in career transition with solid experience in leadership, team management and problem solving under pressure. Currently an IT intern in the public sector and developer with real projects in production. I seek a junior position or internship in IT Business Analysis, Process Management or Development, where I can combine my management experience with ongoing technical growth.'
         },
         education: {
           title: 'ACADEMIC BACKGROUND',
@@ -195,7 +205,7 @@ const SimpleApp: React.FC = () => {
             {
               course: 'Systems Analysis and Development',
               institution: 'FATEC – Praia Grande',
-              period: '2023 – 2026'
+              period: '2023 – 2026 (in progress)'
             },
             {
               course: 'Technology in Gastronomy',
@@ -206,38 +216,46 @@ const SimpleApp: React.FC = () => {
         },
         skills: {
           title: 'TECHNICAL SKILLS',
-          languages: 'HTML, CSS, JavaScript, Git, Java, Node.js, SQL Database, CORS, VPN',
-          ai: 'Artificial Intelligence: GPT-4 (OpenAI), Claude 3 (Anthropic), Gemini (Google), Prompt Engineering, API Integration',
-          others: 'GitHub, API Integration, Responsive Web Development, Servers, Office Suite, Internet and Social Media (advanced)'
+          languages: 'HTML, CSS, JavaScript, React.js (18), Node.js, Express, Java, Python — Databases: PostgreSQL, SQL',
+          ai: 'OpenAI GPT-4, Claude (Anthropic), Google Gemini — integration, prompt engineering and automation',
+          others: 'Git, GitHub, PM2, VPN (ZeroTier), CORS, PowerShell, REST API Integration, Responsive Web Development, Georeferencing, Figma (wireframes), Power BI (in training), Office Suite (advanced), Social Media (advanced)'
         },
         experience: {
           title: 'PROFESSIONAL EXPERIENCE',
           items: [
             {
+              position: 'INTERN – TECHNOLOGY APPLIED TO PUBLIC MANAGEMENT',
+              company: 'Praia Grande City Hall – Real Estate Assets',
+              period: 'January/2026 – Present',
+              description: 'Verification, organization and standardization of large volumes of digital documents and property data, identifying inconsistencies, registration errors and opportunities for improvement in administrative workflows. Analysis of municipal real estate assets using internal systems, spreadsheets and georeferencing tools for information validation and support in control and inspection processes. Development of process improvement proposals with suggestions for reducing rework, standardizing procedures and automation feasibility. Implicit requirements gathering, technical constraints analysis and observation documentation to support administrative decisions — aligned with the IT Business Analyst profile.'
+            },
+            {
               position: 'FULL STACK DEVELOPER',
               company: 'MaxiMundi - Time Management System',
-              description: 'Complete development of SaaS for corporate time control using React.js, Node.js and PostgreSQL. Implementation of modern architecture with JWT authentication, multi-level user management and responsive administrative dashboard. Creation of automatic deployment system, database migration scripts and remote access configuration via VPN for home office work. Application of agile methodologies, Git versioning and comprehensive technical documentation to facilitate maintenance and scalability.',
+              period: 'August/2025',
+              description: 'Conceived and led the complete product development: conducted client interviews, gathered and analyzed requirements, produced briefings and defined scope — acting directly as Product Owner. Solution adopted by 15 employees: developed administrative dashboard with task hour tracking and real-time reports, enabling managers to identify operational bottlenecks and reallocate efforts based on data. Management began making allocation decisions with evidence — reducing time spent on low-impact tasks and prioritizing high-value ones.',
               technologies: 'React 18, Material-UI, Node.js, Express, PostgreSQL, PM2, PowerShell, ZeroTier VPN',
-              features: 'Authentication and authorization system, Dashboard with real-time reports, Complete user and password management, RESTful API with CORS configured, Automated deployment and backup scripts, Responsive interface with light/dark theme.'
+              features: 'JWT authentication, multi-level user management, automated deployment, backup scripts and remote access via VPN.'
             },
             {
               position: 'ARTIFICIAL INTELLIGENCE DEVELOPER',
               company: 'Personal Projects and Freelance',
-              description: 'Development of solutions using Artificial Intelligence APIs such as GPT (OpenAI), Claude (Anthropic) and Gemini (Google). Integration of language models in web applications, process automation with conversational AI and creation of interactive interfaces for chatbots. Experience in prompt engineering, response optimization and implementation of AI systems for solving complex problems.',
+              period: '2024 – Present',
+              description: 'Development of solutions using AI APIs (OpenAI GPT-4, Claude by Anthropic, Google Gemini): conversational chatbots, process automation and interactive interfaces with NLP. Experience in prompt engineering, integration of language models in web applications and response optimization for real-world problem solving.',
               technologies: 'OpenAI GPT-4, Claude 3, Google Gemini, API Integration, JavaScript, Python, React.js',
               features: 'AI API integration, Optimized prompt engineering, Conversational chatbots, AI automation, Natural language processing.'
             },
             {
               position: 'KITCHEN CHEF',
               company: 'Beach Lounge',
-              period: '01/2021 – 10/2023',
-              description: 'Team leadership and production organization in high demand. Inventory and supplier control (applicable skill to process and data management). Development of resilience and quick thinking, useful for bug resolution and agile project management.'
+              period: 'January/2021 – October/2023',
+              description: 'Leadership of multidisciplinary team in a high-demand environment, focused on production organization, inventory management and supplier relations. Development of resilience, quick thinking and pressure management — skills directly applicable to project management and IT problem solving.'
             },
             {
               position: 'LEAD COOK',
               company: 'Santa Eliza Eco Resort',
-              period: '07/2019 – 10/2020',
-              description: 'Organization of internal processes and daily production logistics. Team coordination and menu adaptation (with analytical thinking and problem solving under pressure).'
+              period: 'July/2019 – October/2020',
+              description: 'Team coordination, internal process organization and daily production logistics with analytical thinking.'
             },
             {
               position: 'MINOR APPRENTICE',
@@ -252,9 +270,10 @@ const SimpleApp: React.FC = () => {
           items: [
             'Leadership and management of multidisciplinary teams',
             'Organization and operational discipline',
-            'Skill with routines and task execution with deadlines',
+            'Task execution with deadlines',
             'Interpersonal communication and empathy in teamwork',
-            'Adaptability to new environments and technologies'
+            'Quick adaptability to new environments and technologies',
+            'Process-oriented mindset and continuous improvement'
           ]
         },
         languages: {
@@ -269,8 +288,9 @@ const SimpleApp: React.FC = () => {
           title: 'COMPLEMENTARY COURSES',
           items: [
             { name: 'Web Development', institution: 'DevMedia', year: '2023' },
+            { name: 'Power BI', institution: 'FATEC Praia Grande', year: '2026', note: '(in progress)' },
             { name: 'The Importance of Customer Service', institution: 'H4T Consulting', year: '2019' },
-            { name: 'Sommelier – 1st module', institution: 'ABS', year: '2016', note: '(sensory analysis skills and attention to detail)' }
+            { name: 'Sommelier – 1st module', institution: 'ABS', year: '2016', note: '(sensory analysis, attention to detail)' }
           ]
         }
       }
@@ -1259,11 +1279,16 @@ const SimpleApp: React.FC = () => {
             margin: '0 auto'
           }}>
             {[
-              { name: 'Figma', icon: '🎨' },
-              { name: 'Git', icon: '📚' },
-              { name: 'CSS', icon: '🎨' },
               { name: 'HTML', icon: '📄' },
+              { name: 'CSS', icon: '🎨' },
+              { name: 'JavaScript', icon: '⚡' },
+              { name: 'React', icon: '⚛️' },
+              { name: 'Node.js', icon: '🟢' },
+              { name: 'Python', icon: '🐍' },
+              { name: 'PostgreSQL', icon: '🗃️' },
               { name: 'Java', icon: '☕' },
+              { name: 'Git', icon: '📚' },
+              { name: 'Figma', icon: '🎨' },
               { name: 'VS Code', icon: '💻' },
               { name: 'IntelliJ', icon: '🧠' }
             ].map((skill) => (
