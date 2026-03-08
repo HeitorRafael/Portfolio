@@ -1289,6 +1289,8 @@ const SimpleApp: React.FC = () => {
               { name: 'Java', icon: '☕' },
               { name: 'Git', icon: '📚' },
               { name: 'Figma', icon: '🎨' },
+              { name: 'ChatGPT', icon: '🤖' },
+              { name: 'ClaudeAI', icon: '🧬' },
               { name: 'VS Code', icon: '💻' },
               { name: 'IntelliJ', icon: '🧠' }
             ].map((skill) => (
@@ -1382,20 +1384,20 @@ const SimpleApp: React.FC = () => {
                  target="_blank"
                  rel="noopener noreferrer"
                  style={{ 
-                   color: 'white', 
+                   color: theme === 'dark' ? 'white' : '#1d4ed8', 
                    textDecoration: 'none',
                    transition: 'all 0.3s ease',
                    padding: '0.5rem 1rem',
                    borderRadius: '10px',
-                   textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)'
+                   fontWeight: '600'
                  }}
                  onMouseEnter={(e) => {
                    e.currentTarget.style.color = '#93c5fd';
-                   e.currentTarget.style.background = 'rgba(147, 197, 253, 0.1)';
+                   e.currentTarget.style.background = 'rgba(147, 197, 253, 0.15)';
                    e.currentTarget.style.transform = 'translateY(-2px)';
                  }}
                  onMouseLeave={(e) => {
-                   e.currentTarget.style.color = 'white';
+                   e.currentTarget.style.color = theme === 'dark' ? 'white' : '#1d4ed8';
                    e.currentTarget.style.background = 'transparent';
                    e.currentTarget.style.transform = 'translateY(0)';
                  }}
@@ -1404,20 +1406,20 @@ const SimpleApp: React.FC = () => {
               </a>
               <a href="#" 
                  style={{ 
-                   color: 'white', 
+                   color: theme === 'dark' ? 'white' : '#be185d', 
                    textDecoration: 'none',
                    transition: 'all 0.3s ease',
                    padding: '0.5rem 1rem',
                    borderRadius: '10px',
-                   textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)'
+                   fontWeight: '600'
                  }}
                  onMouseEnter={(e) => {
                    e.currentTarget.style.color = '#fbbf24';
-                   e.currentTarget.style.background = 'rgba(251, 191, 36, 0.1)';
+                   e.currentTarget.style.background = 'rgba(251, 191, 36, 0.15)';
                    e.currentTarget.style.transform = 'translateY(-2px)';
                  }}
                  onMouseLeave={(e) => {
-                   e.currentTarget.style.color = 'white';
+                   e.currentTarget.style.color = theme === 'dark' ? 'white' : '#be185d';
                    e.currentTarget.style.background = 'transparent';
                    e.currentTarget.style.transform = 'translateY(0)';
                  }}
@@ -1428,20 +1430,20 @@ const SimpleApp: React.FC = () => {
                  target="_blank"
                  rel="noopener noreferrer"
                  style={{ 
-                   color: 'white', 
+                   color: theme === 'dark' ? 'white' : '#374151', 
                    textDecoration: 'none',
                    transition: 'all 0.3s ease',
                    padding: '0.5rem 1rem',
                    borderRadius: '10px',
-                   textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)'
+                   fontWeight: '600'
                  }}
                  onMouseEnter={(e) => {
                    e.currentTarget.style.color = '#a78bfa';
-                   e.currentTarget.style.background = 'rgba(167, 139, 250, 0.1)';
+                   e.currentTarget.style.background = 'rgba(167, 139, 250, 0.15)';
                    e.currentTarget.style.transform = 'translateY(-2px)';
                  }}
                  onMouseLeave={(e) => {
-                   e.currentTarget.style.color = 'white';
+                   e.currentTarget.style.color = theme === 'dark' ? 'white' : '#374151';
                    e.currentTarget.style.background = 'transparent';
                    e.currentTarget.style.transform = 'translateY(0)';
                  }}
