@@ -1,1672 +1,1050 @@
-import React from 'react';
-import { heitorPhoto, projectImages, imageMetadata, fungiFreshImages, fungiFreshImageMetadata } from './assets/images';
+import { useState, useEffect, useRef, type ReactNode } from 'react';
+import { Link } from 'react-router-dom';
+import {
+  heitorPhoto,
+  imageMetadata,
+  fungiFreshImageMetadata,
+} from './assets/images';
 
-const SimpleApp: React.FC = () => {
-  const [theme, setTheme] = React.useState<'light' | 'dark'>('light');
-  const [language, setLanguage] = React.useState<'pt' | 'en'>('pt');
-  
-  // Estados para carrossel e modal
-  const [currentImageIndex, setCurrentImageIndex] = React.useState(0);
-  const [currentFungiFreshImageIndex, setCurrentFungiFreshImageIndex] = React.useState(0);
-  const [modalOpen, setModalOpen] = React.useState(false);
-  const [modalImageIndex, setModalImageIndex] = React.useState(0);
+// ── Design Tokens ──────────────────────────────────────────────────────────────
+const C = {
+  ink:          '#0D0D0D',
+  paper:        '#F2EFE7',
+  cream:        '#EDE0CC',
+  red:          '#C0392B',
+  muted:        '#777777',
+  dimmed:       '#3A3A3A',
+  border:       'rgba(242,239,231,0.08)',
+  borderMid:    'rgba(242,239,231,0.16)',
+  borderStrong: 'rgba(242,239,231,0.28)',
+} as const;
 
-  // Auto-rotação do carrossel
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentImageIndex(prev => (prev + 1) % projectImages.length);
-    }, 3000); // Troca a cada 3 segundos
+const F = {
+  serif: "'Playfair Display', Georgia, 'Times New Roman', serif",
+  sans:  "'Inter', system-ui, -apple-system, sans-serif",
+  mono:  "'JetBrains Mono', 'Courier New', monospace",
+} as const;
 
-    return () => clearInterval(interval);
-  }, []); // Array vazio pois projectImages é importado e não muda
-
-  // Auto-rotação do carrossel FungiFresh
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentFungiFreshImageIndex(prev => (prev + 1) % fungiFreshImages.length);
-    }, 3000); // Troca a cada 3 segundos
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // Navegação por teclado no modal
-  React.useEffect(() => {
-    const handleKeyPress = (e: KeyboardEvent) => {
-      if (modalOpen) {
-        if (e.key === 'Escape') {
-          setModalOpen(false);
-        } else if (e.key === 'ArrowLeft' && modalImageIndex > 0) {
-          setModalImageIndex(prev => prev - 1);
-        } else if (e.key === 'ArrowRight' && modalImageIndex < projectImages.length - 1) {
-          setModalImageIndex(prev => prev + 1);
-        }
-      }
-    };
-
-    document.addEventListener('keydown', handleKeyPress);
-    return () => document.removeEventListener('keydown', handleKeyPress);
-  }, [modalOpen, modalImageIndex]); // Removido projectImages.length
-
-  const toggleTheme = () => {
-    const newTheme = theme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-    
-    if (newTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-  };
-
-  const toggleLanguage = () => {
-    setLanguage(prev => prev === 'pt' ? 'en' : 'pt');
-  };
-
-  const translations = {
-    pt: {
-      name: 'HEITOR RAFAEL BEZERRA DELFINO',
-      title1: 'Analista de Negócios de TI | Desenvolvedor Full Stack',
-      title2: 'Gestão de Processos',
-      quote: 'O importante é a saúde',
-      location: 'Praia Grande – SP',
-      phone: '(13) 99790-2633',
-      email: 'heitorbdelfino@gmail.com',
-      nav: {
-        home: 'Home',
-        projects: 'Projetos',
-        about: 'Sobre',
-        skills: 'Skills',
-        contact: 'Contato'
-      },
-      resume: {
-        objective: {
-          title: 'OBJETIVO',
-          content: 'Profissional em transição de carreira com sólida experiência em liderança, gestão de equipes e resolução de problemas sob pressão. Atualmente estagiário de TI no setor público e desenvolvedor com projetos reais em produção. Busco vaga júnior ou estágio em Análise de Negócios de TI, Gestão de Processos ou Desenvolvimento, onde possa unir minha vivência em gestão com o crescimento técnico em andamento.'
-        },
-        education: {
-          title: 'FORMAÇÃO ACADÊMICA',
-          items: [
-            {
-              course: 'Análise e Desenvolvimento de Sistemas',
-              institution: 'FATEC – Praia Grande',
-              period: '2023 – 2026 (em curso)'
-            },
-            {
-              course: 'Tecnologia em Gastronomia',
-              institution: 'Grupo Educacional HOTEC',
-              period: 'Concluído em 2016'
-            }
-          ]
-        },
-        skills: {
-          title: 'HABILIDADES TÉCNICAS',
-          languages: 'HTML, CSS, JavaScript, React.js (18), Node.js, Express, Java, Python — Banco de Dados: PostgreSQL, SQL',
-          ai: 'OpenAI GPT-4, Claude (Anthropic), Google Gemini — integração, prompt engineering e automação',
-          others: 'Git, GitHub, PM2, VPN (ZeroTier), CORS, PowerShell, Integração de APIs REST, Desenvolvimento Web Responsivo, Georreferenciamento, Figma (wireframes), Power BI (em formação), Pacote Office (avançado), Mídias Sociais (avançado)'
-        },
-        experience: {
-          title: 'EXPERIÊNCIA PROFISSIONAL',
-          items: [
-            {
-              position: 'ESTAGIÁRIO – TECNOLOGIA APLICADA À GESTÃO PÚBLICA',
-              company: 'Prefeitura de Praia Grande – Patrimônio Imobiliário',
-              period: 'Janeiro/2026 – Atual',
-              description: 'Verificação, organização e padronização de grandes volumes de documentos digitais e dados patrimoniais, identificando inconsistências, falhas de cadastro e oportunidades de melhoria nos fluxos administrativos. Análise de bens imóveis do município com uso de sistemas internos, planilhas eletrônicas e ferramentas de georreferenciamento para validação de informações e apoio a processos de controle e fiscalização. Elaboração de propostas de melhoria de processos, com sugestões para redução de retrabalho, padronização de procedimentos e viabilidade de automações. Levantamento de requisitos implícitos, análise de restrições técnicas e documentação de observações para suporte a decisões administrativas — atuação alinhada ao perfil de Analista de Negócios de TI.'
-            },
-            {
-              position: 'DESENVOLVEDOR FULL STACK',
-              company: 'MaxiMundi - Sistema de Gestão de Tempo',
-              period: 'Agosto/2025',
-              description: 'Idealizei e liderei o desenvolvimento completo do produto: conduzi entrevistas com o cliente, levantei e analisei requisitos, elaborei briefings e defini escopo, priorizando funcionalidades com base em necessidades reais do negócio — atuação direta como Product Owner do projeto. Solução adotada por 15 colaboradores: desenvolvi dashboard administrativo com marcadores de horas por tarefa e relatórios em tempo real, permitindo que gestores identificassem gargalos operacionais e redistribuíssem esforços com base em dados. Resultado: a gestão passou a tomar decisões de alocação com embasamento — reduzindo o tempo gasto em tarefas de baixo impacto e priorizando as de maior valor para a operação.',
-              technologies: 'React 18, Material-UI, Node.js, Express, PostgreSQL, PM2, PowerShell, ZeroTier VPN',
-              features: 'Autenticação JWT, gerenciamento multi-nível de usuários, deploy automático, scripts de backup e acesso remoto via VPN.'
-            },
-            {
-              position: 'DESENVOLVEDOR COM INTELIGÊNCIA ARTIFICIAL',
-              company: 'Projetos Pessoais e Freelances',
-              period: '2024 – Atual',
-              description: 'Desenvolvimento de soluções usando APIs de IA (OpenAI GPT-4, Claude da Anthropic, Google Gemini): chatbots conversacionais, automação de processos e interfaces interativas com NLP. Experiência em prompt engineering, integração de modelos de linguagem em aplicações web e otimização de respostas para resolução de problemas reais.',
-              technologies: 'OpenAI GPT-4, Claude 3, Google Gemini, API Integration, JavaScript, Python, React.js',
-              features: 'Integração de APIs de IA, Prompt engineering otimizado, Chatbots conversacionais, Automação com IA, Processamento de linguagem natural.'
-            },
-            {
-              position: 'CHEF DE COZINHA',
-              company: 'Beach Lounge',
-              period: 'Janeiro/2021 – Outubro/2023',
-              description: 'Liderança de equipe multidisciplinar em ambiente de alta demanda, com foco em organização de produção, gestão de estoque e relacionamento com fornecedores. Desenvolvimento de resiliência, pensamento rápido e gestão sob pressão — habilidades diretamente aplicáveis à gestão de projetos e resolução de problemas em TI.'
-            },
-            {
-              position: 'COZINHEIRO LÍDER',
-              company: 'Santa Eliza Eco Resort',
-              period: 'Julho/2019 – Outubro/2020',
-              description: 'Coordenação de equipe, organização de processos internos e logística de produção diária com pensamento analítico.'
-            },
-            {
-              position: 'MENOR APRENDIZ',
-              company: 'Tribunal de Justiça – Fórum Santana',
-              period: '01/2012 – 01/2013',
-              description: 'Atendimento ao público, organização de arquivos e uso de sistema interno. Desenvolvimento de atenção aos detalhes e base administrativa relevante ao setor de TI.'
-            }
-          ]
-        },
-        competencies: {
-          title: 'COMPETÊNCIAS TRANSFERÍVEIS',
-          items: [
-            'Liderança e gestão de equipes multidisciplinares',
-            'Organização e disciplina operacional',
-            'Execução com prazos',
-            'Comunicação interpessoal e empatia no trabalho em equipe',
-            'Adaptabilidade rápida a novos ambientes e tecnologias',
-            'Mentalidade orientada a processos e melhoria contínua'
-          ]
-        },
-        languages: {
-          title: 'IDIOMAS',
-          items: [
-            { language: 'Português', level: 'Nativo' },
-            { language: 'Inglês', level: 'Intermediário' },
-            { language: 'Espanhol', level: 'Básico' }
-          ]
-        },
-        courses: {
-          title: 'CURSOS COMPLEMENTARES',
-          items: [
-            { name: 'Desenvolvimento Web', institution: 'DevMedia', year: '2023' },
-            { name: 'Power BI', institution: 'FATEC Praia Grande', year: '2026', note: '(em curso)' },
-            { name: 'A Importância do Atendimento', institution: 'H4T Consulting', year: '2019' },
-            { name: 'Sommelier – 1º módulo', institution: 'ABS', year: '2016', note: '(análise sensorial, atenção a detalhes)' }
-          ]
-        }
-      }
-    },
-    en: {
-      name: 'HEITOR RAFAEL BEZERRA DELFINO',
-      title1: 'IT Business Analyst | Full Stack Developer',
-      title2: 'Process Management',
-      quote: 'Health is what matters',
-      location: 'Praia Grande – SP',
-      phone: '(13) 99790-2633',
-      email: 'heitorbdelfino@gmail.com',
-      nav: {
-        home: 'Home',
-        projects: 'Projects',
-        about: 'About',
-        skills: 'Skills',
-        contact: 'Contact'
-      },
-      resume: {
-        objective: {
-          title: 'OBJECTIVE',
-          content: 'Professional in career transition with solid experience in leadership, team management and problem solving under pressure. Currently an IT intern in the public sector and developer with real projects in production. I seek a junior position or internship in IT Business Analysis, Process Management or Development, where I can combine my management experience with ongoing technical growth.'
-        },
-        education: {
-          title: 'ACADEMIC BACKGROUND',
-          items: [
-            {
-              course: 'Systems Analysis and Development',
-              institution: 'FATEC – Praia Grande',
-              period: '2023 – 2026 (in progress)'
-            },
-            {
-              course: 'Technology in Gastronomy',
-              institution: 'HOTEC Educational Group',
-              period: 'Completed in 2016'
-            }
-          ]
-        },
-        skills: {
-          title: 'TECHNICAL SKILLS',
-          languages: 'HTML, CSS, JavaScript, React.js (18), Node.js, Express, Java, Python — Databases: PostgreSQL, SQL',
-          ai: 'OpenAI GPT-4, Claude (Anthropic), Google Gemini — integration, prompt engineering and automation',
-          others: 'Git, GitHub, PM2, VPN (ZeroTier), CORS, PowerShell, REST API Integration, Responsive Web Development, Georeferencing, Figma (wireframes), Power BI (in training), Office Suite (advanced), Social Media (advanced)'
-        },
-        experience: {
-          title: 'PROFESSIONAL EXPERIENCE',
-          items: [
-            {
-              position: 'INTERN – TECHNOLOGY APPLIED TO PUBLIC MANAGEMENT',
-              company: 'Praia Grande City Hall – Real Estate Assets',
-              period: 'January/2026 – Present',
-              description: 'Verification, organization and standardization of large volumes of digital documents and property data, identifying inconsistencies, registration errors and opportunities for improvement in administrative workflows. Analysis of municipal real estate assets using internal systems, spreadsheets and georeferencing tools for information validation and support in control and inspection processes. Development of process improvement proposals with suggestions for reducing rework, standardizing procedures and automation feasibility. Implicit requirements gathering, technical constraints analysis and observation documentation to support administrative decisions — aligned with the IT Business Analyst profile.'
-            },
-            {
-              position: 'FULL STACK DEVELOPER',
-              company: 'MaxiMundi - Time Management System',
-              period: 'August/2025',
-              description: 'Conceived and led the complete product development: conducted client interviews, gathered and analyzed requirements, produced briefings and defined scope — acting directly as Product Owner. Solution adopted by 15 employees: developed administrative dashboard with task hour tracking and real-time reports, enabling managers to identify operational bottlenecks and reallocate efforts based on data. Management began making allocation decisions with evidence — reducing time spent on low-impact tasks and prioritizing high-value ones.',
-              technologies: 'React 18, Material-UI, Node.js, Express, PostgreSQL, PM2, PowerShell, ZeroTier VPN',
-              features: 'JWT authentication, multi-level user management, automated deployment, backup scripts and remote access via VPN.'
-            },
-            {
-              position: 'ARTIFICIAL INTELLIGENCE DEVELOPER',
-              company: 'Personal Projects and Freelance',
-              period: '2024 – Present',
-              description: 'Development of solutions using AI APIs (OpenAI GPT-4, Claude by Anthropic, Google Gemini): conversational chatbots, process automation and interactive interfaces with NLP. Experience in prompt engineering, integration of language models in web applications and response optimization for real-world problem solving.',
-              technologies: 'OpenAI GPT-4, Claude 3, Google Gemini, API Integration, JavaScript, Python, React.js',
-              features: 'AI API integration, Optimized prompt engineering, Conversational chatbots, AI automation, Natural language processing.'
-            },
-            {
-              position: 'KITCHEN CHEF',
-              company: 'Beach Lounge',
-              period: 'January/2021 – October/2023',
-              description: 'Leadership of multidisciplinary team in a high-demand environment, focused on production organization, inventory management and supplier relations. Development of resilience, quick thinking and pressure management — skills directly applicable to project management and IT problem solving.'
-            },
-            {
-              position: 'LEAD COOK',
-              company: 'Santa Eliza Eco Resort',
-              period: 'July/2019 – October/2020',
-              description: 'Team coordination, internal process organization and daily production logistics with analytical thinking.'
-            },
-            {
-              position: 'MINOR APPRENTICE',
-              company: 'Court of Justice – Santana Forum',
-              period: '01/2012 – 01/2013',
-              description: 'Public service, file organization and internal system use. Development of attention to detail and administrative foundation relevant to the IT sector.'
-            }
-          ]
-        },
-        competencies: {
-          title: 'TRANSFERABLE COMPETENCIES',
-          items: [
-            'Leadership and management of multidisciplinary teams',
-            'Organization and operational discipline',
-            'Task execution with deadlines',
-            'Interpersonal communication and empathy in teamwork',
-            'Quick adaptability to new environments and technologies',
-            'Process-oriented mindset and continuous improvement'
-          ]
-        },
-        languages: {
-          title: 'LANGUAGES',
-          items: [
-            { language: 'Portuguese', level: 'Native' },
-            { language: 'English', level: 'Intermediate' },
-            { language: 'Spanish', level: 'Basic' }
-          ]
-        },
-        courses: {
-          title: 'COMPLEMENTARY COURSES',
-          items: [
-            { name: 'Web Development', institution: 'DevMedia', year: '2023' },
-            { name: 'Power BI', institution: 'FATEC Praia Grande', year: '2026', note: '(in progress)' },
-            { name: 'The Importance of Customer Service', institution: 'H4T Consulting', year: '2019' },
-            { name: 'Sommelier – 1st module', institution: 'ABS', year: '2016', note: '(sensory analysis, attention to detail)' }
-          ]
-        }
-      }
-    }
-  };
-
-  const t = translations[language];
-
-  return (
-    <div className={theme === 'dark' ? 'dark' : ''} style={{ minHeight: '100vh' }}>
-      {/* Header */}
-      <header style={{
-        position: 'fixed',
-        top: 0,
-        left: 0,
-        right: 0,
-        zIndex: 1000,
-        backdropFilter: 'blur(10px)',
-        background: 'var(--header-bg)',
-        borderBottom: `1px solid ${theme === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'}`,
-        padding: '1rem 0'
-      }}>
-        <div className="container" style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center'
-        }}>
-          <nav style={{ display: 'flex', gap: '2rem' }}>
-            <a href="#home" style={{ color: 'var(--text-primary)', textDecoration: 'none', fontWeight: '600' }}>
-              {t.nav.home}
-            </a>
-            <a href="#projects" style={{ color: 'var(--text-primary)', textDecoration: 'none' }}>
-              {t.nav.projects}
-            </a>
-            <a href="#about" style={{ color: 'var(--text-primary)', textDecoration: 'none' }}>
-              {t.nav.about}
-            </a>
-            <a href="#skills" style={{ color: 'var(--text-primary)', textDecoration: 'none' }}>
-              {t.nav.skills}
-            </a>
-          </nav>
-
-          <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
-            {/* Theme Toggle */}
-            <button 
-              onClick={toggleTheme}
-              style={{
-                background: theme === 'dark' ? 'rgba(45, 45, 58, 0.6)' : 'rgba(102, 126, 234, 0.15)',
-                border: theme === 'dark' ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid rgba(102, 126, 234, 0.3)',
-                borderRadius: '50%',
-                width: '40px',
-                height: '40px',
-                cursor: 'pointer',
-                fontSize: '1.2rem',
-                transition: 'all 0.3s ease',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: theme === 'dark' ? '#eee' : '#4338ca'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'scale(1.1)';
-                e.currentTarget.style.background = theme === 'dark' ? 'rgba(59, 59, 75, 0.8)' : 'rgba(102, 126, 234, 0.25)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.background = theme === 'dark' ? 'rgba(45, 45, 58, 0.6)' : 'rgba(102, 126, 234, 0.15)';
-              }}
-            >
-              {theme === 'light' ? '☕' : '🍺'}
-            </button>
-            
-            {/* Language Toggle */}
-            <button 
-              onClick={toggleLanguage}
-              style={{
-                background: theme === 'dark' ? 'rgba(45, 45, 58, 0.6)' : 'rgba(102, 126, 234, 0.15)',
-                border: theme === 'dark' ? '1px solid rgba(255, 255, 255, 0.2)' : '1px solid rgba(102, 126, 234, 0.3)',
-                borderRadius: '50%',
-                width: '40px',
-                height: '40px',
-                cursor: 'pointer',
-                fontSize: '1.2rem',
-                transition: 'all 0.3s ease',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                color: theme === 'dark' ? '#eee' : '#4338ca'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'scale(1.1)';
-                e.currentTarget.style.background = theme === 'dark' ? 'rgba(59, 59, 75, 0.8)' : 'rgba(102, 126, 234, 0.25)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
-                e.currentTarget.style.background = theme === 'dark' ? 'rgba(45, 45, 58, 0.6)' : 'rgba(102, 126, 234, 0.15)';
-              }}
-            >
-              {language === 'pt' ? '🍚' : '🍔'}
-            </button>
-
-            <button
-              className="btn-primary"
-              onClick={() => window.open('https://wa.me/5513997902633', '_blank')}
-            >
-              💬 {t.nav.contact}
-            </button>
-          </div>
-        </div>
-      </header>
-
-      {/* Hero Section */}
-      <section id="home" style={{
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: theme === 'dark' 
-          ? 'linear-gradient(135deg, #0f0f23, #1a1a2e)' 
-          : 'linear-gradient(135deg, #f0f9ff, #e0e7ff)',
-        paddingTop: '80px'
-      }}>
-        <div className="container" style={{ textAlign: 'center', maxWidth: '800px' }}>
-          <div style={{
-            width: '200px',
-            height: '200px',
-            borderRadius: '50%',
-            margin: '0 auto 2rem',
-            overflow: 'hidden',
-            border: '4px solid var(--profile-border)',
-            boxShadow: '0 10px 30px var(--profile-shadow)',
-            transition: 'all 0.3s ease'
-          }}>
-            <img 
-              src={heitorPhoto}
-              alt="Heitor Rafael Bezerra Delfino"
-              style={{
-                width: '100%',
-                height: '100%',
-                objectFit: 'cover',
-                objectPosition: 'center',
-                transition: 'transform 0.3s ease'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'scale(1.05)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'scale(1)';
-              }}
-              onError={(e) => {
-                // Fallback para emoji se a imagem não carregar
-                e.currentTarget.style.display = 'none';
-                const parent = e.currentTarget.parentElement;
-                if (parent) {
-                  parent.innerHTML = '<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 4rem; background: ' + (theme === 'dark' ? '#374151' : '#ddd') + ';">👨‍💻</div>';
-                }
-              }}
-            />
-          </div>
-          
-          <h1 style={{
-            fontSize: 'clamp(1.8rem, 4vw, 3rem)',
-            fontWeight: 'bold',
-            marginBottom: '1rem',
-            color: 'var(--text-primary)'
-          }}>
-            {t.name}
-          </h1>
-          
-          <p className="text-gradient" style={{
-            fontSize: '1.5rem',
-            fontWeight: '600',
-            marginBottom: '0.5rem'
-          }}>
-            {t.title1}
-          </p>
-          
-          <p style={{
-            fontSize: '1.2rem',
-            color: 'var(--text-secondary)',
-            marginBottom: '2rem'
-          }}>
-            {t.title2}
-          </p>
-          
-          <p style={{
-            fontSize: '1.5rem',
-            fontStyle: 'italic',
-            color: 'var(--text-primary)',
-            fontWeight: '500'
-          }}>
-            "{t.quote}"
-          </p>
-        </div>
-      </section>
-
-      {/* Projects Section */}
-      <section id="projects" style={{
-        padding: '5rem 0',
-        background: theme === 'dark' ? '#1a1a2e' : '#f8fafc'
-      }}>
-        <div className="container">
-          <h2 style={{
-            fontSize: '2.5rem',
-            fontWeight: 'bold',
-            textAlign: 'center',
-            marginBottom: '3rem',
-            color: 'var(--text-primary)'
-          }}>
-            {language === 'pt' ? 'Meus Projetos' : 'My Projects'}
-          </h2>
-          
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '2rem'
-          }}>
-            {/* Projeto 1 - Sistema de Gestão de Tempo */}
-            <div style={{
-              background: theme === 'dark' ? '#2d2d3a' : 'white',
-              borderRadius: '15px',
-              padding: '1.5rem',
-              boxShadow: theme === 'dark' 
-                ? '0 4px 6px rgba(0, 0, 0, 0.3)' 
-                : '0 4px 6px rgba(0, 0, 0, 0.1)',
-              transition: 'transform 0.3s ease',
-              border: theme === 'dark' ? '1px solid #374151' : 'none'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-            >
-              <div style={{
-                height: '200px',
-                borderRadius: '10px',
-                marginBottom: '1rem',
-                border: '2px solid var(--border-color)',
-                position: 'relative',
-                overflow: 'hidden',
-                cursor: 'pointer'
-              }}
-              onClick={() => {
-                setModalImageIndex(currentImageIndex);
-                setModalOpen(true);
-              }}
-              >
-                <img 
-                  src={projectImages[currentImageIndex]}
-                  alt={imageMetadata[currentImageIndex]?.alt || `Sistema de Gestão de Tempo - Screenshot ${currentImageIndex + 1}`}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    transition: 'transform 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                />
-                
-                {/* Indicadores do carrossel */}
-                <div style={{
-                  position: 'absolute',
-                  bottom: '10px',
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  display: 'flex',
-                  gap: '5px'
-                }}>
-                  {projectImages.map((_, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        width: '8px',
-                        height: '8px',
-                        borderRadius: '50%',
-                        background: currentImageIndex === index 
-                          ? 'rgba(255, 255, 255, 0.9)' 
-                          : 'rgba(255, 255, 255, 0.4)',
-                        cursor: 'pointer',
-                        transition: 'all 0.3s ease'
-                      }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setCurrentImageIndex(index);
-                      }}
-                    />
-                  ))}
-                </div>
-
-                {/* Botões de navegação */}
-                <button
-                  style={{
-                    position: 'absolute',
-                    left: '10px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    background: 'rgba(0, 0, 0, 0.5)',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '50%',
-                    width: '30px',
-                    height: '30px',
-                    cursor: 'pointer',
-                    fontSize: '12px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    opacity: '0.7',
-                    transition: 'opacity 0.3s ease'
-                  }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setCurrentImageIndex(prev => 
-                      prev === 0 ? projectImages.length - 1 : prev - 1
-                    );
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
-                  onMouseLeave={(e) => e.currentTarget.style.opacity = '0.7'}
-                >
-                  ❮
-                </button>
-
-                <button
-                  style={{
-                    position: 'absolute',
-                    right: '10px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    background: 'rgba(0, 0, 0, 0.5)',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '50%',
-                    width: '30px',
-                    height: '30px',
-                    cursor: 'pointer',
-                    fontSize: '12px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    opacity: '0.7',
-                    transition: 'opacity 0.3s ease'
-                  }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setCurrentImageIndex(prev => 
-                      (prev + 1) % projectImages.length
-                    );
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
-                  onMouseLeave={(e) => e.currentTarget.style.opacity = '0.7'}
-                >
-                  ❯
-                </button>
-
-                {/* Contador de imagens */}
-                <div style={{
-                  position: 'absolute',
-                  top: '10px',
-                  right: '10px',
-                  background: 'rgba(0, 0, 0, 0.6)',
-                  color: 'white',
-                  padding: '4px 8px',
-                  borderRadius: '12px',
-                  fontSize: '0.8rem',
-                  fontWeight: 'bold'
-                }}>
-                  {currentImageIndex + 1}/{projectImages.length}
-                </div>
-              </div>
-              <h3 style={{ 
-                fontSize: '1.3rem', 
-                fontWeight: 'bold', 
-                marginBottom: '0.5rem',
-                color: 'var(--text-primary)'
-              }}>
-                {language === 'pt' ? '🕐 Sistema de Gestão de Tempo' : '🕐 Time Management System'}
-              </h3>
-              <p style={{ 
-                color: 'var(--text-secondary)', 
-                marginBottom: '1rem',
-                fontSize: '0.9rem',
-                lineHeight: '1.5'
-              }}>
-                {language === 'pt' 
-                  ? 'Sistema completo para controle de tempo corporativo com cronômetro em tempo real, gestão de usuários, relatórios detalhados e dashboard administrativo. Interface moderna e responsiva.'
-                  : 'Complete corporate time management system with real-time timer, user management, detailed reports and administrative dashboard. Modern and responsive interface.'
-                }
-              </p>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
-                {['React', 'Node.js', 'PostgreSQL', 'Material-UI', 'JWT'].map(tech => (
-                  <span key={tech} style={{
-                    background: theme === 'dark' ? '#1e3a8a' : '#dbeafe',
-                    color: theme === 'dark' ? '#93c5fd' : '#1d4ed8',
-                    padding: '0.25rem 0.75rem',
-                    borderRadius: '15px',
-                    fontSize: '0.8rem'
-                  }}>
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
-                <a href="https://github.com/HeitorRafael/GestorDeTarefas" target="_blank" rel="noopener noreferrer" style={{
-                  background: theme === 'dark' ? '#1e3a8a' : '#3b82f6',
-                  color: 'white',
-                  padding: '0.5rem 1rem',
-                  borderRadius: '8px',
-                  textDecoration: 'none',
-                  fontSize: '0.9rem',
-                  transition: 'all 0.3s ease'
-                }}>
-                  📂 {language === 'pt' ? 'Repositório' : 'Repository'}
-                </a>
-              </div>
-            </div>
-
-            {/* Projeto 2 - FungiFresh */}
-            <div style={{
-              background: theme === 'dark' ? '#2d2d3a' : 'white',
-              borderRadius: '15px',
-              padding: '1.5rem',
-              boxShadow: theme === 'dark' 
-                ? '0 4px 6px rgba(0, 0, 0, 0.3)' 
-                : '0 4px 6px rgba(0, 0, 0, 0.1)',
-              transition: 'transform 0.3s ease',
-              border: theme === 'dark' ? '1px solid #374151' : 'none'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-            >
-              <div style={{
-                height: '200px',
-                borderRadius: '10px',
-                marginBottom: '1rem',
-                border: '2px solid var(--border-color)',
-                position: 'relative',
-                overflow: 'hidden',
-                cursor: 'pointer'
-              }}
-              onClick={() => {
-                // setModalImageIndex(currentFungiFreshImageIndex);
-                // setModalOpen(true);
-              }}
-              >
-                <img 
-                  src={fungiFreshImages[currentFungiFreshImageIndex]}
-                  alt={fungiFreshImageMetadata[currentFungiFreshImageIndex]?.alt || `FungiFresh - Screenshot ${currentFungiFreshImageIndex + 1}`}
-                  style={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    transition: 'transform 0.3s ease'
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
-                />
-                
-                {/* Indicadores do carrossel */}
-                <div style={{
-                  position: 'absolute',
-                  bottom: '10px',
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  display: 'flex',
-                  gap: '5px'
-                }}>
-                  {fungiFreshImages.map((_, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        width: '8px',
-                        height: '8px',
-                        borderRadius: '50%',
-                        background: currentFungiFreshImageIndex === index 
-                          ? 'rgba(255, 255, 255, 0.9)' 
-                          : 'rgba(255, 255, 255, 0.4)',
-                        cursor: 'pointer',
-                        transition: 'all 0.3s ease'
-                      }}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setCurrentFungiFreshImageIndex(index);
-                      }}
-                    />
-                  ))}
-                </div>
-
-                {/* Botões de navegação */}
-                <button
-                  style={{
-                    position: 'absolute',
-                    left: '10px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    background: 'rgba(0, 0, 0, 0.5)',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '50%',
-                    width: '30px',
-                    height: '30px',
-                    cursor: 'pointer',
-                    fontSize: '12px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    opacity: '0.7',
-                    transition: 'opacity 0.3s ease'
-                  }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setCurrentFungiFreshImageIndex(prev => 
-                      prev === 0 ? fungiFreshImages.length - 1 : prev - 1
-                    );
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
-                  onMouseLeave={(e) => e.currentTarget.style.opacity = '0.7'}
-                >
-                  ❮
-                </button>
-
-                <button
-                  style={{
-                    position: 'absolute',
-                    right: '10px',
-                    top: '50%',
-                    transform: 'translateY(-50%)',
-                    background: 'rgba(0, 0, 0, 0.5)',
-                    color: 'white',
-                    border: 'none',
-                    borderRadius: '50%',
-                    width: '30px',
-                    height: '30px',
-                    cursor: 'pointer',
-                    fontSize: '12px',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    opacity: '0.7',
-                    transition: 'opacity 0.3s ease'
-                  }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setCurrentFungiFreshImageIndex(prev => 
-                      (prev + 1) % fungiFreshImages.length
-                    );
-                  }}
-                  onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
-                  onMouseLeave={(e) => e.currentTarget.style.opacity = '0.7'}
-                >
-                  ❯
-                </button>
-
-                {/* Contador de imagens */}
-                <div style={{
-                  position: 'absolute',
-                  top: '10px',
-                  right: '10px',
-                  background: 'rgba(0, 0, 0, 0.6)',
-                  color: 'white',
-                  padding: '4px 8px',
-                  borderRadius: '12px',
-                  fontSize: '0.8rem',
-                  fontWeight: 'bold'
-                }}>
-                  {currentFungiFreshImageIndex + 1}/{fungiFreshImages.length}
-                </div>
-              </div>
-              <h3 style={{ 
-                fontSize: '1.3rem', 
-                fontWeight: 'bold', 
-                marginBottom: '0.5rem',
-                color: 'var(--text-primary)'
-              }}>
-                {language === 'pt' ? '🍄 FungiFresh' : '🍄 FungiFresh'}
-              </h3>
-              <p style={{ 
-                color: 'var(--text-secondary)', 
-                marginBottom: '1rem',
-                fontSize: '0.9rem',
-                lineHeight: '1.5'
-              }}>
-                {language === 'pt' 
-                  ? 'Protótipo de uma loja de venda de cogumelos, chamada de FungiFresh onde eu fui responsavel pela ideia e pela implementação.'
-                  : 'Prototype of a mushroom selling store, called FungiFresh where I was responsible for the idea and implementation.'
-                }
-              </p>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap', marginBottom: '1rem' }}>
-                {['Figma', 'Canva'].map(tech => (
-                  <span key={tech} style={{
-                    background: theme === 'dark' ? '#1e3a8a' : '#dbeafe',
-                    color: theme === 'dark' ? '#93c5fd' : '#1d4ed8',
-                    padding: '0.25rem 0.75rem',
-                    borderRadius: '15px',
-                    fontSize: '0.8rem'
-                  }}>
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              <div style={{ display: 'flex', gap: '0.5rem' }}>
-                <a href="https://www.figma.com/proto/4VqbhDgVaAMEdCBGeqVY8L/Mushrooms-Project?node-id=109-46&starting-point-node-id=130%3A1073&t=aKlwvcwK2MfUBpmM-1" target="_blank" rel="noopener noreferrer" style={{
-                  background: theme === 'dark' ? '#1e3a8a' : '#3b82f6',
-                  color: 'white',
-                  padding: '0.5rem 1rem',
-                  borderRadius: '8px',
-                  textDecoration: 'none',
-                  fontSize: '0.9rem',
-                  transition: 'all 0.3s ease'
-                }}>
-                  🔗 {language === 'pt' ? 'Ver Protótipo' : 'View Prototype'}
-                </a>
-              </div>
-            </div>
-
-            {/* Projeto 3 - Placeholder */}
-            <div style={{
-              background: theme === 'dark' ? '#2d2d3a' : 'white',
-              borderRadius: '15px',
-              padding: '1.5rem',
-              boxShadow: theme === 'dark' 
-                ? '0 4px 6px rgba(0, 0, 0, 0.3)' 
-                : '0 4px 6px rgba(0, 0, 0, 0.1)',
-              transition: 'transform 0.3s ease',
-              border: theme === 'dark' ? '1px solid #374151' : 'none'
-            }}
-            onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-5px)'}
-            onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
-            >
-              <div style={{
-                height: '200px',
-                background: theme === 'dark' ? '#374151' : '#e5e7eb',
-                borderRadius: '10px',
-                marginBottom: '1rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '3rem'
-              }}>
-                🖼️
-              </div>
-              <h3 style={{ 
-                fontSize: '1.3rem', 
-                fontWeight: 'bold', 
-                marginBottom: '0.5rem',
-                color: 'var(--text-primary)'
-              }}>
-                {language === 'pt' ? `Projeto 3 - Em Breve` : `Project 3 - Coming Soon`}
-              </h3>
-              <p style={{ 
-                color: 'var(--text-secondary)', 
-                marginBottom: '1rem' 
-              }}>
-                {language === 'pt' 
-                  ? 'Novo projeto em desenvolvimento. Mais detalhes em breve!'
-                  : 'New project in development. More details coming soon!'
-                }
-              </p>
-              <div style={{ display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-                {['React', 'TypeScript', 'CSS'].map(tech => (
-                  <span key={tech} style={{
-                    background: theme === 'dark' ? '#1e3a8a' : '#dbeafe',
-                    color: theme === 'dark' ? '#93c5fd' : '#1d4ed8',
-                    padding: '0.25rem 0.75rem',
-                    borderRadius: '15px',
-                    fontSize: '0.8rem'
-                  }}>
-                    {tech}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" style={{
-        padding: '5rem 0',
-        background: theme === 'dark' ? '#0f0f23' : 'white'
-      }}>
-        <div className="container">
-          <h2 style={{
-            fontSize: '2.5rem',
-            fontWeight: 'bold',
-            textAlign: 'center',
-            marginBottom: '3rem',
-            color: 'var(--text-primary)'
-          }}>
-            {language === 'pt' ? 'Currículo' : 'Resume'}
-          </h2>
-
-          {/* Objetivo */}
-          <div style={{ marginBottom: '3rem' }}>
-            <h3 style={{
-              fontSize: '1.5rem',
-              fontWeight: 'bold',
-              marginBottom: '1rem',
-              color: 'var(--text-primary)',
-              borderBottom: '2px solid var(--text-primary)',
-              paddingBottom: '0.5rem'
-            }}>
-              {t.resume.objective.title}
-            </h3>
-            <p style={{
-              fontSize: '1rem',
-              lineHeight: '1.6',
-              color: 'var(--text-secondary)'
-            }}>
-              {t.resume.objective.content}
-            </p>
-          </div>
-
-          {/* Formação Acadêmica */}
-          <div style={{ marginBottom: '3rem' }}>
-            <h3 style={{
-              fontSize: '1.5rem',
-              fontWeight: 'bold',
-              marginBottom: '1rem',
-              color: 'var(--text-primary)',
-              borderBottom: '2px solid var(--text-primary)',
-              paddingBottom: '0.5rem'
-            }}>
-              {t.resume.education.title}
-            </h3>
-            {t.resume.education.items.map((item, index) => (
-              <div key={index} style={{ marginBottom: '1rem' }}>
-                <h4 style={{ 
-                  fontSize: '1.1rem', 
-                  fontWeight: 'bold', 
-                  color: 'var(--text-primary)',
-                  marginBottom: '0.25rem'
-                }}>
-                  {item.course}
-                </h4>
-                <p style={{ 
-                  color: 'var(--text-secondary)',
-                  fontSize: '0.95rem'
-                }}>
-                  {item.institution} | {item.period}
-                </p>
-              </div>
-            ))}
-          </div>
-
-          {/* Habilidades Técnicas */}
-          <div style={{ marginBottom: '3rem' }}>
-            <h3 style={{
-              fontSize: '1.5rem',
-              fontWeight: 'bold',
-              marginBottom: '1rem',
-              color: 'var(--text-primary)',
-              borderBottom: '2px solid var(--text-primary)',
-              paddingBottom: '0.5rem'
-            }}>
-              {t.resume.skills.title}
-            </h3>
-            <div style={{ marginBottom: '1rem' }}>
-              <p style={{ 
-                color: 'var(--text-secondary)',
-                fontSize: '1rem',
-                lineHeight: '1.6'
-              }}>
-                <strong style={{ color: 'var(--text-primary)' }}>
-                  {language === 'pt' ? 'Linguagens e Ferramentas: ' : 'Languages and Tools: '}
-                </strong>
-                {t.resume.skills.languages}
-              </p>
-            </div>
-            <div style={{ marginBottom: '1rem' }}>
-              <p style={{ 
-                color: 'var(--text-secondary)',
-                fontSize: '1rem',
-                lineHeight: '1.6'
-              }}>
-                <strong style={{ color: 'var(--text-primary)' }}>
-                  {language === 'pt' ? 'Inteligência Artificial: ' : 'Artificial Intelligence: '}
-                </strong>
-                {t.resume.skills.ai}
-              </p>
-            </div>
-            <div>
-              <p style={{ 
-                color: 'var(--text-secondary)',
-                fontSize: '1rem',
-                lineHeight: '1.6'
-              }}>
-                <strong style={{ color: 'var(--text-primary)' }}>
-                  {language === 'pt' ? 'Outros: ' : 'Others: '}
-                </strong>
-                {t.resume.skills.others}
-              </p>
-            </div>
-          </div>
-
-          {/* Experiência Profissional */}
-          <div style={{ marginBottom: '3rem' }}>
-            <h3 style={{
-              fontSize: '1.5rem',
-              fontWeight: 'bold',
-              marginBottom: '1rem',
-              color: 'var(--text-primary)',
-              borderBottom: '2px solid var(--text-primary)',
-              paddingBottom: '0.5rem'
-            }}>
-              {t.resume.experience.title}
-            </h3>
-            {t.resume.experience.items.map((item, index) => (
-              <div key={index} style={{ 
-                marginBottom: '2rem',
-                padding: '1.5rem',
-                background: theme === 'dark' ? '#1a1a2e' : '#f8fafc',
-                borderRadius: '10px',
-                border: theme === 'dark' ? '1px solid #374151' : '1px solid #e5e7eb'
-              }}>
-                <h4 style={{ 
-                  fontSize: '1.2rem', 
-                  fontWeight: 'bold', 
-                  color: 'var(--text-primary)',
-                  marginBottom: '0.25rem'
-                }}>
-                  {item.position}
-                </h4>
-                <p style={{ 
-                  color: 'var(--text-secondary)',
-                  fontSize: '1rem',
-                  fontWeight: '600',
-                  marginBottom: '0.5rem'
-                }}>
-                  {item.company} {item.period && `| ${item.period}`}
-                </p>
-                <p style={{ 
-                  color: 'var(--text-secondary)',
-                  fontSize: '0.95rem',
-                  lineHeight: '1.6',
-                  marginBottom: item.technologies ? '1rem' : '0'
-                }}>
-                  {item.description}
-                </p>
-                {item.technologies && (
-                  <div style={{ marginBottom: '1rem' }}>
-                    <p style={{ 
-                      color: 'var(--text-secondary)',
-                      fontSize: '0.9rem'
-                    }}>
-                      <strong style={{ color: 'var(--text-primary)' }}>
-                        {language === 'pt' ? 'Tecnologias utilizadas: ' : 'Technologies used: '}
-                      </strong>
-                      {item.technologies}
-                    </p>
-                  </div>
-                )}
-                {item.features && (
-                  <div>
-                    <p style={{ 
-                      color: 'var(--text-secondary)',
-                      fontSize: '0.9rem'
-                    }}>
-                      <strong style={{ color: 'var(--text-primary)' }}>
-                        {language === 'pt' ? 'Funcionalidades implementadas: ' : 'Implemented features: '}
-                      </strong>
-                      {item.features}
-                    </p>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-
-          {/* Competências Transferíveis */}
-          <div style={{ marginBottom: '3rem' }}>
-            <h3 style={{
-              fontSize: '1.5rem',
-              fontWeight: 'bold',
-              marginBottom: '1rem',
-              color: 'var(--text-primary)',
-              borderBottom: '2px solid var(--text-primary)',
-              paddingBottom: '0.5rem'
-            }}>
-              {t.resume.competencies.title}
-            </h3>
-            <ul style={{ listStyle: 'none', padding: 0 }}>
-              {t.resume.competencies.items.map((item, index) => (
-                <li key={index} style={{
-                  fontSize: '1rem',
-                  color: 'var(--text-secondary)',
-                  marginBottom: '0.5rem',
-                  paddingLeft: '1rem',
-                  position: 'relative'
-                }}>
-                  <span style={{
-                    position: 'absolute',
-                    left: '0',
-                    color: 'var(--text-primary)'
-                  }}>•</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Idiomas e Cursos */}
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '2rem',
-            marginBottom: '3rem'
-          }}>
-            {/* Idiomas */}
-            <div>
-              <h3 style={{
-                fontSize: '1.5rem',
-                fontWeight: 'bold',
-                marginBottom: '1rem',
-                color: 'var(--text-primary)',
-                borderBottom: '2px solid var(--text-primary)',
-                paddingBottom: '0.5rem'
-              }}>
-                {t.resume.languages.title}
-              </h3>
-              {t.resume.languages.items.map((item, index) => (
-                <div key={index} style={{ marginBottom: '0.5rem' }}>
-                  <p style={{ 
-                    color: 'var(--text-secondary)',
-                    fontSize: '1rem'
-                  }}>
-                    <strong style={{ color: 'var(--text-primary)' }}>
-                      {item.language}:
-                    </strong> {item.level}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            {/* Cursos */}
-            <div>
-              <h3 style={{
-                fontSize: '1.5rem',
-                fontWeight: 'bold',
-                marginBottom: '1rem',
-                color: 'var(--text-primary)',
-                borderBottom: '2px solid var(--text-primary)',
-                paddingBottom: '0.5rem'
-              }}>
-                {t.resume.courses.title}
-              </h3>
-              {t.resume.courses.items.map((item, index) => (
-                <div key={index} style={{ marginBottom: '1rem' }}>
-                  <h4 style={{ 
-                    fontSize: '1rem', 
-                    fontWeight: 'bold', 
-                    color: 'var(--text-primary)',
-                    marginBottom: '0.25rem'
-                  }}>
-                    {item.name}
-                  </h4>
-                  <p style={{ 
-                    color: 'var(--text-secondary)',
-                    fontSize: '0.9rem'
-                  }}>
-                    {item.institution} – {item.year} {item.note && item.note}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Skills Section */}
-      <section id="skills" style={{
-        padding: '5rem 0',
-        background: 'var(--skills-bg)'
-      }}>
-        <div className="container">
-          <h2 style={{
-            fontSize: '2.5rem',
-            fontWeight: 'bold',
-            textAlign: 'center',
-            marginBottom: '3rem',
-            color: theme === 'dark' ? 'white' : 'var(--text-primary)'
-          }}>
-            {language === 'pt' ? 'Minhas Skills' : 'My Skills'}
-          </h2>
-          
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
-            gap: '1.5rem',
-            maxWidth: '800px',
-            margin: '0 auto'
-          }}>
-            {[
-              { name: 'HTML', icon: '📄' },
-              { name: 'CSS', icon: '🎨' },
-              { name: 'JavaScript', icon: '⚡' },
-              { name: 'React', icon: '⚛️' },
-              { name: 'Node.js', icon: '🟢' },
-              { name: 'Python', icon: '🐍' },
-              { name: 'PostgreSQL', icon: '🗃️' },
-              { name: 'Java', icon: '☕' },
-              { name: 'Git', icon: '📚' },
-              { name: 'Figma', icon: '🎨' },
-              { name: 'ChatGPT', icon: '🤖' },
-              { name: 'ClaudeAI', icon: '🧬' },
-              { name: 'VS Code', icon: '💻' },
-              { name: 'IntelliJ', icon: '🧠' }
-            ].map((skill) => (
-              <div key={skill.name} style={{
-                background: 'var(--skills-card-bg)',
-                backdropFilter: 'blur(10px)',
-                border: theme === 'dark' 
-                  ? '1px solid rgba(255, 255, 255, 0.1)' 
-                  : '1px solid rgba(0, 0, 0, 0.1)',
-                borderRadius: '15px',
-                padding: '1.5rem',
-                textAlign: 'center',
-                color: theme === 'dark' ? 'white' : 'var(--text-primary)',
-                transition: 'all 0.3s ease',
-                cursor: 'pointer',
-                boxShadow: theme === 'dark' 
-                  ? '0 4px 15px rgba(0, 0, 0, 0.3)' 
-                  : '0 4px 15px rgba(0, 0, 0, 0.1)'
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.transform = 'translateY(-8px) scale(1.05)';
-                e.currentTarget.style.background = 'var(--skills-card-hover)';
-                e.currentTarget.style.boxShadow = theme === 'dark' 
-                  ? '0 8px 25px rgba(0, 0, 0, 0.4)' 
-                  : '0 8px 25px rgba(0, 0, 0, 0.15)';
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.transform = 'translateY(0) scale(1)';
-                e.currentTarget.style.background = 'var(--skills-card-bg)';
-                e.currentTarget.style.boxShadow = theme === 'dark' 
-                  ? '0 4px 15px rgba(0, 0, 0, 0.3)' 
-                  : '0 4px 15px rgba(0, 0, 0, 0.1)';
-              }}
-              >
-                <div style={{ 
-                  fontSize: '2.5rem', 
-                  marginBottom: '0.5rem',
-                  filter: 'drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))'
-                }}>
-                  {skill.icon}
-                </div>
-                <div style={{ 
-                  fontWeight: 'bold',
-                  textShadow: theme === 'dark' 
-                    ? '0 1px 2px rgba(0, 0, 0, 0.3)' 
-                    : '0 1px 2px rgba(255, 255, 255, 0.8)'
-                }}>
-                  {skill.name}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Contact Box */}
-          <div style={{
-            background: theme === 'dark' 
-              ? 'rgba(15, 15, 35, 0.8)' 
-              : 'rgba(255, 255, 255, 0.9)',
-            backdropFilter: 'blur(15px)',
-            border: theme === 'dark' 
-              ? '1px solid rgba(255, 255, 255, 0.1)' 
-              : '1px solid rgba(0, 0, 0, 0.1)',
-            borderRadius: '20px',
-            padding: '2rem',
-            textAlign: 'center',
-            marginTop: '3rem',
-            color: theme === 'dark' ? 'white' : 'var(--text-primary)',
-            maxWidth: '600px',
-            margin: '3rem auto 0',
-            boxShadow: theme === 'dark' 
-              ? '0 8px 32px rgba(0, 0, 0, 0.4)' 
-              : '0 8px 32px rgba(0, 0, 0, 0.15)'
-          }}>
-            <h3 style={{ 
-              fontSize: '1.5rem', 
-              marginBottom: '1rem',
-              textShadow: theme === 'dark' 
-                ? '0 2px 4px rgba(0, 0, 0, 0.3)' 
-                : '0 1px 2px rgba(255, 255, 255, 0.8)',
-              color: theme === 'dark' ? 'white' : 'var(--text-primary)'
-            }}>
-              📧 heitorbdelfino@gmail.com
-            </h3>
-            <div style={{ 
-              display: 'flex', 
-              justifyContent: 'center', 
-              gap: '2rem',
-              flexWrap: 'wrap'
-            }}>
-              <a href="https://www.linkedin.com/in/heitor-rafael-bezerra-delfino-129760187/" 
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 style={{ 
-                   color: theme === 'dark' ? 'white' : '#1d4ed8', 
-                   textDecoration: 'none',
-                   transition: 'all 0.3s ease',
-                   padding: '0.5rem 1rem',
-                   borderRadius: '10px',
-                   fontWeight: '600'
-                 }}
-                 onMouseEnter={(e) => {
-                   e.currentTarget.style.color = '#93c5fd';
-                   e.currentTarget.style.background = 'rgba(147, 197, 253, 0.15)';
-                   e.currentTarget.style.transform = 'translateY(-2px)';
-                 }}
-                 onMouseLeave={(e) => {
-                   e.currentTarget.style.color = theme === 'dark' ? 'white' : '#1d4ed8';
-                   e.currentTarget.style.background = 'transparent';
-                   e.currentTarget.style.transform = 'translateY(0)';
-                 }}
-              >
-                📱 LinkedIn
-              </a>
-              <a href="https://www.instagram.com/_raffinoh/" 
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 style={{ 
-                   color: theme === 'dark' ? 'white' : '#be185d', 
-                   textDecoration: 'none',
-                   transition: 'all 0.3s ease',
-                   padding: '0.5rem 1rem',
-                   borderRadius: '10px',
-                   fontWeight: '600'
-                 }}
-                 onMouseEnter={(e) => {
-                   e.currentTarget.style.color = '#fbbf24';
-                   e.currentTarget.style.background = 'rgba(251, 191, 36, 0.15)';
-                   e.currentTarget.style.transform = 'translateY(-2px)';
-                 }}
-                 onMouseLeave={(e) => {
-                   e.currentTarget.style.color = theme === 'dark' ? 'white' : '#be185d';
-                   e.currentTarget.style.background = 'transparent';
-                   e.currentTarget.style.transform = 'translateY(0)';
-                 }}
-              >
-                📸 Instagram
-              </a>
-              <a href="https://github.com/HeitorRafael" 
-                 target="_blank"
-                 rel="noopener noreferrer"
-                 style={{ 
-                   color: theme === 'dark' ? 'white' : '#374151', 
-                   textDecoration: 'none',
-                   transition: 'all 0.3s ease',
-                   padding: '0.5rem 1rem',
-                   borderRadius: '10px',
-                   fontWeight: '600'
-                 }}
-                 onMouseEnter={(e) => {
-                   e.currentTarget.style.color = '#a78bfa';
-                   e.currentTarget.style.background = 'rgba(167, 139, 250, 0.15)';
-                   e.currentTarget.style.transform = 'translateY(-2px)';
-                 }}
-                 onMouseLeave={(e) => {
-                   e.currentTarget.style.color = theme === 'dark' ? 'white' : '#374151';
-                   e.currentTarget.style.background = 'transparent';
-                   e.currentTarget.style.transform = 'translateY(0)';
-                 }}
-              >
-                🐱 GitHub
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Modal para expandir imagens */}
-      {modalOpen && (
-        <div style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          background: 'rgba(0, 0, 0, 0.9)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          zIndex: 9999,
-          padding: '2rem'
-        }}
-        onClick={() => setModalOpen(false)}
-        >
-          <div style={{
-            position: 'relative',
-            maxWidth: '90vw',
-            maxHeight: '90vh',
-            background: 'white',
-            borderRadius: '15px',
-            overflow: 'hidden',
-            boxShadow: '0 25px 50px rgba(0, 0, 0, 0.5)'
-          }}
-          onClick={(e) => e.stopPropagation()}
-          >
-            {/* Botão fechar */}
-            <button
-              style={{
-                position: 'absolute',
-                top: '15px',
-                right: '15px',
-                background: 'rgba(0, 0, 0, 0.7)',
-                color: 'white',
-                border: 'none',
-                borderRadius: '50%',
-                width: '40px',
-                height: '40px',
-                cursor: 'pointer',
-                fontSize: '18px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                zIndex: 10001,
-                transition: 'all 0.3s ease'
-              }}
-              onClick={() => setModalOpen(false)}
-              onMouseEnter={(e) => e.currentTarget.style.background = 'rgba(0, 0, 0, 0.9)'}
-              onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(0, 0, 0, 0.7)'}
-            >
-              ✕
-            </button>
-
-            {/* Imagem principal */}
-            <img 
-              src={projectImages[modalImageIndex]}
-              alt={imageMetadata[modalImageIndex]?.alt || `Sistema de Gestão de Tempo - Screenshot ${modalImageIndex + 1}`}
-              style={{
-                width: '100%',
-                height: 'auto',
-                maxHeight: '70vh',
-                objectFit: 'contain',
-                display: 'block'
-              }}
-            />
-
-            {/* Navegação do modal */}
-            <div style={{
-              position: 'absolute',
-              bottom: '0',
-              left: '0',
-              right: '0',
-              background: 'linear-gradient(transparent, rgba(0, 0, 0, 0.8))',
-              padding: '2rem 1rem 1rem',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between'
-            }}>
-              {/* Botão anterior */}
-              <button
-                style={{
-                  background: 'rgba(255, 255, 255, 0.2)',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '50%',
-                  width: '50px',
-                  height: '50px',
-                  cursor: 'pointer',
-                  fontSize: '20px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  transition: 'all 0.3s ease',
-                  opacity: modalImageIndex > 0 ? 1 : 0.3
-                }}
-                onClick={() => {
-                  if (modalImageIndex > 0) {
-                    setModalImageIndex(prev => prev - 1);
-                  }
-                }}
-                disabled={modalImageIndex === 0}
-                onMouseEnter={(e) => {
-                  if (modalImageIndex > 0) {
-                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.3)';
-                  }
-                }}
-                onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)'}
-              >
-                ❮
-              </button>
-
-              {/* Indicadores e info */}
-              <div style={{ textAlign: 'center', color: 'white' }}>
-                <div style={{
-                  display: 'flex',
-                  gap: '8px',
-                  justifyContent: 'center',
-                  marginBottom: '0.5rem'
-                }}>
-                  {projectImages.map((_, index) => (
-                    <div
-                      key={index}
-                      style={{
-                        width: '10px',
-                        height: '10px',
-                        borderRadius: '50%',
-                        background: modalImageIndex === index 
-                          ? 'white' 
-                          : 'rgba(255, 255, 255, 0.4)',
-                        cursor: 'pointer',
-                        transition: 'all 0.3s ease'
-                      }}
-                      onClick={() => setModalImageIndex(index)}
-                    />
-                  ))}
-                </div>
-                <p style={{ 
-                  margin: 0, 
-                  fontSize: '1rem',
-                  fontWeight: 'bold',
-                  textShadow: '0 1px 2px rgba(0, 0, 0, 0.5)'
-                }}>
-                  {modalImageIndex + 1} / {projectImages.length}
-                </p>
-                <p style={{ 
-                  margin: 0, 
-                  fontSize: '0.9rem',
-                  opacity: 0.9,
-                  textShadow: '0 1px 2px rgba(0, 0, 0, 0.5)'
-                }}>
-                  {language === 'pt' ? 'Sistema de Gestão de Tempo' : 'Time Management System'}
-                </p>
-              </div>
-
-              {/* Botão próximo */}
-              <button
-                style={{
-                  background: 'rgba(255, 255, 255, 0.2)',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '50%',
-                  width: '50px',
-                  height: '50px',
-                  cursor: 'pointer',
-                  fontSize: '20px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  transition: 'all 0.3s ease',
-                  opacity: modalImageIndex < projectImages.length - 1 ? 1 : 0.3
-                }}
-                onClick={() => {
-                  if (modalImageIndex < projectImages.length - 1) {
-                    setModalImageIndex(prev => prev + 1);
-                  }
-                }}
-                disabled={modalImageIndex === projectImages.length - 1}
-                onMouseEnter={(e) => {
-                  if (modalImageIndex < projectImages.length - 1) {
-                    e.currentTarget.style.background = 'rgba(255, 255, 255, 0.3)';
-                  }
-                }}
-                onMouseLeave={(e) => e.currentTarget.style.background = 'rgba(255, 255, 255, 0.2)'}
-              >
-                ❯
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* Footer */}
-      <footer style={{
-        background: theme === 'dark' ? '#0f0f23' : '#1f2937',
-        color: 'white',
-        textAlign: 'center',
-        padding: '2rem 0',
-        borderTop: theme === 'dark' ? '1px solid #374151' : 'none'
-      }}>
-        <p>
-          © 2025 Heitor Rafael Bezerra Delfino. {language === 'pt' ? 'Todos os direitos reservados.' : 'All rights reserved.'}
-        </p>
-      </footer>
-    </div>
-  );
+const STAGE_ORDER = ['conceito', 'prototipo', 'dev', 'beta', 'live'] as const;
+type ProjectStage = typeof STAGE_ORDER[number];
+const STAGE_LABELS: Record<ProjectStage, string> = {
+  conceito: 'IDEIA', prototipo: 'PROTO', dev: 'DEV', beta: 'BETA', live: 'LIVE',
+};
+const STAGE_COLORS: Record<ProjectStage, string> = {
+  conceito: 'rgba(242,239,231,0.2)', prototipo: '#888',
+  dev: '#C0392B', beta: '#D4A017', live: '#F2EFE7',
 };
 
-export default SimpleApp;
+// ── Grain Overlay ──────────────────────────────────────────────────────────────
+function GrainOverlay() {
+  return (
+    <div
+      aria-hidden="true"
+      style={{ position: 'fixed', inset: 0, zIndex: 9999, pointerEvents: 'none', overflow: 'hidden' }}
+    >
+      <div className="grain-texture" />
+    </div>
+  );
+}
+
+// ── Reveal on scroll ──────────────────────────────────────────────────────────
+function useReveal(threshold = 0.1) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); obs.disconnect(); } },
+      { threshold }
+    );
+    if (ref.current) obs.observe(ref.current);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return { ref, visible };
+}
+
+// ── Reveal wrapper ─────────────────────────────────────────────────────────────
+function Reveal({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
+  const { ref, visible } = useReveal();
+  return (
+    <div
+      ref={ref}
+      style={{
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'none' : 'translateY(32px)',
+        transition: `opacity 0.9s ease ${delay}s, transform 0.9s ease ${delay}s`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+
+// ── Section tag ────────────────────────────────────────────────────────────────
+function SectionTag({ number, label }: { number: string; label: string }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '1.25rem' }}>
+      <span style={{ fontFamily: F.mono, fontSize: '0.6rem', color: C.dimmed, letterSpacing: '0.2em' }}>
+        [{number}]
+      </span>
+      <div style={{ height: '1px', width: '2rem', background: C.red }} />
+      <span style={{ fontFamily: F.mono, fontSize: '0.6rem', color: C.red, letterSpacing: '0.25em', textTransform: 'uppercase' as const }}>
+        {label}
+      </span>
+    </div>
+  );
+}
+
+// ── Image Modal ────────────────────────────────────────────────────────────────
+interface ImgItem { src: string; alt: string; title: string; }
+
+function ImageModal({ images, initialIndex, onClose }: { images: ImgItem[]; initialIndex: number; onClose: () => void }) {
+  const [idx, setIdx] = useState(initialIndex);
+  useEffect(() => {
+    const fn = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowRight') setIdx(i => (i + 1) % images.length);
+      if (e.key === 'ArrowLeft')  setIdx(i => (i - 1 + images.length) % images.length);
+    };
+    window.addEventListener('keydown', fn);
+    return () => window.removeEventListener('keydown', fn);
+  }, [images.length, onClose]);
+
+  return (
+    <div
+      onClick={onClose}
+      style={{
+        position: 'fixed', inset: 0, zIndex: 10001,
+        background: 'rgba(13,13,13,0.97)',
+        display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+        padding: '2rem', cursor: 'zoom-out',
+      }}
+    >
+      <button
+        onClick={onClose}
+        style={{
+          position: 'absolute', top: '1.5rem', right: '1.5rem',
+          background: 'transparent', border: `1px solid ${C.borderMid}`,
+          color: C.paper, width: '2.5rem', height: '2.5rem',
+          fontFamily: F.mono, fontSize: '1.1rem', cursor: 'pointer',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }}
+      >×</button>
+
+      <div onClick={e => e.stopPropagation()} style={{ maxWidth: '900px', width: '100%' }}>
+        <img
+          src={images[idx].src} alt={images[idx].alt}
+          style={{ width: '100%', maxHeight: '78vh', objectFit: 'contain', display: 'block' }}
+        />
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '1rem' }}>
+          <span style={{ fontFamily: F.mono, fontSize: '0.6rem', color: C.muted, letterSpacing: '0.15em' }}>
+            {images[idx].title} — {idx + 1} / {images.length}
+          </span>
+          <div style={{ display: 'flex', gap: '0.5rem' }}>
+            <button
+              onClick={() => setIdx(i => (i - 1 + images.length) % images.length)}
+              style={{ background: 'transparent', border: `1px solid ${C.borderMid}`, color: C.paper, padding: '0.4rem 1rem', fontFamily: F.mono, fontSize: '0.7rem', cursor: 'pointer' }}
+            >← Ant</button>
+            <button
+              onClick={() => setIdx(i => (i + 1) % images.length)}
+              style={{ background: C.paper, border: 'none', color: C.ink, padding: '0.4rem 1rem', fontFamily: F.mono, fontSize: '0.7rem', cursor: 'pointer' }}
+            >Próx →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Header ─────────────────────────────────────────────────────────────────────
+function Header() {
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const fn = () => setScrolled(window.scrollY > 60);
+    window.addEventListener('scroll', fn);
+    return () => window.removeEventListener('scroll', fn);
+  }, []);
+
+  const navItems = [
+    { label: 'Projetos', href: '#projetos' },
+    { label: 'Status',   href: '#status' },
+    { label: 'Sobre',    href: '#sobre' },
+    { label: 'Skills',   href: '#skills' },
+    { label: 'Contato',  href: '#contato' },
+  ];
+
+  return (
+    <header style={{
+      position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
+      padding: '1.1rem 2.5rem',
+      background: scrolled ? 'rgba(13,13,13,0.94)' : 'transparent',
+      backdropFilter: scrolled ? 'blur(16px)' : 'none',
+      borderBottom: scrolled ? `1px solid ${C.border}` : 'none',
+      transition: 'all 0.4s ease',
+      display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+    }}>
+      <a href="#" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+        <span style={{ fontFamily: F.serif, fontSize: '1.15rem', fontWeight: 700, color: C.paper, fontStyle: 'italic' }}>HD</span>
+        <span style={{ fontFamily: F.mono, fontSize: '0.55rem', color: C.red, letterSpacing: '0.15em', marginTop: '2px' }}>.DEV</span>
+      </a>
+
+      <nav style={{ display: 'flex', gap: '2.5rem' }}>
+        {navItems.map(({ label, href }) => (
+          <a
+            key={href} href={href}
+            style={{ fontFamily: F.mono, fontSize: '0.65rem', color: C.muted, letterSpacing: '0.15em', textDecoration: 'none', textTransform: 'uppercase' as const, transition: 'color 0.2s' }}
+            onMouseEnter={e => (e.currentTarget.style.color = C.paper)}
+            onMouseLeave={e => (e.currentTarget.style.color = C.muted)}
+          >{label}</a>
+        ))}
+      </nav>
+
+      <a
+        href="mailto:heitorbdelfino@gmail.com"
+        style={{
+          fontFamily: F.mono, fontSize: '0.65rem', color: C.ink,
+          background: C.paper, padding: '0.55rem 1.2rem',
+          textDecoration: 'none', letterSpacing: '0.12em', textTransform: 'uppercase' as const,
+          transition: 'all 0.2s',
+        }}
+        onMouseEnter={e => { e.currentTarget.style.background = C.red; e.currentTarget.style.color = C.paper; }}
+        onMouseLeave={e => { e.currentTarget.style.background = C.paper; e.currentTarget.style.color = C.ink; }}
+      >Fale comigo</a>
+    </header>
+  );
+}
+
+// ── Hero ───────────────────────────────────────────────────────────────────────
+function Hero() {
+  return (
+    <section id="inicio" style={{
+      background: C.ink, minHeight: '100vh',
+      display: 'grid', gridTemplateColumns: '1fr 1fr', position: 'relative',
+    }}>
+      {/* Left: content */}
+      <div style={{
+        display: 'flex', flexDirection: 'column', justifyContent: 'center',
+        padding: '9rem 3rem 4rem 2.5rem', position: 'relative',
+      }}>
+        {/* Top meta */}
+        <div style={{
+          position: 'absolute', top: '6.5rem', left: '2.5rem',
+          display: 'flex', gap: '2rem',
+          fontFamily: F.mono, fontSize: '0.58rem', color: C.dimmed, letterSpacing: '0.2em',
+        }}>
+          <span>PRAIA GRANDE · SP</span>
+          <span>© 2026</span>
+        </div>
+
+        {/* Gastro→Dev badge */}
+        <div style={{
+          display: 'flex', alignItems: 'center', gap: '0.6rem',
+          fontFamily: F.mono, fontSize: '0.65rem', letterSpacing: '0.18em',
+          color: C.muted, marginBottom: '1.5rem',
+        }}>
+          <span title="ex-chef 🍺">🍺</span>
+          <span style={{ color: C.dimmed }}>·</span>
+          <span title="10 anos de cozinha 🍚">🍚</span>
+          <span style={{ color: C.dimmed }}>·</span>
+          <span title="sempre um hamburguer 🍔">🍔</span>
+          <span style={{ margin: '0 0.4rem', color: C.red }}>→</span>
+          <span style={{ color: C.paper }}>{'<DEV />'}</span>
+        </div>
+
+        <h1 style={{
+          fontFamily: F.serif, fontWeight: 900,
+          fontSize: 'clamp(3.5rem, 6.5vw, 7.5rem)',
+          lineHeight: 0.88, color: C.paper,
+          letterSpacing: '-0.025em', marginBottom: '1.5rem',
+        }}>
+          HEITOR
+          <br />
+          <em style={{ fontStyle: 'italic', color: C.cream }}>DELFINO</em>
+        </h1>
+
+        {/* Role */}
+        <div style={{
+          display: 'inline-flex', gap: '0.5rem', alignItems: 'center',
+          fontFamily: F.mono, fontSize: '0.68rem', letterSpacing: '0.1em',
+          border: `1px solid ${C.borderMid}`, padding: '0.4rem 0.9rem',
+          alignSelf: 'flex-start', marginBottom: '2rem',
+        }}>
+          <span style={{ color: C.muted }}>CHEF</span>
+          <span style={{ color: C.red }}>→</span>
+          <span style={{ color: C.paper }}>DESENVOLVEDOR</span>
+          <span style={{ color: C.red }}>→</span>
+          <span style={{ color: C.paper }}>SUPORTE TEC.</span>
+        </div>
+
+        <p style={{
+          fontFamily: F.sans, fontSize: '1.05rem', color: C.muted,
+          lineHeight: 1.75, maxWidth: '440px', marginBottom: '2.5rem',
+        }}>
+          10 anos criando experiências na cozinha. Agora crio soluções em código —
+          com o mesmo cuidado de quem faz mise en place. Automações com IA,
+          desenvolvimento web e suporte técnico.
+        </p>
+
+        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+          <a
+            href="#projetos"
+            style={{
+              fontFamily: F.mono, fontSize: '0.7rem', color: C.ink,
+              background: C.paper, padding: '0.9rem 1.8rem',
+              textDecoration: 'none', letterSpacing: '0.12em', textTransform: 'uppercase' as const, transition: 'all 0.25s',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.background = C.red; e.currentTarget.style.color = C.paper; }}
+            onMouseLeave={e => { e.currentTarget.style.background = C.paper; e.currentTarget.style.color = C.ink; }}
+          >Ver Projetos</a>
+          <a
+            href="#contato"
+            style={{
+              fontFamily: F.mono, fontSize: '0.7rem', color: C.paper,
+              border: `1px solid ${C.borderStrong}`, padding: '0.9rem 1.8rem',
+              textDecoration: 'none', letterSpacing: '0.12em', textTransform: 'uppercase' as const, transition: 'all 0.25s',
+            }}
+            onMouseEnter={e => { e.currentTarget.style.borderColor = C.paper; }}
+            onMouseLeave={e => { e.currentTarget.style.borderColor = C.borderStrong; }}
+          >Contato</a>
+        </div>
+
+        {/* Decorative elements */}
+        <div style={{ position: 'absolute', left: 0, top: '6rem', bottom: '2rem', width: '1px', background: C.border }} />
+        <div style={{
+          position: 'absolute', bottom: '2.5rem', left: '2.5rem',
+          fontFamily: F.mono, fontSize: '0.55rem', color: C.dimmed,
+          letterSpacing: '0.2em', display: 'flex', alignItems: 'center', gap: '0.5rem',
+        }}>
+          <div style={{ width: '20px', height: '1px', background: C.dimmed }} />
+          SCROLL ↓
+        </div>
+      </div>
+
+      {/* Right: Photo */}
+      <div style={{ position: 'relative', overflow: 'hidden', background: '#0a0a0a' }}>
+        <img
+          src={heitorPhoto} alt="Heitor Rafael Bezerra Delfino"
+          style={{
+            width: '100%', height: '100%',
+            objectFit: 'cover', objectPosition: 'center top',
+            filter: 'grayscale(12%) contrast(1.08)',
+          }}
+        />
+        <div style={{
+          position: 'absolute', inset: 0,
+          background: 'linear-gradient(to right, rgba(13,13,13,0.55) 0%, rgba(13,13,13,0.1) 40%, transparent 65%)',
+        }} />
+        <div style={{
+          position: 'absolute', bottom: '1.75rem', right: '1.75rem',
+          fontFamily: F.mono, fontSize: '0.58rem', color: C.muted,
+          letterSpacing: '0.15em', background: 'rgba(13,13,13,0.75)',
+          border: `1px solid ${C.borderMid}`, padding: '0.5rem 0.8rem',
+        }}>
+          FIG. 01 — H.R.B. DELFINO, 30
+        </div>
+        <div style={{
+          position: 'absolute', top: '8rem', right: '1.5rem',
+          fontFamily: F.mono, fontSize: '0.52rem', color: C.dimmed,
+          letterSpacing: '0.2em', writingMode: 'vertical-rl' as const,
+        }}>
+          DEV · AUTOMAÇÃO · SUPORTE
+        </div>
+        <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: '1px', background: C.border }} />
+      </div>
+    </section>
+  );
+}
+
+// ── Project Card ───────────────────────────────────────────────────────────────
+interface ProjectProps {
+  number: string;
+  name: string;
+  description: string;
+  stack: string[];
+  images?: ImgItem[];
+  status?: string;
+  progress?: number;
+  stage?: ProjectStage;
+  lastUpdate?: string;
+  wide?: boolean;
+  noImage?: boolean;
+  projectPath?: string;
+}
+
+function ProjectCard({ number, name, description, stack, images, status = 'Concluído', progress, stage, wide = false, noImage = false, projectPath }: ProjectProps) {
+  const [modal, setModal] = useState<number | null>(null);
+  const [hovered, setHovered] = useState(false);
+  const [imgIdx, setImgIdx] = useState(0);
+  const { ref: progressRef, visible: progressVisible } = useReveal(0.15);
+
+  useEffect(() => {
+    if (!images || images.length <= 1) return;
+    const t = setInterval(() => setImgIdx(i => (i + 1) % images.length), 3200);
+    return () => clearInterval(t);
+  }, [images]);
+
+  const statusColor = stage ? STAGE_COLORS[stage] : (status === 'Concluído' ? C.paper : status === 'Protótipo' ? '#888' : C.red);
+
+  return (
+    <>
+      {modal !== null && images && (
+        <ImageModal images={images} initialIndex={modal} onClose={() => setModal(null)} />
+      )}
+      <div
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
+        style={{
+          gridColumn: wide ? 'span 2' : 'span 1',
+          border: `1px solid ${hovered ? C.borderMid : C.border}`,
+          background: hovered ? 'rgba(242,239,231,0.02)' : 'transparent',
+          transition: 'all 0.35s ease',
+          overflow: 'hidden',
+          display: 'flex', flexDirection: 'column',
+        }}
+      >
+        {images && !noImage ? (
+          <div
+            onClick={() => setModal(imgIdx)}
+            style={{
+              aspectRatio: wide ? '21/9' : '16/9',
+              position: 'relative', overflow: 'hidden',
+              background: '#111', cursor: 'zoom-in',
+            }}
+          >
+            <img
+              src={images[imgIdx].src} alt={images[imgIdx].alt}
+              style={{
+                width: '100%', height: '100%', objectFit: 'cover',
+                filter: `grayscale(${hovered ? 0 : 22}%) contrast(1.06)`,
+                transform: hovered ? 'scale(1.03)' : 'scale(1)',
+                transition: 'all 0.7s ease',
+              }}
+            />
+            <div style={{
+              position: 'absolute', inset: 0,
+              background: 'linear-gradient(transparent 55%, rgba(13,13,13,0.85))',
+              pointerEvents: 'none',
+            }} />
+            <div style={{
+              position: 'absolute', bottom: '0.75rem', left: '1rem',
+              fontFamily: F.mono, fontSize: '0.57rem', color: C.muted, letterSpacing: '0.12em',
+            }}>
+              {imgIdx + 1}/{images.length} — clique para ampliar
+            </div>
+            {images.length > 1 && (
+              <div style={{ position: 'absolute', bottom: '0.65rem', right: '0.85rem', display: 'flex', gap: '4px' }}>
+                {images.map((_, i) => (
+                  <div key={i} style={{
+                    height: '2px', width: i === imgIdx ? '18px' : '4px',
+                    background: i === imgIdx ? C.paper : C.dimmed,
+                    transition: 'width 0.4s ease',
+                  }} />
+                ))}
+              </div>
+            )}
+          </div>
+        ) : (
+          <div style={{
+            aspectRatio: '16/9', background: 'rgba(242,239,231,0.025)',
+            display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+            gap: '0.75rem', borderBottom: `1px solid ${C.border}`,
+          }}>
+            <div style={{ fontFamily: F.mono, fontSize: '2.5rem', color: C.dimmed }}>◈</div>
+            <div style={{ fontFamily: F.mono, fontSize: '0.6rem', color: C.dimmed, letterSpacing: '0.2em' }}>
+              APLICAÇÃO DESKTOP / WEB
+            </div>
+          </div>
+        )}
+
+        <div style={{ padding: '1.5rem 1.75rem', flex: 1 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
+            <span style={{ fontFamily: F.mono, fontSize: '0.6rem', color: C.dimmed, letterSpacing: '0.2em' }}>{number}</span>
+            <span style={{
+              fontFamily: F.mono, fontSize: '0.55rem', color: statusColor,
+              border: `1px solid ${statusColor}`, padding: '2px 8px', letterSpacing: '0.12em',
+            }}>{status}</span>
+          </div>
+          <h3 style={{ fontFamily: F.serif, fontSize: '1.5rem', fontWeight: 700, color: C.paper, marginBottom: '0.65rem', letterSpacing: '-0.01em' }}>
+            {name}
+          </h3>
+          <p style={{ fontFamily: F.sans, fontSize: '0.875rem', color: C.muted, lineHeight: 1.7, marginBottom: '1.25rem' }}>
+            {description}
+          </p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.4rem' }}>
+            {stack.map(tag => (
+              <span key={tag} style={{
+                fontFamily: F.mono, fontSize: '0.58rem', color: C.dimmed,
+                border: `1px solid ${C.border}`, padding: '3px 8px', letterSpacing: '0.1em',
+              }}>{tag}</span>
+            ))}
+          </div>
+
+          {projectPath && (
+            <div style={{ marginTop: '1.25rem', paddingTop: '1.25rem', borderTop: `1px solid ${C.border}` }}>
+              <Link
+                to={projectPath}
+                style={{
+                  fontFamily: F.mono, fontSize: '0.62rem', color: C.muted,
+                  letterSpacing: '0.15em', textDecoration: 'none',
+                  display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+                  transition: 'color 0.2s',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.color = C.paper)}
+                onMouseLeave={e => (e.currentTarget.style.color = C.muted)}
+              >
+                VER PÁGINA DO PROJETO →
+              </Link>
+            </div>
+          )}
+
+          {stage && (
+            <div ref={progressRef} style={{ marginTop: '1.25rem', paddingTop: '1.25rem', borderTop: `1px solid ${C.border}` }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', marginBottom: '0.65rem' }}>
+                {STAGE_ORDER.map((s, i) => {
+                  const stageIdx = STAGE_ORDER.indexOf(stage);
+                  const isPast = i < stageIdx;
+                  const isCurrent = i === stageIdx;
+                  return (
+                    <div key={s} style={{ display: 'flex', alignItems: 'flex-start', flex: i < STAGE_ORDER.length - 1 ? 1 : 0 }}>
+                      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px' }}>
+                        <div style={{
+                          width: isCurrent ? '7px' : '5px', height: isCurrent ? '7px' : '5px',
+                          borderRadius: '50%', flexShrink: 0,
+                          background: isCurrent ? STAGE_COLORS[s] : isPast ? C.dimmed : 'transparent',
+                          border: `1px solid ${isCurrent ? STAGE_COLORS[s] : isPast ? C.dimmed : C.border}`,
+                          transition: 'all 0.2s',
+                        }} />
+                        <span style={{
+                          fontFamily: F.mono, fontSize: '0.38rem', letterSpacing: '0.05em', textAlign: 'center' as const,
+                          color: isCurrent ? STAGE_COLORS[s] : isPast ? C.dimmed : 'rgba(242,239,231,0.1)',
+                        }}>{STAGE_LABELS[s]}</span>
+                      </div>
+                      {i < STAGE_ORDER.length - 1 && (
+                        <div style={{ flex: 1, height: '1px', background: isPast ? C.dimmed : C.border, margin: '2px 3px 0' }} />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+              {progress !== undefined && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+                  <div style={{ flex: 1, height: '1px', background: C.border, position: 'relative' }}>
+                    <div style={{
+                      position: 'absolute', inset: '0 auto 0 0',
+                      width: progressVisible ? `${progress}%` : '0%',
+                      background: STAGE_COLORS[stage],
+                      transition: 'width 1.2s ease 0.3s',
+                    }} />
+                  </div>
+                  <span style={{ fontFamily: F.mono, fontSize: '0.55rem', color: STAGE_COLORS[stage] }}>{progress}%</span>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      </div>
+    </>
+  );
+}
+
+// ── Projects ───────────────────────────────────────────────────────────────────
+function Projects() {
+  const { ref, visible } = useReveal();
+
+  const projects: ProjectProps[] = [
+    {
+      number: '01', wide: true,
+      name: 'Sistema de Gestão de Tempo',
+      description: 'Plataforma web completa para gestão de tempo e produtividade. Dashboard com métricas em tempo real, controle de tarefas, relatórios gerenciais e painel administrativo multi-usuário.',
+      stack: ['React', 'Node.js', 'PostgreSQL', 'JWT', 'Express', 'REST API'],
+      images: imageMetadata, status: 'Live', stage: 'live', progress: 100, lastUpdate: '2026-02-10',
+      projectPath: '/projetos/sistema-gestao-tempo',
+    },
+    {
+      number: '02',
+      name: 'FungiFresh',
+      description: 'Protótipo de e-commerce para cogumelos artesanais. Design system, fluxo de compra completo e identidade visual desenvolvidos inteiramente no Figma.',
+      stack: ['Figma', 'UX/UI', 'Design System', 'Prototipagem'],
+      images: fungiFreshImageMetadata, status: 'Protótipo', stage: 'prototipo', progress: 100, lastUpdate: '2026-03-15',
+      projectPath: '/projetos/fungifresh',
+    },
+    {
+      number: '03', noImage: true,
+      name: 'Vendinha — PDV Desktop',
+      description: 'App de ponto de venda para Windows. Controle de estoque, registro de vendas e relatórios — desenvolvido em Electron para uso offline em comércio local.',
+      stack: ['Electron', 'React', 'TypeScript', 'SQLite', 'Node.js'],
+      status: 'Beta', stage: 'beta', progress: 45, lastUpdate: '2026-04-24',
+      projectPath: '/projetos/vendinha',
+    },
+    {
+      number: '04', noImage: true,
+      name: 'AtaFácil',
+      description: 'Sistema full-stack de gestão de tarefas com autenticação, upload de PDFs e API REST. Backend Node.js com banco relacional e painel de controle.',
+      stack: ['React', 'Node.js', 'PostgreSQL', 'Multer', 'JWT'],
+      status: 'Em dev', stage: 'dev', progress: 35, lastUpdate: '2026-04-24',
+      projectPath: '/projetos/atafacil',
+    },
+  ];
+
+  return (
+    <section id="projetos" style={{ background: C.ink, padding: '6rem 2.5rem', borderTop: `1px solid ${C.border}` }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
+        <div
+          ref={ref}
+          style={{ opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(40px)', transition: 'all 0.9s ease' }}
+        >
+          <SectionTag number="02" label="Projetos" />
+          <h2 style={{ fontFamily: F.serif, fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', fontWeight: 700, color: C.paper, letterSpacing: '-0.025em', lineHeight: 1, marginBottom: '0.75rem' }}>
+            Projetos
+          </h2>
+          <p style={{ fontFamily: F.sans, fontSize: '0.95rem', color: C.muted, maxWidth: '480px', lineHeight: 1.65, marginBottom: '3.5rem' }}>
+            Trabalhos que combinam design, código e resolução de problemas reais.
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '1px', background: C.border }}>
+            {projects.map(p => <ProjectCard key={p.number} {...p} />)}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── Build Status ───────────────────────────────────────────────────────────────
+function BuildStatus() {
+  const { ref, visible } = useReveal();
+
+  const entries = [
+    { name: 'Sistema de Gestão de Tempo', stage: 'live'      as ProjectStage, progress: 100, lastUpdate: '2026-02-10', desc: 'Plataforma web de produtividade' },
+    { name: 'Vendinha — PDV Desktop',     stage: 'beta'      as ProjectStage, progress: 45,  lastUpdate: '2026-04-24', desc: 'App Electron para comércio local' },
+    { name: 'FungiFresh',                 stage: 'prototipo' as ProjectStage, progress: 100, lastUpdate: '2026-03-15', desc: 'Protótipo Figma completo de e-commerce' },
+    { name: 'AtaFácil',                   stage: 'dev'       as ProjectStage, progress: 35,  lastUpdate: '2026-04-24', desc: 'Sistema full-stack de gestão de tarefas' },
+  ].sort((a, b) => {
+    const wa = STAGE_ORDER.indexOf(a.stage);
+    const wb = STAGE_ORDER.indexOf(b.stage);
+    return wa !== wb ? wb - wa : b.progress - a.progress;
+  });
+
+  return (
+    <section id="status" style={{ background: '#080808', padding: '6rem 2.5rem', borderTop: `1px solid ${C.border}` }}>
+      <div
+        ref={ref}
+        style={{ maxWidth: '1200px', margin: '0 auto', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(40px)', transition: 'all 0.9s ease' }}
+      >
+        <SectionTag number="03" label="Build Status" />
+
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '1rem' }}>
+          <div>
+            <h2 style={{ fontFamily: F.serif, fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', fontWeight: 700, color: C.paper, letterSpacing: '-0.025em', lineHeight: 1, marginBottom: '0.75rem' }}>
+              Build Status
+            </h2>
+            <p style={{ fontFamily: F.sans, fontSize: '0.95rem', color: C.muted, lineHeight: 1.65 }}>
+              Ranking dos projetos — do conceito ao ar. Acompanhe a evolução em tempo real.
+            </p>
+          </div>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexShrink: 0 }}>
+            <div style={{ width: '6px', height: '6px', borderRadius: '50%', background: C.red, animation: 'statusPulse 2s ease-in-out infinite' }} />
+            <span style={{ fontFamily: F.mono, fontSize: '0.53rem', color: C.muted, letterSpacing: '0.15em' }}>LIVE · APR 2026</span>
+          </div>
+        </div>
+
+        {/* Pipeline legend */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', marginBottom: '2.5rem', gap: 0 }}>
+          {STAGE_ORDER.map((s, i) => (
+            <div key={s} style={{ display: 'flex', alignItems: 'center' }}>
+              <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '3px' }}>
+                <div style={{ width: '5px', height: '5px', borderRadius: '50%', background: STAGE_COLORS[s] }} />
+                <span style={{ fontFamily: F.mono, fontSize: '0.42rem', color: STAGE_COLORS[s], letterSpacing: '0.08em' }}>{STAGE_LABELS[s]}</span>
+              </div>
+              {i < STAGE_ORDER.length - 1 && (
+                <div style={{ width: '48px', height: '1px', background: C.border, margin: '0 4px', marginBottom: '10px' }} />
+              )}
+            </div>
+          ))}
+        </div>
+
+        {/* Ranking rows */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1px', background: C.border }}>
+          {entries.map(({ name, stage, progress, lastUpdate, desc }, i) => {
+            const stageColor = STAGE_COLORS[stage];
+            const isActive = stage === 'dev' || stage === 'beta';
+            const isTop = i === 0;
+            return (
+              <div
+                key={name}
+                style={{
+                  background: '#080808',
+                  padding: '1.4rem 1.75rem',
+                  display: 'grid',
+                  gridTemplateColumns: '3.5rem 1fr 200px 86px',
+                  gap: '1.5rem',
+                  alignItems: 'center',
+                  transition: 'background 0.2s',
+                }}
+                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(242,239,231,0.025)'; }}
+                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = '#080808'; }}
+              >
+                {/* Rank */}
+                <div style={{
+                  fontFamily: F.mono, fontSize: '1.6rem', fontWeight: 900, lineHeight: 1, textAlign: 'right' as const,
+                  color: isTop ? C.paper : C.dimmed,
+                }}>
+                  {String(i + 1).padStart(2, '0')}
+                </div>
+
+                {/* Name + desc */}
+                <div>
+                  <div style={{ fontFamily: F.sans, fontSize: '1rem', color: C.paper, fontWeight: 600, marginBottom: '0.2rem' }}>{name}</div>
+                  <div style={{ fontFamily: F.mono, fontSize: '0.53rem', color: C.dimmed, letterSpacing: '0.1em' }}>{desc}</div>
+                </div>
+
+                {/* Progress bar */}
+                <div>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.4rem' }}>
+                    <span style={{ fontFamily: F.mono, fontSize: '0.48rem', color: C.dimmed, letterSpacing: '0.08em' }}>upd. {lastUpdate}</span>
+                    <span style={{ fontFamily: F.mono, fontSize: '0.55rem', color: stageColor, fontWeight: 600 }}>{progress}%</span>
+                  </div>
+                  <div style={{ height: '2px', background: C.border, position: 'relative' }}>
+                    <div style={{
+                      position: 'absolute', inset: '0 auto 0 0',
+                      width: visible ? `${progress}%` : '0%',
+                      background: stageColor,
+                      transition: `width 1.4s ease ${i * 0.18}s`,
+                    }} />
+                  </div>
+                </div>
+
+                {/* Stage badge */}
+                <div style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem',
+                  fontFamily: F.mono, fontSize: '0.53rem', letterSpacing: '0.15em',
+                  color: stageColor, border: `1px solid ${stageColor}`, padding: '4px 8px',
+                }}>
+                  {isActive && (
+                    <div style={{
+                      width: '5px', height: '5px', borderRadius: '50%',
+                      background: stageColor, flexShrink: 0,
+                      animation: 'statusPulse 1.8s ease-in-out infinite',
+                    }} />
+                  )}
+                  {STAGE_LABELS[stage]}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div style={{ marginTop: '1.25rem', display: 'flex', justifyContent: 'flex-end' }}>
+          <span style={{ fontFamily: F.mono, fontSize: '0.48rem', color: C.dimmed, letterSpacing: '0.1em' }}>
+            progresso atualizado manualmente · versionamento semântico
+          </span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── About ──────────────────────────────────────────────────────────────────────
+function About() {
+  const { ref, visible } = useReveal();
+
+  return (
+    <section id="sobre" style={{ background: C.paper, padding: '6rem 2.5rem' }}>
+      <div
+        ref={ref}
+        style={{ maxWidth: '1200px', margin: '0 auto', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(40px)', transition: 'all 0.9s ease' }}
+      >
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '5rem', alignItems: 'start' }}>
+          <div>
+            <div style={{ fontFamily: F.mono, fontSize: '0.6rem', color: C.red, letterSpacing: '0.2em', marginBottom: '0.5rem' }}>
+              [04] ── SOBRE MIM
+            </div>
+            <h2 style={{ fontFamily: F.serif, fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', fontWeight: 700, color: C.ink, lineHeight: 1.05, letterSpacing: '-0.02em', marginBottom: '2rem' }}>
+              Da cozinha<br /><em>ao código</em>
+            </h2>
+            {[
+              'Passei 10 anos como chef e professor de gastronomia. Aprendi que cozinhar bem não é sobre seguir receitas — é sobre entender sistemas, antecipar problemas e entregar experiências consistentes. Exatamente o que faço hoje com código.',
+              'A transição para tecnologia não foi acidente. Sempre fui a pessoa que resolvia o problema dos outros — na brigada de cozinha, na sala de aula, no suporte técnico. Descobri na IA uma ferramenta que multiplica essa capacidade.',
+              'Hoje trabalho com suporte técnico em ERP/PDV na GenPac, desenvolvo projetos próprios e exploro automações com IA. Cursando ADS na FATEC. Construindo — com consistência.',
+            ].map((text, i) => (
+              <p key={i} style={{ fontFamily: F.sans, fontSize: '0.975rem', color: '#3a3a3a', lineHeight: 1.8, marginBottom: '1rem' }}>{text}</p>
+            ))}
+
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1px', background: 'rgba(13,13,13,0.1)', marginTop: '2.5rem' }}>
+              {[
+                { l: 'Localização',     v: 'Praia Grande, SP' },
+                { l: 'Disponibilidade', v: 'Freelance & CLT' },
+                { l: 'Foco atual',      v: 'Dev Web & Automações IA' },
+                { l: 'Background',      v: '10 anos Gastronomia' },
+                { l: 'Idiomas',         v: 'PT · EN (passive)' },
+                { l: 'Email',           v: 'heitorbdelfino@gmail.com' },
+              ].map(({ l, v }) => (
+                <div key={l} style={{ background: C.paper, padding: '0.9rem 1rem', borderTop: '1px solid rgba(13,13,13,0.07)' }}>
+                  <div style={{ fontFamily: F.mono, fontSize: '0.55rem', color: '#aaa', letterSpacing: '0.15em', marginBottom: '0.25rem' }}>{l}</div>
+                  <div style={{ fontFamily: F.sans, fontSize: '0.82rem', color: C.ink, fontWeight: 500 }}>{v}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <div style={{ marginBottom: '3rem' }}>
+              <div style={{ fontFamily: F.mono, fontSize: '0.6rem', color: '#aaa', letterSpacing: '0.2em', borderBottom: '1px solid rgba(13,13,13,0.1)', paddingBottom: '0.65rem', marginBottom: '1.75rem' }}>
+                FORMAÇÃO ACADÊMICA
+              </div>
+              {[
+                { year: '2025+', title: 'Análise e Desenvolvimento de Sistemas', place: 'FATEC — cursando' },
+                { year: '2018',  title: 'Tecnólogo em Gastronomia', place: 'HOTEC' },
+              ].map(({ year, title, place }) => (
+                <div key={year} style={{ display: 'flex', gap: '1.5rem', marginBottom: '1.5rem' }}>
+                  <div style={{ fontFamily: F.mono, fontSize: '0.65rem', color: C.red, minWidth: '3rem', paddingTop: '0.2rem' }}>{year}</div>
+                  <div>
+                    <div style={{ fontFamily: F.sans, fontWeight: 600, color: C.ink, fontSize: '0.9rem', marginBottom: '0.2rem' }}>{title}</div>
+                    <div style={{ fontFamily: F.mono, fontSize: '0.6rem', color: '#999', letterSpacing: '0.1em' }}>{place}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div>
+              <div style={{ fontFamily: F.mono, fontSize: '0.6rem', color: '#aaa', letterSpacing: '0.2em', borderBottom: '1px solid rgba(13,13,13,0.1)', paddingBottom: '0.65rem', marginBottom: '1.75rem' }}>
+                COMPETÊNCIAS TRANSFERÍVEIS
+              </div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '0.65rem' }}>
+                {[
+                  ['🧩', 'Resolução de problemas complexos sob pressão'],
+                  ['🎯', 'Liderança e gestão de equipes'],
+                  ['📐', 'Atenção a detalhes e padronização de processos'],
+                  ['🤖', 'Automações avançadas com IA (Claude, n8n)'],
+                  ['🗣️', 'Didática e comunicação técnica acessível'],
+                  ['🔄', 'Adaptabilidade e aprendizado acelerado'],
+                ].map(([icon, text]) => (
+                  <div key={text} style={{ display: 'flex', gap: '0.8rem', alignItems: 'flex-start', fontFamily: F.sans, fontSize: '0.875rem', color: '#4a4a4a', lineHeight: 1.5 }}>
+                    <span>{icon}</span>{text}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── Skills ─────────────────────────────────────────────────────────────────────
+function Skills() {
+  const { ref, visible } = useReveal();
+
+  const skills = [
+    { name: 'HTML / CSS',        level: 85, icon: '🌐', cat: 'Frontend' },
+    { name: 'JavaScript',        level: 75, icon: '⚡', cat: 'Frontend' },
+    { name: 'React',             level: 72, icon: '⚛️', cat: 'Frontend' },
+    { name: 'TypeScript',        level: 58, icon: '📘', cat: 'Frontend' },
+    { name: 'Node.js',           level: 65, icon: '🟢', cat: 'Backend' },
+    { name: 'PostgreSQL',        level: 60, icon: '🗃️', cat: 'Backend' },
+    { name: 'Python',            level: 62, icon: '🐍', cat: 'Backend' },
+    { name: 'REST API',          level: 70, icon: '🔌', cat: 'Backend' },
+    { name: 'Git / GitHub',      level: 72, icon: '🌿', cat: 'Ferramentas' },
+    { name: 'Figma',             level: 65, icon: '🎨', cat: 'Ferramentas' },
+    { name: 'Electron',          level: 52, icon: '💻', cat: 'Ferramentas' },
+    { name: 'Claude IA / n8n',   level: 90, icon: '🤖', cat: 'IA & Auto.' },
+  ];
+
+  return (
+    <section id="skills" style={{ background: C.ink, padding: '6rem 2.5rem', borderTop: `1px solid ${C.border}` }}>
+      <div
+        ref={ref}
+        style={{ maxWidth: '1200px', margin: '0 auto', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(40px)', transition: 'all 0.9s ease' }}
+      >
+        <SectionTag number="05" label="Skills" />
+        <h2 style={{ fontFamily: F.serif, fontSize: 'clamp(2.5rem, 5vw, 4.5rem)', fontWeight: 700, color: C.paper, letterSpacing: '-0.025em', lineHeight: 1, marginBottom: '0.75rem' }}>
+          Skills
+        </h2>
+        <p style={{ fontFamily: F.sans, fontSize: '0.95rem', color: C.muted, maxWidth: '480px', lineHeight: 1.65, marginBottom: '3.5rem' }}>
+          Ferramentas e tecnologias — com honestidade sobre o nível de cada uma.
+        </p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '1px', background: C.border }}>
+          {skills.map(({ name, level, icon, cat }, index) => (
+            <div key={name} style={{ padding: '1.5rem 1.75rem', background: C.ink }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.6rem' }}>
+                <div style={{ display: 'flex', gap: '0.65rem', alignItems: 'center' }}>
+                  <span style={{ fontSize: '1rem' }}>{icon}</span>
+                  <span style={{ fontFamily: F.sans, fontSize: '0.875rem', color: C.paper, fontWeight: 500 }}>{name}</span>
+                </div>
+                <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '2px' }}>
+                  <span style={{ fontFamily: F.mono, fontSize: '0.6rem', color: C.muted }}>{level}%</span>
+                  <span style={{ fontFamily: F.mono, fontSize: '0.5rem', color: C.dimmed, letterSpacing: '0.08em' }}>{cat}</span>
+                </div>
+              </div>
+              <div style={{ height: '2px', background: C.border, position: 'relative' }}>
+                <div style={{
+                  position: 'absolute', left: 0, top: 0, bottom: 0,
+                  width: visible ? `${level}%` : '0%',
+                  background: level >= 85 ? C.red : C.paper,
+                  transition: `width 1.3s ease ${index * 0.06}s`,
+                }} />
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── Experience ─────────────────────────────────────────────────────────────────
+function Experience() {
+  const { ref, visible } = useReveal();
+
+  const entries = [
+    { period: 'Mar/2026 — atual', role: 'Suporte Técnico', company: 'GenPac', type: 'tech' as const, desc: 'Suporte em sistemas ERP e PDV. Diagnóstico, atendimento e resolução de problemas técnicos em ambiente corporativo.' },
+    { period: '2024 — 2026', role: 'Desenvolvedor (Projetos Próprios)', company: 'Freelance / Autônomo', type: 'tech' as const, desc: 'Desenvolvimento de aplicações web e desktop: portfolio, PDV Vendinha, sistemas de gestão de tempo, automações com IA.' },
+    { period: '2022 — 2024', role: 'Professor de Gastronomia', company: 'Instituições de Ensino', type: 'gastro' as const, desc: 'Docência em cursos técnicos e superiores. Planejamento pedagógico, desenvolvimento de material didático e orientação de alunos.' },
+    { period: '2014 — 2022', role: 'Chef / Cozinheiro Profissional', company: 'Restaurantes & Eventos', type: 'gastro' as const, desc: '10 anos criando experiências gastronômicas. Gestão de brigada, mise en place, controle de qualidade — base para tudo que faço hoje.' },
+  ];
+
+  return (
+    <section style={{ background: C.paper, padding: '6rem 2.5rem', borderTop: '1px solid rgba(13,13,13,0.08)' }}>
+      <div
+        ref={ref}
+        style={{ maxWidth: '800px', margin: '0 auto', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(40px)', transition: 'all 0.9s ease' }}
+      >
+        <div style={{ fontFamily: F.mono, fontSize: '0.6rem', color: C.red, letterSpacing: '0.2em', marginBottom: '0.5rem' }}>
+          [06] ── TRAJETÓRIA
+        </div>
+        <h2 style={{ fontFamily: F.serif, fontSize: 'clamp(2.2rem, 4vw, 3.2rem)', fontWeight: 700, color: C.ink, letterSpacing: '-0.02em', lineHeight: 1.05, marginBottom: '3.5rem' }}>
+          Experiência
+        </h2>
+
+        <div style={{ position: 'relative' }}>
+          <div style={{ position: 'absolute', left: '6.5rem', top: 0, bottom: 0, width: '1px', background: 'rgba(13,13,13,0.1)' }} />
+          {entries.map(({ period, role, company, type, desc }) => (
+            <div key={role} style={{ display: 'flex', gap: '1.75rem', marginBottom: '3rem', position: 'relative' }}>
+              <div style={{ minWidth: '5.5rem', textAlign: 'right', fontFamily: F.mono, fontSize: '0.57rem', color: type === 'tech' ? C.red : '#aaa', letterSpacing: '0.06em', lineHeight: 1.5, paddingTop: '0.3rem' }}>
+                {period}
+              </div>
+              <div style={{ width: '9px', height: '9px', borderRadius: '50%', flexShrink: 0, background: type === 'tech' ? C.red : '#ccc', border: `2px solid ${C.paper}`, marginTop: '0.4rem', position: 'relative', zIndex: 1 }} />
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.65rem', marginBottom: '0.2rem' }}>
+                  <h3 style={{ fontFamily: F.sans, fontWeight: 600, fontSize: '1rem', color: C.ink }}>{role}</h3>
+                  <span style={{ fontFamily: F.mono, fontSize: '0.5rem', color: type === 'tech' ? C.red : '#bbb', border: `1px solid ${type === 'tech' ? C.red : '#ddd'}`, padding: '1px 6px', letterSpacing: '0.1em' }}>
+                    {type === 'tech' ? 'TECH' : 'GASTRO 🍴'}
+                  </span>
+                </div>
+                <div style={{ fontFamily: F.mono, fontSize: '0.6rem', color: '#aaa', letterSpacing: '0.1em', marginBottom: '0.65rem' }}>{company}</div>
+                <p style={{ fontFamily: F.sans, fontSize: '0.875rem', color: '#555', lineHeight: 1.7 }}>{desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── Contact ────────────────────────────────────────────────────────────────────
+function Contact() {
+  const { ref, visible } = useReveal();
+
+  const socials = [
+    { label: '@_raffinoh_',          sub: 'Instagram Tech & IA',   href: 'https://instagram.com/_raffinoh_',          icon: '⚙️' },
+    { label: '@heitordelfino_',      sub: 'Instagram Pessoal',     href: 'https://instagram.com/heitordelfino_',      icon: '📸' },
+    { label: '@chef_heitordelfino_', sub: 'Instagram Gastronomia', href: 'https://instagram.com/chef_heitordelfino_', icon: '🍴' },
+    { label: 'LinkedIn',             sub: 'Perfil Profissional',   href: 'https://linkedin.com/in/heitordelfino',    icon: '💼' },
+    { label: 'GitHub',               sub: 'Repositórios',         href: 'https://github.com/heitordelfino',         icon: '⌨️' },
+  ];
+
+  return (
+    <section id="contato" style={{ background: C.ink, padding: '6rem 2.5rem', borderTop: `1px solid ${C.border}` }}>
+      <div
+        ref={ref}
+        style={{ maxWidth: '1200px', margin: '0 auto', opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(40px)', transition: 'all 0.9s ease' }}
+      >
+        <div style={{ borderBottom: `1px solid ${C.border}`, paddingBottom: '3.5rem', marginBottom: '3.5rem' }}>
+          <div style={{ fontFamily: F.mono, fontSize: '0.6rem', color: C.red, letterSpacing: '0.2em', marginBottom: '1rem' }}>
+            [07] ── CONTATO
+          </div>
+          <h2 style={{ fontFamily: F.serif, fontWeight: 900, fontSize: 'clamp(3rem, 7vw, 6.5rem)', color: C.paper, lineHeight: 0.9, letterSpacing: '-0.03em', marginBottom: '1.5rem' }}>
+            Vamos<br /><em style={{ color: C.cream }}>conversar?</em>
+          </h2>
+          <p style={{ fontFamily: F.sans, fontSize: '1.05rem', color: C.muted, maxWidth: '500px', lineHeight: 1.75 }}>
+            Aberto a projetos freelance, oportunidades CLT, consultorias e trocas de ideia. Respondo rápido.
+          </p>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem' }}>
+          <div>
+            <div style={{ fontFamily: F.mono, fontSize: '0.58rem', color: C.muted, letterSpacing: '0.2em', marginBottom: '1.25rem' }}>CONTATO DIRETO</div>
+            <a
+              href="mailto:heitorbdelfino@gmail.com"
+              style={{ display: 'block', fontFamily: F.serif, fontSize: 'clamp(0.95rem, 1.8vw, 1.3rem)', color: C.paper, textDecoration: 'none', borderBottom: `1px solid ${C.border}`, paddingBottom: '1.25rem', marginBottom: '1.75rem', transition: 'color 0.2s' }}
+              onMouseEnter={e => e.currentTarget.style.color = C.cream}
+              onMouseLeave={e => e.currentTarget.style.color = C.paper}
+            >heitorbdelfino@gmail.com →</a>
+            <a
+              href="https://wa.me/5513999999999?text=Oi%20Heitor%2C%20vi%20seu%20portf%C3%B3lio!"
+              target="_blank" rel="noopener noreferrer"
+              style={{ fontFamily: F.mono, fontSize: '0.7rem', color: C.ink, background: C.paper, padding: '0.85rem 1.5rem', textDecoration: 'none', letterSpacing: '0.12em', textTransform: 'uppercase' as const, transition: 'all 0.2s', display: 'inline-block' }}
+              onMouseEnter={e => { e.currentTarget.style.background = C.red; e.currentTarget.style.color = C.paper; }}
+              onMouseLeave={e => { e.currentTarget.style.background = C.paper; e.currentTarget.style.color = C.ink; }}
+            >💬 WhatsApp</a>
+          </div>
+
+          <div>
+            <div style={{ fontFamily: F.mono, fontSize: '0.58rem', color: C.muted, letterSpacing: '0.2em', marginBottom: '1.25rem' }}>REDES SOCIAIS</div>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1px', background: C.border }}>
+              {socials.map(({ label, sub, href, icon }) => (
+                <a
+                  key={label} href={href} target="_blank" rel="noopener noreferrer"
+                  style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '0.9rem 1.1rem', background: C.ink, textDecoration: 'none', transition: 'background 0.2s' }}
+                  onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(242,239,231,0.04)'; }}
+                  onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = C.ink; }}
+                >
+                  <div style={{ display: 'flex', gap: '0.8rem', alignItems: 'center' }}>
+                    <span style={{ fontSize: '1rem' }}>{icon}</span>
+                    <div>
+                      <div style={{ fontFamily: F.sans, fontSize: '0.875rem', color: C.paper, fontWeight: 500 }}>{label}</div>
+                      <div style={{ fontFamily: F.mono, fontSize: '0.55rem', color: C.muted, letterSpacing: '0.1em' }}>{sub}</div>
+                    </div>
+                  </div>
+                  <span style={{ fontFamily: F.mono, fontSize: '0.7rem', color: C.dimmed }}>→</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ── Footer ─────────────────────────────────────────────────────────────────────
+function Footer() {
+  return (
+    <footer style={{ background: '#080808', padding: '1.75rem 2.5rem', borderTop: `1px solid ${C.border}` }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+        <div style={{ fontFamily: F.mono, fontSize: '0.6rem', color: C.dimmed, letterSpacing: '0.15em' }}>© 2026 HEITOR DELFINO</div>
+        <div style={{ fontFamily: F.mono, fontSize: '0.6rem', color: C.dimmed, letterSpacing: '0.12em' }}>🍺 🍚 🍔 → {'<dev />'} — feito com código e café</div>
+        <div style={{ fontFamily: F.mono, fontSize: '0.6rem', color: C.dimmed, letterSpacing: '0.15em' }}>PRAIA GRANDE · SP</div>
+      </div>
+    </footer>
+  );
+}
+
+// ── App ────────────────────────────────────────────────────────────────────────
+export default function SimpleApp() {
+  return (
+    <div style={{ background: C.ink, minHeight: '100vh', color: C.paper }}>
+      <GrainOverlay />
+      <Header />
+      <Hero />
+      <Projects />
+      <BuildStatus />
+      <About />
+      <Skills />
+      <Experience />
+      <Contact />
+      <Footer />
+    </div>
+  );
+}

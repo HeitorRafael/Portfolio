@@ -1,0 +1,201 @@
+{
+  "projetos": [
+    {
+      "id": "atafacil",
+      "nome": "Atafacil - Gestor de Tarefas",
+      "descricao": "Aplicação web de gestão de tarefas com sincronização em tempo real e colaboração",
+      "progresso": 35,
+      "status": "Em Desenvolvimento",
+      "stack": [
+        "React (frontend)",
+        "Node.js + Express (backend)",
+        "MongoDB (banco de dados)",
+        "Socket.io (realtime)",
+        "TypeScript (tipagem)",
+        "JWT (autenticação)"
+      ],
+      "github": "https://github.com/HeitorRafael/Atafacil",
+      "ultimasAtualizacoes": [
+        {
+          "data": "2026-04-24",
+          "tipo": "feat",
+          "descricao": "setup inicial do projeto"
+        },
+        {
+          "data": "2026-04-15",
+          "tipo": "docs",
+          "descricao": "estrutura de API documentada"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Autenticação JWT"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "CRUD de tarefas"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Categorias e tags"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Prioridades e prazos"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Sincronização em tempo real (Socket.io)"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Compartilhamento de tarefas"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Notificações"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Mobile responsivo"
+        }
+      ]
+    },
+    {
+      "id": "portfolio",
+      "nome": "Portfolio - Hub Central de Projetos",
+      "descricao": "Portfólio pessoal que serve como hub central para exibir todos os projetos em desenvolvimento, progresso e novidades",
+      "progresso": 40,
+      "status": "Em Desenvolvimento",
+      "stack": [],
+      "github": "https://github.com/HeitorRafael/Portfolio",
+      "ultimasAtualizacoes": [
+        {
+          "data": "2026-04-24",
+          "tipo": "feat",
+          "descricao": "estrutura inicial clonada do repositório"
+        },
+        {
+          "data": "2026-04-24",
+          "tipo": "docs",
+          "descricao": "adicionado sistema de sincronização com projetos"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Dashboard de projetos com cards dinâmicos"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Medidor visual de progresso (0-100%)"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Integração com GitHub API para commits recentes"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Timeline de atualizações"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Filtro por stack e status"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Deploy automático"
+        },
+        {
+          "data": "Lê",
+          "tipo": "dados",
+          "descricao": "de `Projetos/*/` `.project.md`"
+        },
+        {
+          "data": "Sincroniza",
+          "tipo": "com",
+          "descricao": "`Portfolio/src/data/projetos.json`"
+        },
+        {
+          "data": "Atualiza",
+          "tipo": "automaticamente",
+          "descricao": "via webhook/script"
+        }
+      ]
+    },
+    {
+      "id": "vendinha",
+      "nome": "Vendinha - Sistema de PDV e Estoque",
+      "descricao": "Aplicação de PDV (Ponto de Venda) com gestão de estoque, integrada com Electron para desktop",
+      "progresso": 45,
+      "status": "Em Desenvolvimento",
+      "stack": [
+        "Electron (desktop)",
+        "React (UI)",
+        "TypeScript (tipagem)",
+        "Node.js (backend)",
+        "SQLite (banco local)"
+      ],
+      "github": "https://github.com/HeitorRafael/Vendinha",
+      "ultimasAtualizacoes": [
+        {
+          "data": "2026-04-24",
+          "tipo": "feat",
+          "descricao": "estrutura base do projeto criada"
+        },
+        {
+          "data": "2026-04-20",
+          "tipo": "docs",
+          "descricao": "configuração inicial do Electron + React"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Sistema de login com autenticação"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "CRUD completo de produtos"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Gestão de estoque com alertas"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Módulo de vendas/PDV"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Relatórios de vendas"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Backup automático de dados"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Deploy para múltiplos clientes"
+        }
+      ]
+    }
+  ],
+  "ultimaSincronizacao": "2026-04-24T20:29:17.030128"
+}
