@@ -315,9 +315,10 @@ interface ProjectProps {
   wide?: boolean;
   noImage?: boolean;
   projectPath?: string;
+  liveUrl?: string;
 }
 
-function ProjectCard({ number, name, description, stack, images, status = 'Concluído', progress, stage, wide = false, noImage = false, projectPath }: ProjectProps) {
+function ProjectCard({ number, name, description, stack, images, status = 'Concluído', progress, stage, wide = false, noImage = false, projectPath, liveUrl }: ProjectProps) {
   const [modal, setModal] = useState<number | null>(null);
   const [hovered, setHovered] = useState(false);
   const [imgIdx, setImgIdx] = useState(0);
@@ -377,13 +378,22 @@ function ProjectCard({ number, name, description, stack, images, status = 'Concl
             ))}
           </div>
 
-          {projectPath && (
-            <div style={{ marginTop: '1.25rem', paddingTop: '1.25rem', borderTop: `1px solid ${C.border}` }}>
-              <Link to={projectPath}
-                style={{ fontFamily: F.mono, fontSize: '0.68rem', color: C.muted, letterSpacing: '0.15em', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.4rem', transition: 'color 0.2s' }}
-                onMouseEnter={e => (e.currentTarget.style.color = C.paper)}
-                onMouseLeave={e => (e.currentTarget.style.color = C.muted)}
-              >VER PÁGINA DO PROJETO →</Link>
+          {(projectPath || liveUrl) && (
+            <div style={{ marginTop: '1.25rem', paddingTop: '1.25rem', borderTop: `1px solid ${C.border}`, display: 'flex', gap: '1.25rem', flexWrap: 'wrap' }}>
+              {projectPath && (
+                <Link to={projectPath}
+                  style={{ fontFamily: F.mono, fontSize: '0.68rem', color: C.muted, letterSpacing: '0.15em', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.4rem', transition: 'color 0.2s' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = C.paper)}
+                  onMouseLeave={e => (e.currentTarget.style.color = C.muted)}
+                >VER PÁGINA DO PROJETO →</Link>
+              )}
+              {liveUrl && (
+                <a href={liveUrl} target="_blank" rel="noopener noreferrer"
+                  style={{ fontFamily: F.mono, fontSize: '0.68rem', color: C.muted, letterSpacing: '0.15em', textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: '0.4rem', transition: 'color 0.2s' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = C.paper)}
+                  onMouseLeave={e => (e.currentTarget.style.color = C.muted)}
+                >ACESSAR SITE ↗</a>
+              )}
             </div>
           )}
 
@@ -451,6 +461,7 @@ function Projects() {
       stack: ['Electron', 'React', 'TypeScript', 'SQLite', 'Node.js'],
       status: 'Beta', stage: 'beta', progress: 45, lastUpdate: '2026-04-24',
       projectPath: '/projetos/vendinha',
+      liveUrl: 'https://vendinha-xi.vercel.app/#funcionalidades',
     },
     {
       number: '04', noImage: true,
