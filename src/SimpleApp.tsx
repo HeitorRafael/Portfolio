@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, type ReactNode } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import {
   heitorPhoto,
@@ -70,16 +70,6 @@ function useReveal(threshold = 0.1) {
     return () => obs.disconnect();
   }, [threshold]);
   return { ref, visible };
-}
-
-// ── Reveal wrapper ─────────────────────────────────────────────────────────────
-function Reveal({ children, delay = 0 }: { children: ReactNode; delay?: number }) {
-  const { ref, visible } = useReveal();
-  return (
-    <div ref={ref} style={{ opacity: visible ? 1 : 0, transform: visible ? 'none' : 'translateY(32px)', transition: `opacity 0.9s ease ${delay}s, transform 0.9s ease ${delay}s` }}>
-      {children}
-    </div>
-  );
 }
 
 // ── Section tag ────────────────────────────────────────────────────────────────
