@@ -316,9 +316,10 @@ interface ProjectProps {
   noImage?: boolean;
   projectPath?: string;
   liveUrl?: string;
+  featured?: boolean;
 }
 
-function ProjectCard({ number, name, description, stack, images, status = 'Concluído', progress, stage, wide = false, noImage = false, projectPath, liveUrl }: ProjectProps) {
+function ProjectCard({ number, name, description, stack, images, status = 'Concluído', progress, stage, wide = false, noImage = false, projectPath, liveUrl, lastUpdate, featured = false }: ProjectProps) {
   const [modal, setModal] = useState<number | null>(null);
   const [hovered, setHovered] = useState(false);
   const [imgIdx, setImgIdx] = useState(0);
@@ -367,8 +368,18 @@ function ProjectCard({ number, name, description, stack, images, status = 'Concl
 
         <div style={{ padding: '1.5rem 1.75rem', flex: 1 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '0.75rem' }}>
-            <span style={{ fontFamily: F.mono, fontSize: '0.65rem', color: C.dimmed, letterSpacing: '0.2em' }}>{number}</span>
-            <span style={{ fontFamily: F.mono, fontSize: '0.62rem', color: statusColor, border: `1px solid ${statusColor}`, padding: '2px 8px', letterSpacing: '0.12em' }}>{status}</span>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+              <span style={{ fontFamily: F.mono, fontSize: '0.65rem', color: C.dimmed, letterSpacing: '0.2em' }}>{number}</span>
+              {featured && (
+                <span style={{ fontFamily: F.mono, fontSize: '0.55rem', color: C.ink, background: C.red, padding: '2px 7px', letterSpacing: '0.15em', fontWeight: 700 }}>RECENTE</span>
+              )}
+            </div>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.6rem' }}>
+              {lastUpdate && (
+                <span style={{ fontFamily: F.mono, fontSize: '0.55rem', color: C.dimmed, letterSpacing: '0.1em' }}>upd. {lastUpdate}</span>
+              )}
+              <span style={{ fontFamily: F.mono, fontSize: '0.62rem', color: statusColor, border: `1px solid ${statusColor}`, padding: '2px 8px', letterSpacing: '0.12em' }}>{status}</span>
+            </div>
           </div>
           <h3 style={{ fontFamily: F.serif, fontSize: '1.6rem', fontWeight: 700, color: C.paper, marginBottom: '0.65rem', letterSpacing: '-0.01em' }}>{name}</h3>
           <p style={{ fontFamily: F.sans, fontSize: '0.95rem', color: C.muted, lineHeight: 1.7, marginBottom: '1.25rem' }}>{description}</p>
@@ -437,9 +448,9 @@ function Projects() {
   const screenWidth = useWindowSize();
   const isMobile = screenWidth < 768;
 
-  const projects: ProjectProps[] = [
+  const projectsRaw: ProjectProps[] = [
     {
-      number: '01', wide: true,
+      number: '01',
       name: 'Sistema de Gestão de Tempo',
       description: 'Plataforma web completa para gestão de tempo e produtividade. Dashboard com métricas em tempo real, controle de tarefas, relatórios gerenciais e painel administrativo multi-usuário.',
       stack: ['React', 'Node.js', 'PostgreSQL', 'JWT', 'Express', 'REST API'],
@@ -459,7 +470,7 @@ function Projects() {
       name: 'Vendinha — PDV Desktop',
       description: 'App de ponto de venda para Windows. Controle de estoque, registro de vendas e relatórios — desenvolvido em Electron para uso offline em comércio local.',
       stack: ['Electron', 'React', 'TypeScript', 'SQLite', 'Node.js'],
-      status: 'Beta', stage: 'beta', progress: 45, lastUpdate: '2026-04-24',
+      status: 'Beta', stage: 'beta', progress: 62, lastUpdate: '2026-04-26',
       projectPath: '/projetos/vendinha',
       liveUrl: 'https://vendinha-xi.vercel.app/#funcionalidades',
     },
@@ -472,6 +483,11 @@ function Projects() {
       projectPath: '/projetos/atafacil',
     },
   ];
+
+  // Ordena por lastUpdate desc — o mais recente vira destaque automático
+  const projects = [...projectsRaw].sort((a, b) =>
+    (b.lastUpdate ?? '').localeCompare(a.lastUpdate ?? '')
+  ).map((p, i) => ({ ...p, wide: i === 0, featured: i === 0 }));
 
   return (
     <section id="projetos" style={{ background: C.ink, padding: isMobile ? '4rem 1.25rem' : '6rem 2.5rem', borderTop: `1px solid ${C.border}` }}>
