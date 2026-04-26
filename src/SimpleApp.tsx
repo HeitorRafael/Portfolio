@@ -812,11 +812,11 @@ function Contact() {
   const isMobile = screenWidth < 768;
 
   const socials = [
-    { label: '@_raffinoh_',          sub: 'Instagram Tech & IA',   href: 'https://instagram.com/_raffinoh_',          icon: '⚙️' },
-    { label: '@heitordelfino_',      sub: 'Instagram Pessoal',     href: 'https://instagram.com/heitordelfino_',      icon: '📸' },
-    { label: '@chef_heitordelfino_', sub: 'Instagram Gastronomia', href: 'https://instagram.com/chef_heitordelfino_', icon: '🍴' },
-    { label: 'LinkedIn',             sub: 'Perfil Profissional',   href: 'https://linkedin.com/in/heitordelfino',    icon: '💼' },
-    { label: 'GitHub',               sub: 'Repositórios',         href: 'https://github.com/heitordelfino',         icon: '⌨️' },
+    { label: '@_raffinoh',           sub: 'Instagram Tech & IA',   href: 'https://www.instagram.com/_raffinoh/',                                         icon: '⚙️' },
+    { label: '@heitordelfino_',      sub: 'Instagram Pessoal',     href: 'https://www.instagram.com/heitordelfino_/',                                     icon: '📸' },
+    { label: '@chef_heitordelfino',  sub: 'Instagram Gastronomia', href: 'https://www.instagram.com/chef_heitordelfino/',                                 icon: '🍴' },
+    { label: 'LinkedIn',             sub: 'Perfil Profissional',   href: 'https://www.linkedin.com/in/heitor-rafael-bezerra-delfino-129760187/',          icon: '💼' },
+    { label: 'HeitorRafael',         sub: 'Repositórios GitHub',   href: 'https://github.com/HeitorRafael',                                               icon: '⌨️' },
   ];
 
   return (
