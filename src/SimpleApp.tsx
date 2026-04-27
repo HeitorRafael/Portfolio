@@ -482,6 +482,14 @@ function Projects() {
       status: 'Em dev', stage: 'dev', progress: 35, lastUpdate: '2026-04-24',
       projectPath: '/projetos/atafacil',
     },
+    {
+      number: '05', noImage: true,
+      name: 'Stagium',
+      description: 'Plataforma de conexão entre estudantes universitários e empresas que buscam estagiários. Perfil acadêmico verificado, busca inteligente e modelo freemium B2B2C.',
+      stack: ['Next.js 14', 'TypeScript', 'Prisma', 'PostgreSQL', 'NextAuth', 'Stripe'],
+      status: 'Em dev', stage: 'dev', progress: 25, lastUpdate: '2026-04-27',
+      projectPath: '/projetos/stagium',
+    },
   ];
 
   // Ordena por lastUpdate desc — o mais recente vira destaque automático
@@ -518,6 +526,7 @@ function BuildStatus() {
     { name: 'Vendinha — PDV Desktop',     stage: 'beta'      as ProjectStage, progress: 45,  lastUpdate: '2026-04-24', desc: 'App Electron para comércio local' },
     { name: 'FungiFresh',                 stage: 'prototipo' as ProjectStage, progress: 100, lastUpdate: '2026-03-15', desc: 'Protótipo Figma de e-commerce' },
     { name: 'AtaFácil',                   stage: 'dev'       as ProjectStage, progress: 35,  lastUpdate: '2026-04-24', desc: 'Sistema full-stack de tarefas' },
+    { name: 'Stagium',                    stage: 'dev'       as ProjectStage, progress: 25,  lastUpdate: '2026-04-27', desc: 'Plataforma de conexão estudante-empresa' },
   ].sort((a, b) => {
     const wa = STAGE_ORDER.indexOf(a.stage);
     const wb = STAGE_ORDER.indexOf(b.stage);

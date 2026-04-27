@@ -4,6 +4,7 @@ import SistemaGestaoTempoPage from './pages/projects/SistemaGestaoTempo';
 import FungiFreshPage from './pages/projects/FungiFresh';
 import VendinhaPage from './pages/projects/Vendinha';
 import AtaFacilPage from './pages/projects/AtaFacil';
+import StagiumPage from './pages/projects/Stagium';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Route path="/projetos/fungifresh" element={<FungiFreshPage />} />
       <Route path="/projetos/vendinha" element={<VendinhaPage />} />
       <Route path="/projetos/atafacil" element={<AtaFacilPage />} />
+      <Route path="/projetos/stagium" element={<StagiumPage />} />
     </Routes>
   );
 }
