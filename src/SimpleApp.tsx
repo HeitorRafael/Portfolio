@@ -490,6 +490,32 @@ function Projects() {
       status: 'Em dev', stage: 'dev', progress: 25, lastUpdate: '2026-04-27',
       projectPath: '/projetos/stagium',
     },
+    {
+      number: '06', noImage: true,
+      name: 'MammyPay',
+      description: 'Gestor de contas mensais para idosos. Barra de progresso gamificada, marcação de pagamento com foto de boleto, gráficos de gastos por categoria e estimativas futuras.',
+      stack: ['React', 'TypeScript', 'Supabase', 'Tailwind CSS', 'Recharts', 'Vercel'],
+      status: 'Em dev', stage: 'dev', progress: 65, lastUpdate: '2026-05-09',
+      projectPath: '/projetos/mammypay',
+      liveUrl: 'https://github.com/HeitorRafael/MammyPay',
+    },
+    {
+      number: '07', noImage: true,
+      name: 'FluxoDia',
+      description: 'Agenda pessoal inteligente para desktop. Calendário com chat IA integrado, tarefas recorrentes, notificações nativas e stats de produtividade — 100% offline.',
+      stack: ['Electron', 'React', 'Vite', 'Tailwind CSS', 'SQLite', 'Recharts'],
+      status: 'Em dev', stage: 'dev', progress: 60, lastUpdate: '2026-05-09',
+      projectPath: '/projetos/fluxodia',
+      liveUrl: 'https://github.com/HeitorRafael/FluxoDia',
+    },
+    {
+      number: '08', noImage: true,
+      name: 'Folium',
+      description: 'Rede social de ensaios acadêmicos curados pela comunidade. Design de cards, sistema de avaliação por "frascos" e assistente de escrita com IA.',
+      stack: ['Next.js 14', 'TypeScript', 'Supabase', 'Tailwind CSS', 'Prisma', 'PostgreSQL'],
+      status: 'Em dev', stage: 'dev', progress: 15, lastUpdate: '2026-04-28',
+      projectPath: '/projetos/folium',
+    },
   ];
 
   // Ordena por lastUpdate desc — o mais recente vira destaque automático
@@ -527,6 +553,9 @@ function BuildStatus() {
     { name: 'FungiFresh',                 stage: 'prototipo' as ProjectStage, progress: 100, lastUpdate: '2026-03-15', desc: 'Protótipo Figma de e-commerce' },
     { name: 'AtaFácil',                   stage: 'dev'       as ProjectStage, progress: 35,  lastUpdate: '2026-04-24', desc: 'Sistema full-stack de tarefas' },
     { name: 'Stagium',                    stage: 'dev'       as ProjectStage, progress: 25,  lastUpdate: '2026-04-27', desc: 'Plataforma de conexão estudante-empresa' },
+    { name: 'MammyPay',                   stage: 'dev'       as ProjectStage, progress: 65,  lastUpdate: '2026-05-09', desc: 'Gestor de contas para idosos' },
+    { name: 'FluxoDia',                   stage: 'dev'       as ProjectStage, progress: 60,  lastUpdate: '2026-05-09', desc: 'Agenda inteligente desktop com IA' },
+    { name: 'Folium',                     stage: 'dev'       as ProjectStage, progress: 15,  lastUpdate: '2026-04-28', desc: 'Rede social de ensaios acadêmicos' },
   ].sort((a, b) => {
     const wa = STAGE_ORDER.indexOf(a.stage);
     const wb = STAGE_ORDER.indexOf(b.stage);
