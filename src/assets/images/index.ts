@@ -67,6 +67,29 @@ export const fungiFreshImages = [
   fungiFresh10,
 ];
 
+// Importação das imagens do projeto Vendinha
+import vendinhaLogin from './TelaInicial-appNativo.png';
+import vendinhaPedidos from './TelaDePedidos.png';
+import vendinhaCadastroCliente from './TelaCadastroCliente.png';
+import vendinhaEdicaoCliente from './TelaEdicaoCliente.png';
+import vendinhaProduto from './TelaCadastroProduto.png';
+import vendinhaPromocao from './TelaPromocao.png';
+import vendinhaFrete from './TelaFrete.png';
+import vendinhaRelatorio from './TelaRelatorio.png';
+import vendinhaConfig from './TelaConfiguracoesConta.png';
+
+export const vendinhaImageMetadata = [
+  { src: vendinhaLogin,          label: 'Tela de Login',         desc: 'Acesso com autenticação local — sem internet, sem servidor.' },
+  { src: vendinhaPedidos,        label: 'Gestão de Pedidos',     desc: 'Tabela com filtros por status, data e forma de pagamento.' },
+  { src: vendinhaCadastroCliente,label: 'Cadastro de Cliente',   desc: 'Novo cliente com nome, telefone e endereços de entrega.' },
+  { src: vendinhaEdicaoCliente,  label: 'Perfil do Cliente',     desc: 'Histórico completo de compras, endereços e dados do cliente.' },
+  { src: vendinhaProduto,        label: 'Cadastro de Produto',   desc: 'Preço padrão e preços específicos por forma de pagamento.' },
+  { src: vendinhaPromocao,       label: 'Promoções',             desc: 'Descontos por quantidade mínima e forma de pagamento.' },
+  { src: vendinhaFrete,          label: 'Frete por Bairro',      desc: 'Tabela de preços de entrega configurável por bairro.' },
+  { src: vendinhaRelatorio,      label: 'Relatórios',            desc: 'Métricas de vendas, gráficos e análise por período.' },
+  { src: vendinhaConfig,         label: 'Configurações',         desc: 'Foto de perfil, nome da loja e troca de credenciais.' },
+];
+
 // Metadados das imagens do FungiFresh
 export const fungiFreshImageMetadata = [
   { src: fungiFresh1, alt: 'FungiFresh - Imagem 1', title: 'Imagem 1' },

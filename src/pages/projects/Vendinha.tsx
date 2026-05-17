@@ -1,17 +1,8 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { vendinhaImageMetadata } from '../../assets/images';
 
-const screenshots = [
-  { file: 'TelaInicial-appNativo.png',   label: 'Tela de Login',           desc: 'Acesso com autenticação local — sem internet, sem servidor.' },
-  { file: 'TelaDePedidos.png',           label: 'Gestão de Pedidos',       desc: 'Tabela completa com filtros por status, data e forma de pagamento.' },
-  { file: 'TelaCadastroCliente.png',     label: 'Cadastro de Cliente',     desc: 'Novo cliente com nome, telefone e múltiplos endereços de entrega.' },
-  { file: 'TelaEdicaoCliente.png',       label: 'Perfil do Cliente',       desc: 'Histórico completo de compras, endereços e dados do cliente.' },
-  { file: 'TelaCadastroProduto.png',     label: 'Cadastro de Produto',     desc: 'Preço padrão e preços específicos por forma de pagamento.' },
-  { file: 'TelaPromocao.png',            label: 'Promoções',               desc: 'Descontos por quantidade mínima e forma de pagamento.' },
-  { file: 'TelaFrete.png',              label: 'Frete por Bairro',        desc: 'Tabela de preços de entrega configurável por região.' },
-  { file: 'TelaRelatorio.png',          label: 'Relatórios',              desc: 'Métricas de vendas, gráficos e análise por período.' },
-  { file: 'TelaConfiguracoesConta.png', label: 'Configurações',           desc: 'Foto de perfil, nome da loja e troca de credenciais.' },
-];
+const screenshots = vendinhaImageMetadata;
 
 const stack = ['Electron', 'React', 'TypeScript', 'SQLite', 'Tailwind CSS', 'Recharts', 'better-sqlite3', 'Vite'];
 
@@ -87,7 +78,7 @@ export default function VendinhaPage() {
 
           <div style={{ position: 'relative', background: '#111', borderRadius: '8px', overflow: 'hidden', border: '1px solid rgba(242,239,231,0.08)' }}>
             <img
-              src={`/projects/vendinha/${screenshots[current].file}`}
+              src={screenshots[current].src}
               alt={screenshots[current].label}
               style={{ width: '100%', display: 'block', maxHeight: '520px', objectFit: 'contain', background: '#111' }}
             />
