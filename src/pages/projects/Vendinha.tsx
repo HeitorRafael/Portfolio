@@ -7,10 +7,10 @@ const screenshots = [
   { file: 'TelaCadastroCliente.png',     label: 'Cadastro de Cliente',     desc: 'Novo cliente com nome, telefone e múltiplos endereços de entrega.' },
   { file: 'TelaEdicaoCliente.png',       label: 'Perfil do Cliente',       desc: 'Histórico completo de compras, endereços e dados do cliente.' },
   { file: 'TelaCadastroProduto.png',     label: 'Cadastro de Produto',     desc: 'Preço padrão e preços específicos por forma de pagamento.' },
-  { file: 'TelaPromoção.png',            label: 'Promoções',               desc: 'Descontos por quantidade mínima e forma de pagamento.' },
+  { file: 'TelaPromocao.png',            label: 'Promoções',               desc: 'Descontos por quantidade mínima e forma de pagamento.' },
   { file: 'TelaFrete.png',              label: 'Frete por Bairro',        desc: 'Tabela de preços de entrega configurável por região.' },
   { file: 'TelaRelatorio.png',          label: 'Relatórios',              desc: 'Métricas de vendas, gráficos e análise por período.' },
-  { file: 'TelaConfiguraçõesConta.png', label: 'Configurações',           desc: 'Foto de perfil, nome da loja e troca de credenciais.' },
+  { file: 'TelaConfiguracoesConta.png', label: 'Configurações',           desc: 'Foto de perfil, nome da loja e troca de credenciais.' },
 ];
 
 const stack = ['Electron', 'React', 'TypeScript', 'SQLite', 'Tailwind CSS', 'Recharts', 'better-sqlite3', 'Vite'];
