@@ -69,23 +69,222 @@
       ]
     },
     {
+      "id": "contasmae",
+      "nome": "Contas Mae",
+      "descricao": "Gestor de contas mensais para idosos — marcação de pagamento, fotos de boleto, gráficos de gastos",
+      "progresso": 65,
+      "status": "Em Desenvolvimento",
+      "stack": [],
+      "github": "",
+      "ultimasAtualizacoes": [
+        {
+          "data": "2026-05-09",
+          "tipo": "chore",
+          "descricao": "project initialization — scaffold completo com todas as telas"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Notificações de vencimento (push/email)"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Exportar relatório PDF"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Modo escuro amigável"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Alertas de contas próximas do vencimento"
+        }
+      ]
+    },
+    {
+      "id": "fluxodia",
+      "nome": "FluxoDia",
+      "descricao": "Agenda pessoal inteligente com chat IA, calendário e stats",
+      "progresso": 60,
+      "status": "Em Desenvolvimento",
+      "stack": [],
+      "github": "",
+      "ultimasAtualizacoes": [
+        {
+          "data": "2026-05-09",
+          "tipo": "chore",
+          "descricao": "project initialization — estrutura completa, todas as views, chat, recorrência, notificações"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Ícone personalizado (.ico)"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Exportar tarefas (CSV/JSON)"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Temas de cor customizáveis"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Sincronização com Google Calendar"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Tags/etiquetas além das categorias"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Widget de resumo na tela inicial"
+        }
+      ]
+    },
+    {
+      "id": "folium",
+      "nome": "Folium",
+      "descricao": "Rede social de ensaios acadêmicos curados pela comunidade, com design de cards e foco em conhecimento de qualidade",
+      "progresso": 15,
+      "status": "Em Desenvolvimento",
+      "stack": [],
+      "github": "",
+      "ultimasAtualizacoes": [
+        {
+          "data": "2026-04-28",
+          "tipo": "feat",
+          "descricao": "Fase 1 completa — Next.js 16 + Supabase + Prisma + UI base"
+        },
+        {
+          "data": "2026-04-28",
+          "tipo": "chore",
+          "descricao": "documentação completa do projeto (8 docs)"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Setup inicial (Next.js + Supabase + Prisma)"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Landing page minimalista (pré-login)"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Autenticação Google via Supabase Auth"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Componente EnsaioCard com design de card"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "CRUD de ensaios em Markdown"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Sistema de tópicos/comunidades"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Sistema de avaliação (Frascos ⚗️)"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Feed rankeado com filtros de tempo"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Busca por título dentro de tópicos"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Assistente de escrita com Claude API"
+        }
+      ]
+    },
+    {
+      "id": "mammypay",
+      "nome": "MammyPay",
+      "descricao": "Gestor de contas mensais para idosos — marcação de pagamento, fotos de boleto, gráficos de gastos",
+      "progresso": 65,
+      "status": "Em Desenvolvimento",
+      "stack": [],
+      "github": "",
+      "ultimasAtualizacoes": [
+        {
+          "data": "2026-05-09",
+          "tipo": "chore",
+          "descricao": "project initialization — scaffold completo com todas as telas"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Notificações de vencimento (push/email)"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Exportar relatório PDF"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Modo escuro amigável"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Alertas de contas próximas do vencimento"
+        }
+      ]
+    },
+    {
       "id": "portfolio",
       "nome": "Portfolio - Hub Central de Projetos",
       "descricao": "Portfólio pessoal que serve como hub central para exibir todos os projetos em desenvolvimento, progresso e novidades",
-      "progresso": 40,
+      "progresso": 60,
       "status": "Em Desenvolvimento",
       "stack": [],
       "github": "https://github.com/HeitorRafael/Portfolio",
       "ultimasAtualizacoes": [
         {
-          "data": "2026-04-24",
+          "data": "2026-04-27",
           "tipo": "feat",
-          "descricao": "estrutura inicial clonada do repositório"
+          "descricao": "adicionado projeto Stagium — card, rota e página dedicada no portfolio"
+        },
+        {
+          "data": "2026-04-26",
+          "tipo": "feat",
+          "descricao": "badge RECENTE, lastUpdate no card e ordenação automática por data"
+        },
+        {
+          "data": "2026-04-26",
+          "tipo": "feat",
+          "descricao": "prop liveUrl no ProjectCard com botão ACESSAR SITE"
         },
         {
           "data": "2026-04-24",
-          "tipo": "docs",
-          "descricao": "adicionado sistema de sincronização com projetos"
+          "tipo": "feat",
+          "descricao": "estrutura inicial clonada do repositório"
         },
         {
           "data": "[",
@@ -135,10 +334,132 @@
       ]
     },
     {
+      "id": "respirar",
+      "nome": "RespirAr",
+      "descricao": "PWA gamificada de mapa colaborativo de narinas entupidas — usuários reportam entupimentos geolocalizados, o mapa mostra zonas \"infectadas\" em tempo real com vilões, ranking de bairros e integração com dados climáticos reais",
+      "progresso": 5,
+      "status": "Em Desenvolvimento",
+      "stack": [],
+      "github": "",
+      "ultimasAtualizacoes": [
+        {
+          "data": "2026-05-14",
+          "tipo": "chore",
+          "descricao": "project initialization"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Nariz seletor interativo (narina E / D / ambas)"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Geolocalização + envio para Supabase"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Heatmap com Leaflet.heat (auto-expiração 2–4h)"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Sistema de status: Nariz de Veludo → Respirador de Boca → Zona Crítica → INFECTADO"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Vilões no mapa: General Poeira, Dona Secura, Polu-Monstro"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Integração OpenWeather (umidade + índice de poluição)"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Ranking de bairros \"Placar da Vergonha\""
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "PWA: manifest, service worker, notificações push"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Avatar zumbi quando usuário fica 10min em zona vermelha"
+        }
+      ]
+    },
+    {
+      "id": "stagium",
+      "nome": "Stagium",
+      "descricao": "Plataforma de conexão entre estudantes universitários e empresas que buscam estagiários",
+      "progresso": 25,
+      "status": "Em Desenvolvimento",
+      "stack": [],
+      "github": "",
+      "ultimasAtualizacoes": [
+        {
+          "data": "2026-04-27",
+          "tipo": "chore",
+          "descricao": "project initialization — setup completo (Next.js, Prisma schema, auth, landing page, cadastros, dashboards)"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Integrar banco de dados (Supabase)"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Sistema de upload de foto/CV (Uploadthing)"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "E-mail de verificação (Resend)"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Página de perfil público do estudante"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Sistema de propostas completo"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Painel Admin"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Integração Stripe (planos)"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Cron job de expiração de contas"
+        },
+        {
+          "data": "[",
+          "tipo": "]",
+          "descricao": "Deploy Vercel"
+        }
+      ]
+    },
+    {
       "id": "vendinha",
       "nome": "Vendinha - Sistema de PDV e Estoque",
       "descricao": "Aplicação de PDV (Ponto de Venda) com gestão de estoque, integrada com Electron para desktop",
-      "progresso": 45,
+      "progresso": 70,
       "status": "Em Desenvolvimento",
       "stack": [
         "Electron (desktop)",
@@ -150,14 +471,19 @@
       "github": "https://github.com/HeitorRafael/Vendinha",
       "ultimasAtualizacoes": [
         {
-          "data": "2026-04-24",
+          "data": "2026-05-17",
           "tipo": "feat",
-          "descricao": "estrutura base do projeto criada"
+          "descricao": "crédito e débito como formas de pagamento; preço padrão + preços específicos por forma de pagamento por produto; quantidade por embalagem; filtro e gráfico de formas de pagamento"
         },
         {
-          "data": "2026-04-20",
-          "tipo": "docs",
-          "descricao": "configuração inicial do Electron + React"
+          "data": "2026-04-26",
+          "tipo": "refactor",
+          "descricao": "ajustes redesenhado — foto de perfil na sidebar + troca de credenciais"
+        },
+        {
+          "data": "2026-04-26",
+          "tipo": "feat",
+          "descricao": "sidebar colapsável, personalização de nome/logo da loja (Ajustes)"
         },
         {
           "data": "[",
@@ -197,5 +523,5 @@
       ]
     }
   ],
-  "ultimaSincronizacao": "2026-04-24T20:29:17.030128"
+  "ultimaSincronizacao": "2026-05-17T19:08:09.586998"
 }

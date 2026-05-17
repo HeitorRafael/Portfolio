@@ -8,6 +8,7 @@ import StagiumPage from './pages/projects/Stagium';
 import MammyPayPage from './pages/projects/MammyPay';
 import FluxoDiaPage from './pages/projects/FluxoDia';
 import FoliumPage from './pages/projects/Folium';
+import RespirArPage from './pages/projects/RespirAr';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
       <Route path="/projetos/mammypay" element={<MammyPayPage />} />
       <Route path="/projetos/fluxodia" element={<FluxoDiaPage />} />
       <Route path="/projetos/folium" element={<FoliumPage />} />
+      <Route path="/projetos/respirar" element={<RespirArPage />} />
     </Routes>
   );
 }

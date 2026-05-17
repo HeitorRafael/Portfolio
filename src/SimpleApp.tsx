@@ -516,6 +516,15 @@ function Projects() {
       status: 'Em dev', stage: 'dev', progress: 15, lastUpdate: '2026-04-28',
       projectPath: '/projetos/folium',
     },
+    {
+      number: '09', noImage: true,
+      name: 'RespirAr',
+      description: 'PWA gamificada de mapa colaborativo de narinas entupidas. Reportes geolocalizados, heatmap em tempo real com expiração automática, vilões no mapa e ranking de bairros — o Waze do nariz entupido.',
+      stack: ['React', 'TypeScript', 'Leaflet.js', 'Supabase', 'PWA', 'OpenWeather API'],
+      status: 'Em dev', stage: 'dev', progress: 5, lastUpdate: '2026-05-14',
+      projectPath: '/projetos/respirar',
+      liveUrl: 'https://github.com/HeitorRafael/RespirAr',
+    },
   ];
 
   // Ordena por lastUpdate desc — o mais recente vira destaque automático
@@ -556,6 +565,7 @@ function BuildStatus() {
     { name: 'MammyPay',                   stage: 'dev'       as ProjectStage, progress: 65,  lastUpdate: '2026-05-09', desc: 'Gestor de contas para idosos' },
     { name: 'FluxoDia',                   stage: 'dev'       as ProjectStage, progress: 60,  lastUpdate: '2026-05-09', desc: 'Agenda inteligente desktop com IA' },
     { name: 'Folium',                     stage: 'dev'       as ProjectStage, progress: 15,  lastUpdate: '2026-04-28', desc: 'Rede social de ensaios acadêmicos' },
+    { name: 'RespirAr',                   stage: 'dev'       as ProjectStage, progress: 5,   lastUpdate: '2026-05-14', desc: 'PWA gamificada do mapa de narinas entupidas' },
   ].sort((a, b) => {
     const wa = STAGE_ORDER.indexOf(a.stage);
     const wb = STAGE_ORDER.indexOf(b.stage);
