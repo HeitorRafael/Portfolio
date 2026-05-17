@@ -79,7 +79,7 @@ export default function VendinhaPage() {
           <div style={{ position: 'relative', background: '#111', borderRadius: '8px', overflow: 'hidden', border: '1px solid rgba(242,239,231,0.08)' }}>
             <img
               src={screenshots[current].src}
-              alt={screenshots[current].label}
+              alt={screenshots[current].alt}
               style={{ width: '100%', display: 'block', maxHeight: '520px', objectFit: 'contain', background: '#111' }}
             />
 
@@ -100,8 +100,7 @@ export default function VendinhaPage() {
 
           {/* Caption */}
           <div style={{ padding: '1rem 0', borderBottom: '1px solid rgba(242,239,231,0.08)' }}>
-            <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.65rem', color: '#F2EFE7', letterSpacing: '0.1em', margin: '0 0 0.25rem' }}>{screenshots[current].label}</p>
-            <p style={{ fontSize: '0.85rem', color: '#777', margin: 0 }}>{screenshots[current].desc}</p>
+            <p style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.65rem', color: '#F2EFE7', letterSpacing: '0.1em', margin: 0 }}>{screenshots[current].title}</p>
           </div>
 
           {/* Dot nav */}

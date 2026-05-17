@@ -4,6 +4,7 @@ import {
   heitorPhoto,
   imageMetadata,
   fungiFreshImageMetadata,
+  vendinhaImageMetadata,
 } from './assets/images';
 
 // ── Design Tokens ──────────────────────────────────────────────────────────────
@@ -466,11 +467,11 @@ function Projects() {
       projectPath: '/projetos/fungifresh',
     },
     {
-      number: '03', noImage: true,
+      number: '03',
       name: 'Vendinha — PDV Desktop',
       description: 'App de ponto de venda para Windows. Controle de estoque, registro de vendas e relatórios — desenvolvido em Electron para uso offline em comércio local.',
       stack: ['Electron', 'React', 'TypeScript', 'SQLite', 'Node.js'],
-      status: 'Beta', stage: 'beta', progress: 70, lastUpdate: '2026-05-17',
+      images: vendinhaImageMetadata, status: 'Beta', stage: 'beta', progress: 70, lastUpdate: '2026-05-17',
       projectPath: '/projetos/vendinha',
       liveUrl: 'https://vendinha-xi.vercel.app/#funcionalidades',
     },

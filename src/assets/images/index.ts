@@ -79,15 +79,15 @@ import vendinhaRelatorio from './TelaRelatorio.png';
 import vendinhaConfig from './TelaConfiguracoesConta.png';
 
 export const vendinhaImageMetadata = [
-  { src: vendinhaLogin,          label: 'Tela de Login',         desc: 'Acesso com autenticação local — sem internet, sem servidor.' },
-  { src: vendinhaPedidos,        label: 'Gestão de Pedidos',     desc: 'Tabela com filtros por status, data e forma de pagamento.' },
-  { src: vendinhaCadastroCliente,label: 'Cadastro de Cliente',   desc: 'Novo cliente com nome, telefone e endereços de entrega.' },
-  { src: vendinhaEdicaoCliente,  label: 'Perfil do Cliente',     desc: 'Histórico completo de compras, endereços e dados do cliente.' },
-  { src: vendinhaProduto,        label: 'Cadastro de Produto',   desc: 'Preço padrão e preços específicos por forma de pagamento.' },
-  { src: vendinhaPromocao,       label: 'Promoções',             desc: 'Descontos por quantidade mínima e forma de pagamento.' },
-  { src: vendinhaFrete,          label: 'Frete por Bairro',      desc: 'Tabela de preços de entrega configurável por bairro.' },
-  { src: vendinhaRelatorio,      label: 'Relatórios',            desc: 'Métricas de vendas, gráficos e análise por período.' },
-  { src: vendinhaConfig,         label: 'Configurações',         desc: 'Foto de perfil, nome da loja e troca de credenciais.' },
+  { src: vendinhaLogin,           alt: 'Tela de Login — Vendinha',           title: 'Login' },
+  { src: vendinhaPedidos,         alt: 'Gestão de Pedidos — Vendinha',        title: 'Pedidos' },
+  { src: vendinhaCadastroCliente, alt: 'Cadastro de Cliente — Vendinha',      title: 'Cadastro Cliente' },
+  { src: vendinhaEdicaoCliente,   alt: 'Perfil do Cliente — Vendinha',        title: 'Perfil Cliente' },
+  { src: vendinhaProduto,         alt: 'Cadastro de Produto — Vendinha',      title: 'Produto' },
+  { src: vendinhaPromocao,        alt: 'Promoções — Vendinha',                title: 'Promoções' },
+  { src: vendinhaFrete,           alt: 'Frete por Bairro — Vendinha',         title: 'Frete' },
+  { src: vendinhaRelatorio,       alt: 'Relatórios — Vendinha',               title: 'Relatórios' },
+  { src: vendinhaConfig,          alt: 'Configurações da Conta — Vendinha',   title: 'Configurações' },
 ];
 
 // Metadados das imagens do FungiFresh
