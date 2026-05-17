@@ -470,7 +470,7 @@ function Projects() {
       name: 'Vendinha — PDV Desktop',
       description: 'App de ponto de venda para Windows. Controle de estoque, registro de vendas e relatórios — desenvolvido em Electron para uso offline em comércio local.',
       stack: ['Electron', 'React', 'TypeScript', 'SQLite', 'Node.js'],
-      status: 'Beta', stage: 'beta', progress: 62, lastUpdate: '2026-04-26',
+      status: 'Beta', stage: 'beta', progress: 70, lastUpdate: '2026-05-17',
       projectPath: '/projetos/vendinha',
       liveUrl: 'https://vendinha-xi.vercel.app/#funcionalidades',
     },
@@ -558,7 +558,7 @@ function BuildStatus() {
 
   const entries = [
     { name: 'Sistema de Gestão de Tempo', stage: 'live'      as ProjectStage, progress: 100, lastUpdate: '2026-02-10', desc: 'Plataforma web de produtividade' },
-    { name: 'Vendinha — PDV Desktop',     stage: 'beta'      as ProjectStage, progress: 45,  lastUpdate: '2026-04-24', desc: 'App Electron para comércio local' },
+    { name: 'Vendinha — PDV Desktop',     stage: 'beta'      as ProjectStage, progress: 70,  lastUpdate: '2026-05-17', desc: 'App Electron para comércio local' },
     { name: 'FungiFresh',                 stage: 'prototipo' as ProjectStage, progress: 100, lastUpdate: '2026-03-15', desc: 'Protótipo Figma de e-commerce' },
     { name: 'AtaFácil',                   stage: 'dev'       as ProjectStage, progress: 35,  lastUpdate: '2026-04-24', desc: 'Sistema full-stack de tarefas' },
     { name: 'Stagium',                    stage: 'dev'       as ProjectStage, progress: 25,  lastUpdate: '2026-04-27', desc: 'Plataforma de conexão estudante-empresa' },
