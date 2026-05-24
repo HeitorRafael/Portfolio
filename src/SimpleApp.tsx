@@ -526,6 +526,15 @@ function Projects() {
       projectPath: '/projetos/respirar',
       liveUrl: 'https://github.com/HeitorRafael/RespirAr',
     },
+    {
+      number: '10', noImage: true,
+      name: 'AutoAtende',
+      description: 'SaaS B2B de automação de atendimento WhatsApp com IA para MPEs da Baixada Santista. Bot 24h, RAG com Google Drive, handoff humano via Chatwoot, painel admin e relatório semanal automático.',
+      stack: ['Docker', 'n8n', 'Typebot', 'Evolution API', 'Next.js 14', 'OpenAI', 'Chatwoot', 'PostgreSQL'],
+      status: 'Em dev', stage: 'dev', progress: 95, lastUpdate: '2026-05-23',
+      projectPath: '/projetos/autozap',
+      liveUrl: 'https://github.com/HeitorRafael/Auto-Zap',
+    },
   ];
 
   // Ordena por lastUpdate desc — o mais recente vira destaque automático
@@ -567,6 +576,7 @@ function BuildStatus() {
     { name: 'FluxoDia',                   stage: 'dev'       as ProjectStage, progress: 60,  lastUpdate: '2026-05-09', desc: 'Agenda inteligente desktop com IA' },
     { name: 'Folium',                     stage: 'dev'       as ProjectStage, progress: 15,  lastUpdate: '2026-04-28', desc: 'Rede social de ensaios acadêmicos' },
     { name: 'RespirAr',                   stage: 'dev'       as ProjectStage, progress: 5,   lastUpdate: '2026-05-14', desc: 'PWA gamificada do mapa de narinas entupidas' },
+    { name: 'AutoAtende',                 stage: 'dev'       as ProjectStage, progress: 95,  lastUpdate: '2026-05-23', desc: 'Automação WA com IA para MPEs' },
   ].sort((a, b) => {
     const wa = STAGE_ORDER.indexOf(a.stage);
     const wb = STAGE_ORDER.indexOf(b.stage);

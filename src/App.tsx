@@ -9,6 +9,7 @@ import MammyPayPage from './pages/projects/MammyPay';
 import FluxoDiaPage from './pages/projects/FluxoDia';
 import FoliumPage from './pages/projects/Folium';
 import RespirArPage from './pages/projects/RespirAr';
+import AutoZapPage from './pages/projects/AutoZap';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
       <Route path="/projetos/fluxodia" element={<FluxoDiaPage />} />
       <Route path="/projetos/folium" element={<FoliumPage />} />
       <Route path="/projetos/respirar" element={<RespirArPage />} />
+      <Route path="/projetos/autozap" element={<AutoZapPage />} />
     </Routes>
   );
 }
