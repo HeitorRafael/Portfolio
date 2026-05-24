@@ -533,7 +533,7 @@ function Projects() {
       stack: ['Docker', 'n8n', 'Typebot', 'Evolution API', 'Next.js 14', 'OpenAI', 'Chatwoot', 'PostgreSQL'],
       status: 'Em dev', stage: 'dev', progress: 95, lastUpdate: '2026-05-23',
       projectPath: '/projetos/autozap',
-      liveUrl: 'https://github.com/HeitorRafael/Auto-Zap',
+      liveUrl: 'https://auto-3ftt9ytud-heitor-delfinos-projects.vercel.app/',
     },
   ];
 

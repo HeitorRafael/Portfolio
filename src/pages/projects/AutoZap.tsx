@@ -113,6 +113,22 @@ export default function AutoZapPage() {
 
           <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <a
+              href="https://auto-3ftt9ytud-heitor-delfinos-projects.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: 'inline-block', padding: '0.65rem 1.75rem',
+                border: `1px solid ${ACCENT}`, background: ACCENT,
+                fontFamily: "'JetBrains Mono', monospace",
+                fontSize: '0.65rem', color: '#0D0D0D', letterSpacing: '0.15em',
+                textDecoration: 'none', transition: 'opacity 0.2s',
+              }}
+              onMouseEnter={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = '0.85'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLAnchorElement).style.opacity = '1'; }}
+            >
+              ACESSAR SITE AO VIVO ↗
+            </a>
+            <a
               href="https://github.com/HeitorRafael/Auto-Zap"
               target="_blank"
               rel="noopener noreferrer"
@@ -221,6 +237,19 @@ export default function AutoZapPage() {
               </div>
               <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.65rem', color: '#777' }}>95%</span>
             </div>
+          </div>
+          <div>
+            <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.55rem', color: '#3A3A3A', letterSpacing: '0.2em', display: 'block', marginBottom: '0.4rem' }}>SITE AO VIVO</span>
+            <a
+              href="https://auto-3ftt9ytud-heitor-delfinos-projects.vercel.app/"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.65rem', color: '#777', textDecoration: 'none', letterSpacing: '0.05em' }}
+              onMouseEnter={e => (e.currentTarget.style.color = '#F2EFE7')}
+              onMouseLeave={e => (e.currentTarget.style.color = '#777')}
+            >
+              autoatende.vercel.app ↗
+            </a>
           </div>
           <div>
             <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.55rem', color: '#3A3A3A', letterSpacing: '0.2em', display: 'block', marginBottom: '0.4rem' }}>REPOSITÓRIO</span>
